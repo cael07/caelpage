@@ -1,0 +1,119 @@
+{
+  "platform_name": "Cael (also known as Cael Hub)",
+  "system_names": ["Cael", "Cael Hub", "CAEL"],
+  "acronym_meaning": "Come And Earn Literally",
+  "meaning_description": "CAEL stands for 'Come And Earn Literally'. The system can be referred to simply as Cael or Cael Hub.",
+  "ceo_and_founder": "Caesar Augustus E. Literatus",
+  "creator": "Caesar Augustus E. Literatus",
+  "assistant_name": "CAELIN",
+  "location": "Bulacan, Philippines",
+  "contact_email": "caelhub@gmail.com",
+  "mission": "Founded by CEO Caesar Augustus E. Literatus, Cael (Come And Earn Literally) is a 100% free, zero-fee white-label ecosystem of ready-to-launch enterprise mobile and web applications engineered to empower entrepreneurs and business dreamers to start their own branded businesses with sub-second GPS telematics, automated attendance/payroll, and no ongoing software licensing fees.",
+  "applications": [
+    {
+      "id": "ridehailing",
+      "name": "Cael Ride Hailing App",
+      "category": "Transportation & Logistics",
+      "subtitle": "Ride Hailing, Courier & Delivery Service Mobile App",
+      "description": "A turnkey mobile application ecosystem featuring passenger ride bookings, motorcycle taxi services, express parcel deliveries, sub-second GPS dispatch, turn-by-turn driver navigation, facial biometric driver attendance, automated driver payroll, digital e-wallet, 360° SOS panic button, and fleet telematics.",
+      "key_features": [
+        "Passenger ride booking and upfront fare calculation",
+        "Motorcycle taxi and express courier parcel delivery tiers",
+        "Sub-second GPS vehicle telematics and live arrival countdown",
+        "Driver biometric facial clock-in and geofenced duty shifts",
+        "Automated commission splitting and instant digital wallet payouts",
+        "360° SOS emergency beacon with live family route sharing",
+        "100% white-label ready for custom business branding and tariffs"
+      ]
+    },
+    {
+      "id": "timelock",
+      "name": "Cael Child Time Lock",
+      "category": "Parental Control & Digital Wellness",
+      "subtitle": "Protect Child From Phone Overuse And Misuse",
+      "description": "An advanced parental control mobile application designed to curb screen addiction and promote healthy digital habits in children without monthly subscription fees.",
+      "key_features": [
+        "Master parent dashboard pairing via 5-second QR code handshake",
+        "Automated bedtime and sleep schedule device lockouts",
+        "Instant one-tap remote freeze from parent handset",
+        "Granular category firewall permitting school apps while capping games",
+        "Encrypted remote screen activity snapshots for parental oversight",
+        "Gamified homework and chore rewards to earn bonus screen time",
+        "Hardware-level anti-uninstall tamper guard preventing bypass"
+      ]
+    },
+    {
+      "id": "childzones",
+      "name": "Child Safety Zones",
+      "category": "Child Protection & Geofencing",
+      "subtitle": "Child Realtime Safety Zones and Alerts",
+      "description": "A real-time family geofencing and GPS radar mobile app that protects children from route deviation, getting lost, or safety hazards with instant alerts.",
+      "key_features": [
+        "Unlimited custom virtual geofence safe zones (home, school, tuition)",
+        "School-to-home safe route corridors with path deviation alarms",
+        "Sub-second satellite GNSS location tracking with 1.8-meter accuracy",
+        "Real-time perimeter breach sirens delivered to parents' phones",
+        "Silent SOS distress beacon with covert ambient audio streaming",
+        "Automatic front-camera intruder photo capture on unauthorized touch",
+        "90-day route history and commute breadcrumb playback"
+      ]
+    },
+    {
+      "id": "massageservice",
+      "name": "Cael Massage Service App",
+      "category": "Wellness & On-Demand Services",
+      "subtitle": "On-Demand Spa & Home Massage Service",
+      "description": "A complete mobile platform for spa owners, licensed massage therapists, and wellness entrepreneurs offering both on-demand home visits and clinic appointments.",
+      "key_features": [
+        "On-demand home massage booking and clinic appointment scheduling",
+        "Live therapist GPS tracking and arrival countdown",
+        "Full treatment menu: Swedish, Deep Tissue, Shiatsu, Hot Stone, Aromatherapy",
+        "Digital client health intake and contraindication screening",
+        "Therapist facial biometric attendance and automated commission payroll",
+        "100% client tip preservation directly to therapist digital wallet",
+        "Masked VoIP telephone calls and encrypted in-app messaging"
+      ]
+    },
+    {
+      "id": "truckdelivery",
+      "name": "Cael Trucking Delivery App",
+      "category": "Freight & Heavy Cargo Logistics",
+      "subtitle": "Heavy Cargo & Commercial Freight Dispatch",
+      "description": "An enterprise transport and freight logistics management system for commercial trucking fleets, container haulers, and independent freight operators.",
+      "key_features": [
+        "Centralized fleet dispatch for flatbeds, 10-wheelers, and reefers",
+        "Commercial truck navigation routing around low bridges and weight bans",
+        "Automated digital Bill of Lading (BOL) and cargo waybill generator",
+        "Driver Electronic Logbook (ELD) and Hours of Service compliance",
+        "Automated per-kilometer and per-ton freight driver payroll",
+        "Digital Proof of Delivery (POD) with container seal photos and signatures",
+        "IoT sensors monitoring reefer cargo temperatures and trailer door security",
+        "Camera OCR scanner for weigh station slips and fuel receipts"
+      ]
+    },
+    {
+      "id": "colorgame",
+      "name": "Cael Two Color Game App",
+      "category": "Gaming & Entertainment",
+      "subtitle": "Interactive Two-Color Betting & Entertainment App",
+      "description": "A vibrant, modern community gaming platform featuring real-time interactive Red vs White round betting with physics-based 3D wheel animations.",
+      "key_features": [
+        "Dynamic Red vs White round betting with live community pools",
+        "Physics-based spinning color wheel with smooth deceleration",
+        "Provably Fair SHA-256 cryptographic RNG with open audit verification",
+        "Instant automated e-wallet payouts in under 15 seconds",
+        "Visual streak roadmaps, statistical charts, and probability analysis",
+        "Multiplayer live chat room with winner celebration tickers and coin rain",
+        "Comprehensive operator revenue ledger with multi-tier agent commissions"
+      ]
+    }
+  ],
+  "licensing_and_pricing": "100% Free Ecosystem. No monthly software licenses, no per-transaction platform royalties, and no user seat limits. Entrepreneurs can white-label with their own brand and logo.",
+  "contact": {
+    "ceo_and_founder": "Caesar Augustus E. Literatus",
+    "developer": "Caesar Augustus E. Literatus",
+    "location": "Bulacan, Philippines",
+    "email": "caelhub@gmail.com",
+    "terminal": "Direct Contact Us transmission terminal integrated on the Cael website"
+  }
+}

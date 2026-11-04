@@ -1,0 +1,24 @@
+# Environment and secrets (CRITICAL: Never commit to GitHub)
+.env
+.env.local
+.env.*.local
+
+# Node dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Python cache & virtual environments
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+
+# Build artifacts & temporary files
+dist/
+scratch/
+*.log
+

@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CAEL HUB — Futuristic AI Matrix</title>
+
+  <!-- Favicon / Tab Icon -->
+  <link rel="icon" type="image/png" href="./mobilelogo3clear.png" />
+  <link rel="shortcut icon" href="./favicon.ico" />
+  <link rel="apple-touch-icon" href="./mobilelogo3clear.png" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;600;700;800;900&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body class="theme-purple">
+
+  <!-- ==================== SCI-FI INTRO ANIMATION PRELOADER ==================== -->
+  <div id="sci-fi-intro" class="intro-overlay">
+    <canvas id="intro-canvas"></canvas>
+
+    <div class="intro-hud-overlay">
+      <div class="intro-corner top-left"></div>
+      <div class="intro-corner top-right"></div>
+      <div class="intro-corner bottom-left"></div>
+      <div class="intro-corner bottom-right"></div>
+
+      <div class="intro-content">
+        <!-- Logo Display -->
+        <div class="intro-logo-wrapper">
+          <div class="ring ring-outer"></div>
+          <div class="ring ring-inner"></div>
+          <img src="./mobilelogo3clear.png" alt="Cael Hub Logo" class="intro-logo-img" />
+        </div>
+
+        <h1 class="intro-title" data-text="CAEL HUB MATRIX">CAEL HUB MATRIX</h1>
+        <p class="intro-subtitle">INITIALIZING QUANTUM NEURAL CORE</p>
+
+        <!-- Progress Bar -->
+        <div class="intro-progress-box">
+          <div class="intro-progress-bar">
+            <div id="intro-progress-fill" class="intro-progress-fill"></div>
+          </div>
+          <div class="intro-progress-info">
+            <span id="intro-status-text">INITIALIZING QUANTUM CORE...</span>
+            <span id="intro-percent">0%</span>
+          </div>
+        </div>
+
+        <!-- Terminal Output Stream -->
+        <div class="intro-terminal">
+          <div id="intro-terminal-logs" class="intro-logs"></div>
+        </div>
+
+        <!-- Action Button -->
+        <button id="skip-intro-btn" class="cyber-btn sm glow-cyan">
+          <span class="btn-text">ENTER MATRIX</span>
+          <span class="btn-glitch">▶</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ==================== MAIN SINGLE PAGE APP ==================== -->
+  <div id="main-app" class="main-container hidden">
+
+    <!-- Header / Navigation -->
+    <header class="cyber-header">
+      <div class="header-container">
+        <a href="#home" class="brand-link">
+          <div class="brand-logo-frame">
+            <img src="./mobilelogo3clear.png" alt="CAEL Logo" class="brand-logo" />
+          </div>
+          <div class="brand-text-group">
+            <span class="brand-title">CAEL<span class="text-accent">HUB</span></span>
+            <span class="brand-badge"><span class="pulse-dot"></span> SYSTEM ONLINE</span>
+          </div>
+        </a>
+
+        <nav class="cyber-nav">
+          <a href="#modules" class="nav-item">MODULES</a>
+          <a href="#mission" class="nav-item">MISSION</a>
+          <a href="#features" class="nav-item">FEATURES</a>
+          <a href="#console" class="nav-item">CONSOLE</a>
+          <a href="javascript:void(0)" id="nav-contact-link" class="nav-item">CONTACT</a>
+        </nav>
+
+        <div class="header-actions">
+          <!-- System Settings Dropdown (Audio & Theme) -->
+          <div class="settings-dropdown-wrapper">
+            <button id="settings-btn" class="settings-btn" title="System Settings &amp; Preferences" aria-label="System Settings" type="button">
+              <svg class="settings-gear-svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+              </svg>
+            </button>
+            <div id="settings-menu" class="settings-dropdown hidden">
+              <!-- Header -->
+              <div class="settings-dropdown-header">
+                <span class="settings-header-title">SYSTEM PREFERENCES</span>
+              </div>
+
+              <!-- Section 1: Audio / Volume Toggle -->
+              <div class="settings-section">
+                <div class="settings-section-title">AUDIO &amp; SFX</div>
+                <button id="audio-toggle-btn" class="settings-audio-row" title="Toggle Sci-Fi SFX" type="button">
+                  <div class="audio-row-left">
+                    <span id="audio-icon" class="audio-row-icon">🔊</span>
+                    <div class="audio-row-info">
+                      <span class="audio-row-label">Cyber SFX</span>
+                      <span id="audio-status-sub" class="audio-status-sub">Sound Enabled</span>
+                    </div>
+                  </div>
+                  <div id="audio-switch" class="cyber-switch active">
+                    <span class="switch-handle"></span>
+                  </div>
+                </button>
+              </div>
+
+              <div class="settings-divider"></div>
+
+              <!-- Section 2: Color Theme Presets -->
+              <div class="settings-section">
+                <div class="settings-section-title">THEME ACCENT</div>
+                <div class="theme-options-grid">
+                  <button class="theme-option active" data-theme="theme-purple" type="button">
+                    <span class="dot purple"></span>
+                    <span class="theme-opt-name">Neon Violet</span>
+                  </button>
+                  <button class="theme-option" data-theme="theme-cyan" type="button">
+                    <span class="dot cyan"></span>
+                    <span class="theme-opt-name">Cyan Cyber</span>
+                  </button>
+                  <button class="theme-option" data-theme="theme-emerald" type="button">
+                    <span class="dot emerald"></span>
+                    <span class="theme-opt-name">Emerald Grid</span>
+                  </button>
+                  <button class="theme-option" data-theme="theme-crimson" type="button">
+                    <span class="dot crimson"></span>
+                    <span class="theme-opt-name">Crimson Core</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="cyber-main">
+
+      <!-- Hero Section -->
+      <section id="home" class="hero-section">
+        <canvas id="hero-canvas"></canvas>
+        <div class="hero-grid-overlay"></div>
+
+        <div class="hero-content">
+          <div class="hero-tag">
+            <span class="tag-icon">⚡</span>
+            <span>NEXT-GEN FREE APPLICATION HUB</span>
+          </div>
+
+          <h1 class="hero-headline">FREE APPS TO START YOUR OWN BUSINESS</h1>
+
+          <!-- Apps Showcase Carousel -->
+          <div class="carousel-wrapper" id="modules">
+            <button class="carousel-nav-btn prev" id="carousel-prev-btn" aria-label="Previous App">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+              </svg>
+            </button>
+
+            <div class="carousel-viewport swiper" id="carousel-viewport">
+              <div class="carousel-track swiper-wrapper" id="carousel-track">
+                <!-- Card 1: CAEL RIDE Hailing App -->
+                <div class="app-card-inline swiper-slide" data-app-id="ridehailing" tabindex="0">
+                  <div class="app-card-img-wrapper">
+                    <img src="./ridehailing.jpg?v=2" alt="CAEL RIDE Hailing App" class="app-card-img" />
+                    <div class="app-card-badge">CAEL RIDE</div>
+                  </div>
+                  <div class="app-card-preview-bar">
+                    <h3 class="preview-title">CAEL RIDE HAILING APP</h3>
+                    <span class="preview-hint">✦ Click to view 8 screens &amp; specs</span>
+                  </div>
+                  <div class="app-card-info">
+                    <h3>CAEL RIDE HAILING APP</h3>
+                    <p class="app-card-sub">Ride hailing & Delivery Service App</p>
+                    <div class="app-card-details">
+                      <div class="app-card-pitch">A free mobile app ready for you own business and own logo</div>
+                      <div class="app-card-features-title">Features:</div>
+                      <ul class="app-card-features-list">
+                        <li><span class="feat-bullet">▪</span> Administrative, Workforce & Operation System</li>
+                        <li><span class="feat-bullet">▪</span> Automated Time Attendance & Payroll System</li>
+                        <li><span class="feat-bullet">▪</span> Dedicated Driver Dispatch & Navigation App</li>
+                        <li><span class="feat-bullet">▪</span> Passenger On-Demand Booking & Live Tracking App</li>
+                        <li><span class="feat-bullet">▪</span> Realtime Customer Support Portal</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Card 2: CAEL Child Time Lock -->
+                <div class="app-card-inline swiper-slide" data-app-id="timelock" tabindex="0">
+                  <div class="app-card-img-wrapper">
+                    <img src="./timelock.jpg?v=2" alt="CAEL Child Time Lock" class="app-card-img" />
+                    <div class="app-card-badge">CAEL TIME LOCK</div>
+                  </div>
+                  <div class="app-card-preview-bar">
+                    <h3 class="preview-title">CAEL CHILD TIME LOCK</h3>
+                    <span class="preview-hint">✦ Click to view 10 screens &amp; specs</span>
+                  </div>
+                  <div class="app-card-info">
+                    <h3>CAEL CHILD TIME LOCK</h3>
+                    <p class="app-card-sub">Protect Child From Phone Overuse And Misuse</p>
+                    <div class="app-card-details">
+                      <div class="app-card-pitch">A free mobile app to help solve your problem to child's phone
+                        problems.</div>
+                      <div class="app-card-features-title">Features:</div>
+                      <ul class="app-card-features-list">
+                        <li><span class="feat-bullet">▪</span> Multiple Child Phone Control Management</li>
+                        <li><span class="feat-bullet">▪</span> Remote Parental Device Control & Oversight</li>
+                        <li><span class="feat-bullet">▪</span> Automated Bedtime & Sleep Schedule Lockout</li>
+                        <li><span class="feat-bullet">▪</span> Instant On-Demand Remote Device Lockout</li>
+                        <li><span class="feat-bullet">▪</span> Remote Screen Capture & Activity Monitoring</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Card 3: Child Safety Zones -->
+                <div class="app-card-inline swiper-slide" data-app-id="childzones" tabindex="0">
+                  <div class="app-card-img-wrapper">
+                    <img src="./childlogin.jpg?v=3" alt="Child Safety Zones" class="app-card-img" />
+                    <div class="app-card-badge">CAEL SAFETY ZONES</div>
+                  </div>
+                  <div class="app-card-preview-bar">
+                    <h3 class="preview-title">CAEL CHILD SAFETY ZONES</h3>
+                    <span class="preview-hint">✦ Click to view 10 screens &amp; specs</span>
+                  </div>
+                  <div class="app-card-info">
+                    <h3>CAEL CHILD SAFETY ZONES</h3>
+                    <p class="app-card-sub">Child Realtime Safety Zones and Alerts</p>
+                    <div class="app-card-details">
+                      <div class="app-card-pitch">A free mobile app to make you worry free from your childs safety in
+                        realtime</div>
+                      <div class="app-card-features-title">Features:</div>
+                      <ul class="app-card-features-list">
+                        <li><span class="feat-bullet">▪</span> Create safety zones (Home, school, paths, etc)</li>
+                        <li><span class="feat-bullet">▪</span> Create safety route (School to home, friends, etc)</li>
+                        <li><span class="feat-bullet">▪</span> Realtime Alert on Parents Phone if Child goes out of safety zone/route or turned off. (Kidnapping incident)</li>
+                        <li><span class="feat-bullet">▪</span> Precise Realtime GPS Location of your Child</li>
+                        <li><span class="feat-bullet">▪</span> Activate Auto Camera Capture if Phone is Stolen.</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Card 4: CAEL Massage Service App -->
+                <div class="app-card-inline swiper-slide" data-app-id="massageservice" tabindex="0">
+                  <div class="app-card-img-wrapper">
+                    <img src="./massageservice.jpg?v=3" alt="CAEL Massage Service App" class="app-card-img" />
+                    <div class="app-card-badge">CAEL MASSAGE APP</div>
+                  </div>
+                  <div class="app-card-preview-bar">
+                    <h3 class="preview-title">CAEL MASSAGE SERVICE APP</h3>
+                    <span class="preview-hint">✦ Click to view 10 screens &amp; specs</span>
+                  </div>
+                  <div class="app-card-info">
+                    <h3>CAEL MASSAGE SERVICE APP</h3>
+                    <p class="app-card-sub">On-Demand Spa & Home Massage Service</p>
+                    <div class="app-card-details">
+                      <div class="app-card-pitch">A free mobile app ready for your own massage & wellness service
+                        business</div>
+                      <div class="app-card-features-title">Features:</div>
+                      <ul class="app-card-features-list">
+                        <li><span class="feat-bullet">▪</span> Admin & Branch Management Portal</li>
+                        <li><span class="feat-bullet">▪</span> Therapist Portal with GPS & Live Availability</li>
+                        <li><span class="feat-bullet">▪</span> Client On-Demand Booking & Service Selection</li>
+                        <li><span class="feat-bullet">▪</span> Real-time Therapist Dispatch & Route Tracking</li>
+                        <li><span class="feat-bullet">▪</span> In-App Chat, Rating & Service Review System</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Card 5: CAEL Trucking Delivery App -->
+                <div class="app-card-inline swiper-slide" data-app-id="truckdelivery" tabindex="0">
+                  <div class="app-card-img-wrapper">
+                    <img src="./truckdelivery.jpg?v=6" alt="CAEL Trucking Delivery App" class="app-card-img" />
+                    <div class="app-card-badge">CAEL TRUCKING APP</div>
+                  </div>
+                  <div class="app-card-preview-bar">
+                    <h3 class="preview-title">CAEL TRUCKING DELIVERY APP</h3>
+                    <span class="preview-hint">✦ Click to view 10 screens &amp; specs</span>
+                  </div>
+                  <div class="app-card-info">
+                    <h3>CAEL TRUCKING DELIVERY APP</h3>
+                    <p class="app-card-sub">Heavy Cargo & Commercial Freight Dispatch</p>
+                    <div class="app-card-details">
+                      <div class="app-card-pitch">A free mobile app ready for your commercial trucking, freight, and cargo logistics business</div>
+                      <div class="app-card-features-title">Features:</div>
+                      <ul class="app-card-features-list">
+                        <li><span class="feat-bullet">▪</span> Fleet & Multi-Truck Dispatch Operations</li>
+                        <li><span class="feat-bullet">▪</span> Cargo Booking, Waybill & Weight Rate Calculator</li>
+                        <li><span class="feat-bullet">▪</span> Driver Live GPS Routing & Real-Time Tracking</li>
+                        <li><span class="feat-bullet">▪</span> Digital Proof of Delivery & E-Signature Capture</li>
+                        <li><span class="feat-bullet">▪</span> Automated Driver Payout & Freight Invoicing</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Card 6: CAEL Two Color Game App -->
+                <div class="app-card-inline card-coming-soon swiper-slide" data-app-id="colorgame" tabindex="-1" aria-disabled="true">
+                  <!-- 3D Ribbon: Flat horizontal top end, flat vertical left end, wrapping the edges -->
+                  <div class="corner-ribbon-3d" aria-label="Coming Soon...">
+                    <div class="ribbon-fold ribbon-fold-top"></div>
+                    <div class="ribbon-fold ribbon-fold-left"></div>
+                    <div class="corner-ribbon-strap">
+                      <span class="ribbon-text">Coming Soon...</span>
+                    </div>
+                  </div>
+
+                  <div class="app-card-inner-frame">
+                    <div class="app-card-img-wrapper">
+                      <img src="./colorgame.jpg" alt="CAEL Two Color Game App" class="app-card-img" />
+                      <div class="app-card-badge">CAEL COLOR GAME</div>
+                    </div>
+                    <div class="app-card-preview-bar">
+                      <h3 class="preview-title">CAEL TWO COLOR GAME APP</h3>
+                      <span class="preview-hint coming-soon-tag">🚀 Coming Soon • In Development</span>
+                    </div>
+                    <div class="app-card-info">
+                      <h3>CAEL TWO COLOR GAME APP</h3>
+                      <p class="app-card-sub">Interactive Two-Color Betting & Entertainment App</p>
+                      <div class="app-card-details">
+                        <div class="app-card-pitch">A free mobile app ready for your own interactive color guessing and community game business</div>
+                        <div class="app-card-features-title">Features:</div>
+                        <ul class="app-card-features-list">
+                          <li><span class="feat-bullet">▪</span> Real-Time 2-Color Round Betting Engine</li>
+                          <li><span class="feat-bullet">▪</span> Dynamic Multi-Player Pool & Odds Calculator</li>
+                          <li><span class="feat-bullet">▪</span> Instant Automated Winning Payout & Wallet System</li>
+                          <li><span class="feat-bullet">▪</span> Game History, Probability Stats & Live Dashboard</li>
+                          <li><span class="feat-bullet">▪</span> Admin Round Control, Fraud Prevention & Audit Log</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Card 7: CAEL OnCall Service App -->
+                <div class="app-card-inline card-coming-soon swiper-slide" data-app-id="oncallservice" tabindex="-1" aria-disabled="true">
+                  <!-- 3D Ribbon: Flat horizontal top end, flat vertical left end, wrapping the edges -->
+                  <div class="corner-ribbon-3d" aria-label="Coming Soon...">
+                    <div class="ribbon-fold ribbon-fold-top"></div>
+                    <div class="ribbon-fold ribbon-fold-left"></div>
+                    <div class="corner-ribbon-strap">
+                      <span class="ribbon-text">Coming Soon...</span>
+                    </div>
+                  </div>
+
+                  <div class="app-card-inner-frame">
+                    <div class="app-card-img-wrapper">
+                      <img src="./caeloncall.jpg" alt="CAEL OnCall Service App" class="app-card-img" />
+                      <div class="app-card-badge">CAEL ONCALL APP</div>
+                    </div>
+                    <div class="app-card-preview-bar">
+                      <h3 class="preview-title">CAEL ONCALL SERVICE APP</h3>
+                      <span class="preview-hint coming-soon-tag">🚀 Coming Soon • In Development</span>
+                    </div>
+                    <div class="app-card-info">
+                      <h3>CAEL ONCALL SERVICE APP</h3>
+                      <p class="app-card-sub">All Home Services • Closest To You • One Call Away</p>
+                      <div class="app-card-details">
+                        <div class="app-card-pitch">A free mobile app connecting you to nearby verified technicians with real-time proximity radar and 1-call dispatch</div>
+                        <div class="app-card-features-title">Features:</div>
+                        <ul class="app-card-features-list">
+                          <li><span class="feat-bullet">▪</span> 24/7 Locksmith & Lock Technicians</li>
+                          <li><span class="feat-bullet">▪</span> Home Appliance & Refrigerator Repair</li>
+                          <li><span class="feat-bullet">▪</span> Emergency Plumbing & Pipe Leak Fix</li>
+                          <li><span class="feat-bullet">▪</span> Carpentry, Handyman & Door Services</li>
+                          <li><span class="feat-bullet">▪</span> Sub-Minute Live Proximity GPS Radar</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <button class="carousel-nav-btn next" id="carousel-next-btn" aria-label="Next App">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Carousel Indicators (Managed by Swiper) -->
+          <div class="carousel-dots swiper-pagination" id="carousel-dots"></div>
+
+          <p class="hero-subtitle">
+            Welcome to Cael Hub — a free mobile robust application for every business dreamers to use. With a responsive
+            real-time gps, trackers, data visualizers, system updates and our flagship autonomous assistant <strong
+              class="text-accent">CAELIN</strong>. Giving everyone an oppurtunity to start their own business for free.
+          </p>
+
+          <div class="hero-cta-group">
+            <button id="hero-capabilities-btn" class="cyber-btn lg capabilities-btn active" type="button" title="View System Capabilities &amp; Metrics" aria-label="View System Capabilities &amp; Metrics">
+              <span class="btn-icon">⚡</span>
+              <span class="btn-text">SYSTEM CAPABILITIES</span>
+            </button>
+
+            <button id="hero-maintenance-btn" class="cyber-btn lg outline maintenance-btn" type="button" title="View System Maintenance Directives" aria-label="View System Maintenance Directives">
+              <span class="btn-icon">🛠️</span>
+              <span class="btn-text">SYSTEM MAINTENANCE</span>
+            </button>
+          </div>
+
+          <!-- Live Platform Stats & Maintenance Interactive 3D Flip Grid -->
+          <div class="hero-stats-grid" id="hero-flip-grid">
+            <!-- Card 1: Free Business Suite <-> Regular System Maintenance -->
+            <div class="stat-card flip-card" id="flip-card-1" tabindex="0" role="button" aria-label="Card 1: Free Business Suite and Regular System Maintenance">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="stat-icon">💼</div>
+                  <div class="stat-info">
+                    <span class="stat-value" id="stat-neurons">0%</span>
+                    <span class="stat-label">FREE BUSINESS SUITE</span>
+                  </div>
+                </div>
+                <div class="flip-card-back">
+                  <div class="stat-icon">🛠️</div>
+                  <div class="stat-info">
+                    <span class="maintenance-badge"><span class="pulse-dot"></span> DIRECTIVE</span>
+                    <span class="maintenance-text">Regular System Maintenance</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 2: Real-Time GPS Latency <-> Regular Data Back up -->
+            <div class="stat-card flip-card" id="flip-card-2" tabindex="0" role="button" aria-label="Card 2: Real-Time GPS Latency and Regular Data Back up">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="stat-icon">⚡</div>
+                  <div class="stat-info">
+                    <span class="stat-value" id="stat-latency">0ms</span>
+                    <span class="stat-label">REAL-TIME GPS LATENCY</span>
+                  </div>
+                </div>
+                <div class="flip-card-back">
+                  <div class="stat-icon database-icon" title="Database Storage">
+                    <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                      <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                      <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+                      <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+                    </svg>
+                  </div>
+                  <div class="stat-info">
+                    <span class="maintenance-badge"><span class="pulse-dot"></span> STORAGE</span>
+                    <span class="maintenance-text">Regular Data Back up</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 3: Enterprise Security <-> Regular System Updates -->
+            <div class="stat-card flip-card" id="flip-card-3" tabindex="0" role="button" aria-label="Card 3: Enterprise Security and Regular System Updates">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="stat-icon">🔒</div>
+                  <div class="stat-info">
+                    <span class="stat-value" id="stat-encryption">0</span>
+                    <span class="stat-label">ENTERPRISE SECURITY</span>
+                  </div>
+                </div>
+                <div class="flip-card-back">
+                  <div class="stat-icon">🔄</div>
+                  <div class="stat-info">
+                    <span class="maintenance-badge"><span class="pulse-dot"></span> UPDATES</span>
+                    <span class="maintenance-text">Regular System Updates</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 4: Autonomous AI Assistant <-> AI Powered System and Data Analysis -->
+            <div class="stat-card flip-card" id="flip-card-4" tabindex="0" role="button" aria-label="Card 4: Autonomous AI Assistant and AI Powered System and Data Analysis">
+              <div class="flip-card-inner">
+                <div class="flip-card-front">
+                  <div class="stat-icon"><img src="./ai.png" alt="CAELIN AI" class="stat-avatar-icon" /></div>
+                  <div class="stat-info">
+                    <span class="stat-value">CAELIN</span>
+                    <span class="stat-label">AUTONOMOUS AI ASSISTANT</span>
+                  </div>
+                </div>
+                <div class="flip-card-back">
+                  <div class="stat-icon">🧠</div>
+                  <div class="stat-info">
+                    <span class="maintenance-badge"><span class="pulse-dot"></span> ANALYTICS</span>
+                    <span class="maintenance-text">AI Powered System and Data Analysis</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+ 
+      <!-- Mission & Vision Section -->
+      <section id="mission" class="section-padding mission-section">
+        <div class="section-header">
+          <div class="section-tag">CORE DIRECTIVES & PURPOSE</div>
+          <h2 class="section-title">OUR MISSION & VISION</h2>
+          <p class="section-desc">Empowering the next generation of business dreamers with free, enterprise-level mobile technology, real-time tracking, and autonomous AI.</p>
+        </div>
+
+        <div class="mission-grid">
+          <!-- Mission Card -->
+          <div class="mission-card cyber-card" tabindex="0">
+            <div class="mission-card-hud-corner top-left"></div>
+            <div class="mission-card-hud-corner bottom-right"></div>
+            <div class="mission-card-glow-orb mission-glow"></div>
+            
+            <div class="mission-card-header">
+              <div class="mission-icon-box">
+                <span class="mission-icon">🎯</span>
+              </div>
+              <div class="mission-badge">PRIMARY DIRECTIVE</div>
+            </div>
+
+            <h3 class="mission-card-title">OUR MISSION</h3>
+            <p class="mission-card-text">
+              To empower dreamers everywhere with free, enterprise-grade mobile tools, real-time tracking, and autonomous AI intelligence to start and run their own business without limits.
+            </p>
+
+            <div class="mission-highlights">
+              <span class="highlight-chip"><span>✦</span> 100% Free Ecosystem</span>
+              <span class="highlight-chip"><span>✦</span> Real-Time GPS Tracking</span>
+              <span class="highlight-chip"><span>✦</span> CAELIN</span>
+            </div>
+          </div>
+
+          <!-- Vision Card -->
+          <div class="mission-card cyber-card" tabindex="0">
+            <div class="mission-card-hud-corner top-left"></div>
+            <div class="mission-card-hud-corner bottom-right"></div>
+            <div class="mission-card-glow-orb vision-glow"></div>
+            
+            <div class="mission-card-header">
+              <div class="mission-icon-box vision-icon">
+                <span class="mission-icon">🔭</span>
+              </div>
+              <div class="mission-badge vision-badge">GLOBAL HORIZON</div>
+            </div>
+
+            <h3 class="mission-card-title">OUR VISION</h3>
+            <p class="mission-card-text">
+              To build a world where economic opportunity has no entry barrier, becoming the global catalyst that turns every ambitious dreamer into a thriving business leader through accessible, cutting-edge mobile and autonomous AI technology.
+            </p>
+
+            <div class="mission-highlights">
+              <span class="highlight-chip"><span>✦</span> Zero Barrier to Entry</span>
+              <span class="highlight-chip"><span>✦</span> Global Catalyst</span>
+              <span class="highlight-chip"><span>✦</span> Economic Empowerment</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Features Section -->
+      <section id="features" class="section-padding features-section">
+        <div class="section-header">
+          <div class="section-tag">SYSTEM CAPABILITIES</div>
+          <h2 class="section-title">ENTERPRISE TOOLS FOR EVERY BUSINESS DREAMER</h2>
+          <p class="section-desc">Engineered with high-precision GPS telematics, live dispatch tracking, 360° enterprise security, and our flagship autonomous assistant CAELIN — 100% free to launch and scale.</p>
+        </div>
+
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="card-hud-corner"></div>
+            <div class="feature-icon">📱</div>
+            <h3>Free Modern Mobile Applications</h3>
+            <p>Next-generation mobile apps equipped with precise GPS, live tracking, automated geofence alerts, real-time data synchronization, in-app attendance and payroll systems, and more to power seamless business operations.</p>
+            <div class="feature-badge">ALL-IN-ONE MOBILE SUITE</div>
+          </div>
+
+          <div class="feature-card">
+            <div class="card-hud-corner"></div>
+            <div class="feature-icon"><img src="./ai.png" alt="CAELIN AI" class="stat-avatar-icon" /></div>
+            <h3>CAELIN</h3>
+            <p>Integrated conversational intelligence and voice synthesis capable of guiding business strategy, handling customer queries, automating operations, and generating code.</p>
+            <div class="feature-badge">FREE & UNLIMITED AI</div>
+          </div>
+
+          <div class="feature-card">
+            <div class="card-hud-corner"></div>
+            <div class="feature-icon">🛡️</div>
+            <h3>360° Enterprise Security</h3>
+            <p>Comprehensive encryption, role-based workforce access controls, and privacy-first architecture ensuring company assets, customer records, and operational telemetry remain locked down.</p>
+            <div class="feature-badge">360° BANK-GRADE SHIELD</div>
+          </div>
+
+          <div class="feature-card">
+            <div class="card-hud-corner"></div>
+            <div class="feature-icon">🔄</div>
+            <h3>Free System Updates & Support</h3>
+            <p>Continuous application upgrades and modular customizability to adapt to your company's growing needs, backed by dedicated full-time support with zero licensing or subscription fees.</p>
+            <div class="feature-badge">100% FREE FOR LIFE</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Console / System Stream Section -->
+      <section id="console" class="section-padding console-section">
+        <div class="console-box">
+          <div class="console-header">
+            <div class="console-dots">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+            </div>
+            <div class="console-title">CAEL MATRIX TELEMETRY</div>
+            <div class="console-status" id="console-download-status" title="Click any sentence below to record download">
+              <span class="pulse-dot green"></span>
+              <span class="status-label">DOWNLOAD:</span>
+              <span class="console-download-badge" id="download-counter">0</span>
+            </div>
+          </div>
+          <div id="live-console-stream" class="console-body">
+            <div class="log-entry" tabindex="0" role="button"><span class="log-time">[00:00:01]</span> <span class="log-tag info">INFO</span> <span class="log-text">Matrix Telemetry Engine started.</span> <span class="log-download-icon" title="Click sentence to download">⬇</span></div>
+            <div class="log-entry" tabindex="0" role="button"><span class="log-time">[00:00:02]</span> <span class="log-tag success">OK</span> <span class="log-text">Connected to free AI provider endpoint.</span> <span class="log-download-icon" title="Click sentence to download">⬇</span></div>
+            <div class="log-entry" tabindex="0" role="button"><span class="log-time">[00:00:03]</span> <span class="log-tag info">INFO</span> <span class="log-text">Floating Lightbox Chat widget armed &amp; ready.</span> <span class="log-download-icon" title="Click sentence to download">⬇</span></div>
+            <div class="log-entry" tabindex="0" role="button"><span class="log-time">[00:00:04]</span> <span class="log-tag app">APP</span> <span class="log-text">CAEL RIDE — Ride Hailing &amp; Driver Telemetry APK ready for download.</span> <span class="log-download-icon" title="Click sentence to download">⬇</span></div>
+            <div class="log-entry" tabindex="0" role="button"><span class="log-time">[00:00:05]</span> <span class="log-tag sec">SEC</span> <span class="log-text">CAEL CHILD TIME LOCK — Smart Parental Lock &amp; Bedtime Scheduler package ready.</span> <span class="log-download-icon" title="Click sentence to download">⬇</span></div>
+            <div class="log-entry" tabindex="0" role="button"><span class="log-time">[00:00:06]</span> <span class="log-tag gps">GPS</span> <span class="log-text">CAEL SAFETY ZONES — Geofencing Route Guardian &amp; Emergency SOS package online.</span> <span class="log-download-icon" title="Click sentence to download">⬇</span></div>
+            <div class="log-entry" tabindex="0" role="button"><span class="log-time">[00:00:07]</span> <span class="log-tag biz">BIZ</span> <span class="log-text">CAEL MASSAGE SERVICE — On-Demand Booking &amp; Dispatch Portal available.</span> <span class="log-download-icon" title="Click sentence to download">⬇</span></div>
+            <div class="log-entry" tabindex="0" role="button"><span class="log-time">[00:00:08]</span> <span class="log-tag log">LOG</span> <span class="log-text">CAEL TRUCKING LOGISTICS — Heavy Cargo Fleet Freight Waybill APK verified.</span> <span class="log-download-icon" title="Click sentence to download">⬇</span></div>
+            <div class="log-entry" tabindex="0" role="button"><span class="log-time">[00:00:09]</span> <span class="log-tag net">NET</span> <span class="log-text">CAEL TWO-COLOR MATRIX — Quantum RNG Color Wheel Game package verified.</span> <span class="log-download-icon" title="Click sentence to download">⬇</span></div>
+            <div class="log-entry" tabindex="0" role="button"><span class="log-time">[00:00:10]</span> <span class="log-tag core">CORE</span> <span class="log-text">CAEL MATRIX HUB — Full Offline Autonomous Architecture v2.4 synced.</span> <span class="log-download-icon" title="Click sentence to download">⬇</span></div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="cyber-footer">
+      <div class="footer-container">
+        <div class="footer-brand">
+          <img src="./mobilelogo3clear.png" alt="Cael Logo" class="footer-logo" />
+          <span>CAEL HUB MATRIX SYSTEM © 2026</span>
+        </div>
+        <div class="footer-status">
+          <span>AI MODEL STATUS: <strong class="text-accent">ONLINE</strong></span>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+
+  <!-- ==================== FLOATING CHAT WIDGET ICON ==================== -->
+  <div id="floating-chat-container" class="floating-chat-container">
+    <button id="floating-chat-btn" class="floating-chat-btn" aria-label="Open CAELIN Chat">
+      <div class="orb-pulse"></div>
+      <div class="floating-icon-wrapper">
+        <img src="./ai.png" alt="CAELIN" class="floating-caelin-avatar" />
+      </div>
+      <span class="floating-badge">CAELIN</span>
+    </button>
+    <div class="floating-tooltip">
+      <span>Talk with CAELIN</span>
+    </div>
+  </div>
+
+
+  <!-- ==================== SCI-FI LIGHTBOX MODAL (AI CHAT HUB) ==================== -->
+  <div id="chat-lightbox" class="lightbox-overlay hidden">
+    <div class="lightbox-backdrop"></div>
+
+    <div class="lightbox-window">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <div class="modal-header-title">
+          <span class="hud-symbol">❖</span>
+          <h2>CAELIN MATRIX HUB</h2>
+          <span class="modal-status-badge"><span class="pulse-dot green"></span> ONLINE & ACTIVE</span>
+        </div>
+
+        <div class="modal-controls">
+          <button id="modal-expand-btn" class="modal-icon-btn" title="Toggle Fullscreen">⛶</button>
+          <button id="modal-close-btn" class="modal-icon-btn close-btn" title="Close Lightbox (Esc)">✕</button>
+        </div>
+      </div>
+
+      <!-- Modal Body (Split Layout: Left = AI Model Image Showcase, Right = Chat Page) -->
+      <div class="modal-body-split">
+
+        <!-- LEFT SIDE: AI MODEL SHOWCASE -->
+        <div id="chat-left-side" class="modal-left-column">
+          <div class="ai-model-card">
+            <!-- Hologram Frame with Scanline -->
+            <div class="model-image-frame">
+              <div class="scanline"></div>
+              <div class="frame-corner top-l"></div>
+              <div class="frame-corner top-r"></div>
+              <div class="frame-corner bot-l"></div>
+              <div class="frame-corner bot-r"></div>
+
+              <!-- Full AI Model Image -->
+              <img src="./ai.png" alt="AI Model CAELIN" id="ai-model-img" class="ai-model-img" />
+
+              <!-- Hologram Identity Badge -->
+              <div class="model-hologram-badge">
+                <span>CAELIN CYBER AI</span>
+              </div>
+
+              <!-- Floating Toggle Button for Transparent Glass Overlay -->
+              <button id="toggle-stats-overlay-btn" class="overlay-toggle-btn"
+                title="Toggle AI Telemetry & Stats Overlay">
+                <span class="btn-icon">⚡</span>
+                <span class="btn-text">AI STATS & CONTROLS</span>
+              </button>
+
+              <!-- TRANSPARENT GLASS OVERLAY PANEL (SHOW/HIDE) -->
+              <div id="model-stats-overlay" class="model-overlay-panel hidden">
+                <div class="overlay-header">
+                  <div class="overlay-title">
+                    <span class="hud-symbol">❖</span>
+                    <span>SYSTEM TELEMETRY & CONTROLS</span>
+                  </div>
+                  <button id="close-stats-overlay-btn" class="overlay-close-btn" title="Close Overlay">✕</button>
+                </div>
+
+                <!-- Audio Wave Visualizer Canvas -->
+                <div class="visualizer-wrapper">
+                  <div class="visualizer-label">
+                    <span>AUDIO SYNTHESIS FREQUENCY</span>
+                    <span id="visualizer-state" class="state-idle">IDLE</span>
+                  </div>
+                  <canvas id="audio-wave-canvas" width="300" height="45"></canvas>
+                </div>
+
+                <!-- Model Identity Stats -->
+                <div class="model-stats-panel">
+                  <div class="stat-row">
+                    <span class="stat-name">MODEL ID:</span>
+                    <span class="stat-val text-accent">CAELIN QUANTUM</span>
+                  </div>
+                  <div class="stat-row">
+                    <span class="stat-name">RESPONSE TIME:</span>
+                    <span class="stat-val" id="model-rt font-mono">0.18s</span>
+                  </div>
+                  <div class="stat-row">
+                    <span class="stat-name">CONTEXT MEMORY:</span>
+                    <span class="stat-val green">UNLIMITED CHANNELS</span>
+                  </div>
+                  <div class="stat-row">
+                    <span class="stat-name">SYSTEM ENGINE:</span>
+                    <span class="stat-val">FREE POLLINATIONS AI</span>
+                  </div>
+                </div>
+
+                <!-- Quick Controls inside Overlay -->
+                <div class="left-controls">
+                  <button id="tts-toggle-btn" class="cyber-btn sm outline fill-w active">
+                    <span class="btn-icon">🔊</span>
+                    <span id="tts-label">VOICE READOUT: ON</span>
+                  </button>
+
+                  <button id="clear-chat-btn" class="cyber-btn sm outline fill-w danger">
+                    <span class="btn-icon">🗑️</span>
+                    <span>CLEAR CONVERSATION</span>
+                  </button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT SIDE: CHAT INTERFACE & MESSAGES PAGE -->
+        <div id="chat-right-side" class="modal-right-column">
+
+          <!-- Persona Selector Header -->
+          <div class="chat-top-bar">
+            <div class="persona-selector">
+              <span class="persona-label">PERSONA:</span>
+              <select id="ai-persona-select" class="cyber-select">
+                <option value="cyberpunk">CAELIN (Futuristic AI)</option>
+                <option value="coding">Coding & Tech Expert</option>
+                <option value="assistant">Helpful General Assistant</option>
+                <option value="creative">Creative Sci-Fi Writer</option>
+              </select>
+            </div>
+
+            <div class="chat-tools">
+              <button id="copy-chat-btn" class="tool-btn" title="Copy Full Conversation">📋</button>
+            </div>
+          </div>
+
+          <!-- Chat Scroll Container -->
+          <div id="chat-messages" class="chat-messages-container">
+            <!-- Initial AI Welcome Message -->
+            <div class="chat-bubble ai-bubble">
+              <div class="bubble-avatar">
+                <img src="./ai.png" alt="AI Avatar" />
+              </div>
+              <div class="bubble-content-wrapper">
+                <div class="bubble-header">
+                  <span class="sender-name">CAELIN</span>
+                  <span class="message-time">Just now</span>
+                </div>
+                <div class="bubble-text">
+                  Greetings, Commander. I am <strong class="text-accent">CAELIN</strong>, your intelligent assistant
+                  for Cael (also known as Cael Hub, which stands for <strong>"Come And Earn Literally"</strong>).
+                  <br /><br />
+                  How can I assist you?
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Typing Indicator -->
+          <div id="chat-typing-indicator" class="typing-indicator hidden">
+            <div class="typing-avatar">
+              <img src="./ai.png" alt="AI Avatar" />
+            </div>
+            <div class="typing-dots">
+              <span>CAELIN IS THINKING</span>
+              <span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>
+            </div>
+          </div>
+
+          <!-- Quick Suggestion Chips -->
+          <div class="prompt-chips-wrapper">
+            <button class="prompt-chip" data-prompt="What can you do as CAELIN?">✨ What can you do?</button>
+            <button class="prompt-chip" data-prompt="What is CAEL HUB?">🌐 What is CAEL HUB?</button>
+            <button class="prompt-chip"
+              data-prompt="Tell me a fascinating short sci-fi story about quantum artificial intelligence.">📖 Sci-Fi
+              story</button>
+            <button class="prompt-chip" id="contact-us-chip"
+              data-prompt="Contact Us">📨 Contact Us</button>
+          </div>
+
+          <!-- Chat Input Area -->
+          <form id="chat-form" class="chat-input-form">
+            <!-- Voice Dictation Button -->
+            <button type="button" id="voice-input-btn" class="voice-mic-btn" title="Voice Input (Speech-to-Text)">
+              <span class="mic-icon">🎙️</span>
+            </button>
+
+            <!-- Text Input -->
+            <div class="input-wrapper">
+              <textarea id="chat-input" rows="1" placeholder="Type your query into CAELIN..." required></textarea>
+            </div>
+
+            <!-- Send Button -->
+            <button type="submit" id="chat-send-btn" class="chat-send-btn glow-cyan">
+              <span class="send-text">SEND</span>
+              <span class="send-icon">➤</span>
+            </button>
+          </form>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ==================== APP SHOWCASE DETAILS MODAL ==================== -->
+  <div id="app-details-modal" class="app-modal-overlay hidden" aria-hidden="true" role="dialog" aria-labelledby="modal-app-badge">
+    <div class="app-modal-backdrop" id="app-modal-backdrop"></div>
+    <div class="app-modal-window cyber-card">
+      <div class="app-modal-corner top-left"></div>
+      <div class="app-modal-corner top-right"></div>
+      <div class="app-modal-corner bottom-left"></div>
+      <div class="app-modal-corner bottom-right"></div>
+      
+      <!-- Modal Header -->
+      <div class="app-modal-header">
+        <div class="app-modal-title-wrap">
+          <span class="app-modal-hud-badge" id="modal-app-badge">CAEL RIDE HAILING APP</span>
+        </div>
+        <div class="app-modal-controls">
+          <button id="app-modal-close-btn" class="app-modal-close-btn" aria-label="Close modal" title="Close (Esc)">✕</button>
+        </div>
+      </div>
+
+      <!-- Modal Body (Scrollable) -->
+      <div class="app-modal-body">
+        
+        <!-- SECTION 1: LARGE IMAGE PREVIEW DISPLAY (ABOVE) -->
+        <div class="app-modal-hero-viewer">
+          <div class="hero-viewer-frame">
+            <div class="hero-corner-decor tl"></div>
+            <div class="hero-corner-decor tr"></div>
+            <div class="hero-corner-decor bl"></div>
+            <div class="hero-corner-decor br"></div>
+            
+            <div class="hero-image-container">
+              <button class="hero-nav-btn hero-nav-prev" id="hero-prev-btn" title="Previous Image (←)">❮</button>
+              <img id="modal-large-img" src="./ridehailing.jpg" alt="App Preview Large" class="hero-large-img active" />
+              <img id="modal-large-img-next" src="" alt="App Preview Large" class="hero-large-img" />
+              <button class="hero-nav-btn hero-nav-next" id="hero-next-btn" title="Next Image (→)">❯</button>
+            </div>
+            
+            <!-- THUMBS CAROUSEL INTEGRATED IN PLACE OF CAPTION OVERLAY -->
+            <div class="thumbs-carousel-wrapper" id="hero-thumbs-carousel">
+              <button class="thumb-nav-btn thumb-nav-prev" id="thumb-prev-btn" title="Previous Screen (❮)">❮</button>
+              <div class="thumbs-track-viewport" id="thumbs-track-viewport">
+                <div class="thumbs-track" id="thumbs-track">
+                  <!-- 10 Small Image Cards dynamically injected via main.js -->
+                </div>
+              </div>
+              <button class="thumb-nav-btn thumb-nav-next" id="thumb-next-btn" title="Next Screen (❯)">❯</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTION 3: FEATURES, DETAILS AND SPECS (BELOW CAROUSEL) -->
+        <div class="app-modal-info-section">
+          <!-- Cyber Tabs Navigation -->
+          <div class="info-tabs-nav" id="info-tabs-nav">
+            <button class="info-tab-btn active" data-tab="features">✦ FEATURES</button>
+            <button class="info-tab-btn" data-tab="details">✦ DETAILS &amp; PITCH</button>
+            <button class="info-tab-btn" data-tab="specs">✦ TECHNICAL SPECS</button>
+            <button class="info-tab-btn" data-tab="all">✦ ALL OVERVIEW</button>
+          </div>
+
+          <!-- Tab Panels Container -->
+          <div class="info-tab-panels">
+            <!-- Features Panel -->
+            <div class="info-panel active" id="panel-features">
+              <h3 class="panel-section-title"><span class="title-symbol">⚡</span> Key Application Features</h3>
+              <ul class="modal-features-list" id="modal-features-list">
+                <!-- Features List Items -->
+              </ul>
+            </div>
+
+            <!-- Details Panel -->
+            <div class="info-panel" id="panel-details">
+              <h3 class="panel-section-title"><span class="title-symbol">📋</span> In-Depth Details &amp; Business Pitch</h3>
+              <div class="modal-pitch-banner" id="modal-pitch-banner"></div>
+              <div class="modal-details-content" id="modal-details-content"></div>
+            </div>
+
+            <!-- Specs Panel -->
+            <div class="info-panel" id="panel-specs">
+              <h3 class="panel-section-title"><span class="title-symbol">⚙️</span> Architecture &amp; Technical Specifications</h3>
+              <div class="modal-specs-grid" id="modal-specs-grid">
+                <!-- Specs Cards -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div> <!-- /app-modal-body -->
+    </div>
+  </div>
+
+  <!-- ==================== CONTACT US POPUP MODAL ==================== -->
+  <div id="contact-modal" class="app-modal-overlay hidden" aria-hidden="true" role="dialog" aria-labelledby="contact-modal-title">
+    <div class="app-modal-backdrop" id="contact-modal-backdrop"></div>
+    <div class="contact-modal-window cyber-card">
+      <div class="app-modal-corner top-left"></div>
+      <div class="app-modal-corner top-right"></div>
+      <div class="app-modal-corner bottom-left"></div>
+      <div class="app-modal-corner bottom-right"></div>
+
+      <!-- Modal Header -->
+      <div class="app-modal-header">
+        <div class="app-modal-title-wrap">
+          <span class="app-modal-hud-badge">ENCRYPTED DISPATCH</span>
+          <h2 id="contact-modal-title">📨 CONTACT US</h2>
+          <span class="app-modal-subtitle">Send a direct transmission to our inbox</span>
+        </div>
+        <div class="app-modal-controls">
+          <button id="contact-modal-close-btn" class="app-modal-close-btn" aria-label="Close modal" title="Close (Esc)">✕</button>
+        </div>
+      </div>
+
+      <!-- Modal Body (Form) -->
+      <form id="contact-form" class="contact-form-body">
+        <div class="contact-form-row">
+          <div class="form-field-group">
+            <label for="contact-name"><span class="field-icon">👤</span> Your Name</label>
+            <input type="text" id="contact-name" name="name" placeholder="Enter your full name..." required />
+          </div>
+          <div class="form-field-group">
+            <label for="contact-email"><span class="field-icon">📧</span> Your Email</label>
+            <input type="email" id="contact-email" name="email" placeholder="name@example.com..." required />
+          </div>
+        </div>
+
+        <div class="form-field-group">
+          <label for="contact-subject"><span class="field-icon">🏷️</span> Subject</label>
+          <input type="text" id="contact-subject" name="subject" placeholder="Inquiry, Collaboration, or Feedback..." required />
+        </div>
+
+        <div class="form-field-group">
+          <label for="contact-message"><span class="field-icon">💬</span> Message</label>
+          <textarea id="contact-message" name="message" rows="5" placeholder="Type your message here..." required></textarea>
+        </div>
+
+        <div id="contact-status-box" class="contact-status-box hidden"></div>
+
+        <div class="contact-form-actions">
+          <button type="button" id="contact-modal-cancel-btn" class="cyber-btn outline sm">Cancel</button>
+          <button type="submit" id="contact-submit-btn" class="cyber-btn glow-cyan">
+            <span class="btn-text">Send</span>
+            <span class="btn-icon">➤</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script type="module" src="./main.js"></script>
+</body>
+
+</html>
