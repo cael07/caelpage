@@ -996,8 +996,75 @@ body {
   line-height: 1.15;
   letter-spacing: 1px;
   color: #ffffff;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
   text-transform: uppercase;
+}
+
+/* Hero Lead Section & Intro Group */
+.hero-intro-group {
+  max-width: 820px;
+  margin-bottom: 1.75rem;
+}
+
+.hero-tagline {
+  font-family: var(--font-hud);
+  font-size: clamp(1.2rem, 2.5vw, 1.55rem);
+  font-weight: 700;
+  color: var(--color-cyan, #00f0ff);
+  letter-spacing: 0.5px;
+  margin-bottom: 0.85rem;
+  text-shadow: 0 0 12px rgba(0, 240, 255, 0.4);
+}
+
+.hero-intro-text {
+  font-size: clamp(1rem, 1.8vw, 1.12rem);
+  color: var(--text-muted, #94a3b8);
+  line-height: 1.65;
+  margin-bottom: 0.65rem;
+}
+
+/* Hero Manifesto Box */
+.hero-manifesto-box {
+  max-width: 840px;
+  margin-top: 1.5rem;
+  margin-bottom: 2.5rem;
+  padding: 1.75rem 2rem;
+  background: rgba(13, 17, 23, 0.65);
+  border: 1px solid rgba(0, 240, 255, 0.2);
+  border-left: 4px solid var(--color-cyan, #00f0ff);
+  border-radius: 12px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+}
+
+.hero-manifesto-title {
+  font-family: var(--font-hud);
+  font-size: clamp(1.15rem, 2.2vw, 1.45rem);
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 1.1rem;
+  letter-spacing: 0.5px;
+}
+
+.hero-manifesto-box p {
+  font-size: 1.05rem;
+  color: #cbd5e1;
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.hero-manifesto-box p:last-child {
+  margin-bottom: 0;
+}
+
+.hero-manifesto-footer {
+  font-weight: 600;
+  color: #38bdf8 !important;
+  font-size: 1.08rem !important;
+  margin-top: 1.35rem;
+  padding-top: 1rem;
+  border-top: 1px dashed rgba(56, 189, 248, 0.3);
 }
 
 /* Apps Showcase Carousel */

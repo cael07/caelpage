@@ -11,7 +11,8 @@ import 'swiper/css/bundle';
 // --------------------------------------------------------------------------
 class SoundEngine {
   constructor() {
-    this.enabled = true;
+    const savedAudio = localStorage.getItem('cael_audio');
+    this.enabled = savedAudio !== null ? savedAudio === 'true' : false;
     this.ctx = null;
   }
 
@@ -216,10 +217,9 @@ function animateHeroStats() {
     const currentFree = Math.round(easeProgress * targetFree);
     neuronsEl.textContent = `${currentFree}%`;
 
-    // Real-Time GPS Latency: 0ms -> 12ms
+    // Real-Time Live GPS
     if (latencyEl) {
-      const currentLatency = Math.round(easeProgress * targetLatency);
-      latencyEl.textContent = `${currentLatency}ms`;
+      latencyEl.innerHTML = `<span class="pulse-dot green" style="display:inline-block; vertical-align:middle; margin-right:5px;"></span>LIVE`;
     }
 
     // Enterprise Security: 0 -> 360
@@ -232,16 +232,8 @@ function animateHeroStats() {
       requestAnimationFrame(step);
     } else {
       neuronsEl.textContent = `100%`;
-      if (latencyEl) latencyEl.textContent = `12ms`;
+      if (latencyEl) latencyEl.innerHTML = `<span class="pulse-dot green" style="display:inline-block; vertical-align:middle; margin-right:5px;"></span>LIVE`;
       if (encryptionEl) encryptionEl.textContent = `360`;
-
-      // Subtle live GPS telematics latency jitter (11ms - 13ms)
-      setInterval(() => {
-        if (latencyEl) {
-          const jitter = 11 + Math.floor(Math.random() * 3);
-          latencyEl.textContent = `${jitter}ms`;
-        }
-      }, 3500);
     }
   }
 
@@ -1596,10 +1588,13 @@ function initThemeAndAudio() {
     audioBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       audio.enabled = !audio.enabled;
+      try {
+        localStorage.setItem('cael_audio', audio.enabled);
+      } catch (err) {}
       if (audioIcon) audioIcon.textContent = audio.enabled ? '🔊' : '🔇';
       if (audioSwitch) audioSwitch.classList.toggle('active', audio.enabled);
       if (audioStatusSub) audioStatusSub.textContent = audio.enabled ? 'Sound Enabled' : 'Muted';
-      audio.playBlip();
+      if (audio.enabled) audio.playBlip();
     });
   }
 
