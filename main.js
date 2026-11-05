@@ -92,7 +92,12 @@ function initIntroAnimation() {
   const terminalLogs = document.getElementById('intro-terminal-logs');
   const skipBtn = document.getElementById('skip-intro-btn');
   const canvas = document.getElementById('intro-canvas');
-  if (!canvas) return;
+  if (!canvas || !introOverlay) {
+    if (mainApp) mainApp.classList.remove('hidden');
+    initHeroCanvas();
+    animateHeroStats();
+    return;
+  }
 
   const ctx = canvas.getContext('2d');
   let width = canvas.width = window.innerWidth;
