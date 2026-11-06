@@ -39,17 +39,25 @@ def get_metadata():
     try:
         if os.path.exists(METADATA_FILE):
             with open(METADATA_FILE, "r", encoding="utf-8") as f:
-                return json.load(f)
+                data = json.load(f)
+                data["system"] = "CAEL MATRIX Updates"
+                if "views" not in data:
+                    total_views = data.get("downloads", {}).get("total", 0)
+                    data["views"] = {
+                        "total": total_views,
+                        "lastUpdated": data.get("downloads", {}).get("lastUpdated"),
+                        "recentLoads": []
+                    }
+                return data
     except Exception as e:
         print(f"Error reading server_metadata.json: {e}")
     return {
-        "system": "CAEL MATRIX TELEMETRY",
+        "system": "CAEL MATRIX Updates",
         "version": "2.4.0",
-        "downloads": {
+        "views": {
             "total": 0,
             "lastUpdated": None,
-            "byModule": {},
-            "recentClicks": []
+            "recentLoads": []
         }
     }
 
@@ -143,13 +151,13 @@ async def handle_contact(request: Request):
 
 
 # -----------------------------------------------------------------------------
-# 2. API: Metadata Downloads & Telemetry Counter
+# 2. API: Metadata Page Views & Updates Counter
 # -----------------------------------------------------------------------------
 @app.get("/api/metadata")
 async def handle_metadata_get():
     meta = get_metadata()
-    total = meta.get("downloads", {}).get("total", 0)
-    return JSONResponse({"ok": True, "total": total, "metadata": meta})
+    total = meta.get("views", {}).get("total") or meta.get("downloads", {}).get("total", 0)
+    return JSONResponse({"ok": True, "total": total, "views": total, "metadata": meta})
 
 @app.post("/api/metadata")
 async def handle_metadata_post(request: Request):
@@ -159,27 +167,25 @@ async def handle_metadata_post(request: Request):
         body = {}
 
     meta = get_metadata()
-    if "downloads" not in meta or not isinstance(meta["downloads"], dict):
-        meta["downloads"] = {"total": 0, "lastUpdated": None, "byModule": {}, "recentClicks": []}
+    if "views" not in meta or not isinstance(meta["views"], dict):
+        total_views = meta.get("downloads", {}).get("total", 0)
+        meta["views"] = {"total": total_views, "lastUpdated": None, "recentLoads": []}
 
-    meta["downloads"]["total"] = (meta["downloads"].get("total") or 0) + 1
+    meta["views"]["total"] = (meta["views"].get("total") or 0) + 1
     now_iso = datetime.datetime.now(datetime.timezone.utc).isoformat()
-    meta["downloads"]["lastUpdated"] = now_iso
+    meta["views"]["lastUpdated"] = now_iso
 
-    module_tag = body.get("module") or "SYSTEM"
-    by_module = meta["downloads"].setdefault("byModule", {})
-    by_module[module_tag] = (by_module.get(module_tag) or 0) + 1
-
-    recent = meta["downloads"].setdefault("recentClicks", [])
+    referrer = body.get("referrer") or "direct"
+    recent = meta["views"].setdefault("recentLoads", [])
     recent.insert(0, {
-        "module": module_tag,
-        "sentence": (body.get("sentence") or "")[:150],
+        "type": "page_view",
+        "referrer": str(referrer)[:100],
         "timestamp": now_iso
     })
-    meta["downloads"]["recentClicks"] = recent[:20]
+    meta["views"]["recentLoads"] = recent[:30]
 
     save_metadata(meta)
-    return JSONResponse({"ok": True, "total": meta["downloads"]["total"], "metadata": meta})
+    return JSONResponse({"ok": True, "total": meta["views"]["total"], "views": meta["views"]["total"], "metadata": meta})
 
 
 # -----------------------------------------------------------------------------

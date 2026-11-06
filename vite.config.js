@@ -9,19 +9,28 @@ function setupMetadataMiddleware(server) {
   const getMetadata = () => {
     try {
       if (fs.existsSync(metadataFilePath)) {
-        return JSON.parse(fs.readFileSync(metadataFilePath, 'utf-8'));
+        const raw = fs.readFileSync(metadataFilePath, 'utf-8');
+        const data = JSON.parse(raw);
+        data.system = 'CAEL MATRIX Updates';
+        if (!data.views) {
+          data.views = {
+            total: data.downloads?.total || 0,
+            lastUpdated: data.downloads?.lastUpdated || null,
+            recentLoads: []
+          };
+        }
+        return data;
       }
     } catch (e) {
       console.error('Error reading server_metadata.json:', e);
     }
     return {
-      system: 'CAEL MATRIX TELEMETRY',
+      system: 'CAEL MATRIX Updates',
       version: '2.4.0',
-      downloads: {
+      views: {
         total: 0,
         lastUpdated: null,
-        byModule: {},
-        recentClicks: []
+        recentLoads: []
       }
     };
   };
@@ -47,11 +56,13 @@ function setupMetadataMiddleware(server) {
 
     if (req.method === 'GET') {
       const meta = getMetadata();
+      const total = meta.views?.total ?? meta.downloads?.total ?? 0;
       res.statusCode = 200;
       res.setHeader('Content-Type', 'application/json');
       res.end(JSON.stringify({
         ok: true,
-        total: meta.downloads?.total || 0,
+        total: total,
+        views: total,
         metadata: meta
       }));
       return;
@@ -74,35 +85,32 @@ function setupMetadataMiddleware(server) {
             }
           }
           const meta = getMetadata();
-          if (!meta.downloads) {
-            meta.downloads = { total: 0, lastUpdated: null, byModule: {}, recentClicks: [] };
+          if (!meta.views) {
+            meta.views = { total: meta.downloads?.total || 0, lastUpdated: null, recentLoads: [] };
           }
-          meta.downloads.total = (meta.downloads.total || 0) + 1;
-          meta.downloads.lastUpdated = new Date().toISOString();
+          meta.views.total = (meta.views.total || 0) + 1;
+          meta.views.lastUpdated = new Date().toISOString();
 
-          const moduleTag = body.module || 'SYSTEM';
-          if (!meta.downloads.byModule) meta.downloads.byModule = {};
-          meta.downloads.byModule[moduleTag] = (meta.downloads.byModule[moduleTag] || 0) + 1;
-
-          if (!Array.isArray(meta.downloads.recentClicks)) meta.downloads.recentClicks = [];
-          meta.downloads.recentClicks.unshift({
-            module: moduleTag,
-            sentence: (body.sentence || '').slice(0, 150),
-            timestamp: meta.downloads.lastUpdated
+          if (!Array.isArray(meta.views.recentLoads)) meta.views.recentLoads = [];
+          meta.views.recentLoads.unshift({
+            type: 'page_view',
+            referrer: (body.referrer || 'direct').slice(0, 100),
+            timestamp: meta.views.lastUpdated
           });
-          if (meta.downloads.recentClicks.length > 50) {
-            meta.downloads.recentClicks.pop();
+          if (meta.views.recentLoads.length > 50) {
+            meta.views.recentLoads.pop();
           }
 
           saveMetadata(meta);
 
-          console.log(`[METADATA] Download recorded for [${moduleTag}]. New global total: ${meta.downloads.total}`);
+          console.log(`[METADATA] Page View recorded. Total views: ${meta.views.total}`);
 
           res.statusCode = 200;
           res.setHeader('Content-Type', 'application/json');
           res.end(JSON.stringify({
             ok: true,
-            total: meta.downloads.total,
+            total: meta.views.total,
+            views: meta.views.total,
             metadata: meta
           }));
         } catch (e) {

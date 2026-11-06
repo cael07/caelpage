@@ -2487,14 +2487,14 @@ function initContactUsModal() {
 }
 
 // --------------------------------------------------------------------------
-// 12. Console / Matrix Stream Download Counter (Server-Side Metadata Sync)
+// 12. Console / Matrix Stream Page View Counter (Per-Load Metadata Sync)
 // --------------------------------------------------------------------------
-function initConsoleDownloadCounter() {
-  const counterEl = document.getElementById('download-counter');
+function initConsoleViewCounter() {
+  const counterEl = document.getElementById('download-counter') || document.getElementById('view-counter');
   const streamContainer = document.getElementById('live-console-stream');
-  if (!counterEl || !streamContainer) return;
+  if (!counterEl) return;
 
-  const STORAGE_KEY = 'cael_matrix_download_counter';
+  const STORAGE_KEY = 'cael_matrix_view_counter';
 
   // Instant local cache rendering so there's zero UI flicker
   let count = parseInt(localStorage.getItem(STORAGE_KEY), 10);
@@ -2509,9 +2509,10 @@ function initConsoleDownloadCounter() {
       const res = await fetch('/api/metadata');
       if (res.ok) {
         const data = await res.json();
-        if (data.ok && typeof data.total === 'number') {
+        const authoritativeCount = data.views ?? data.total;
+        if (typeof authoritativeCount === 'number') {
           const prev = count;
-          count = data.total;
+          count = authoritativeCount;
           counterEl.textContent = count;
           try {
             localStorage.setItem(STORAGE_KEY, count);
@@ -2525,96 +2526,70 @@ function initConsoleDownloadCounter() {
           }
         }
       }
-    } catch (err) {
+    } catch (_) {
       // Offline fallback: keep existing count
-      console.debug('Metadata server offline, using local counter');
     }
   }
 
-  // Initial fetch from server metadata
-  fetchServerMetadata();
-
-  // Background auto-sync: when visitor returns to tab or every 8s
-  window.addEventListener('focus', () => fetchServerMetadata(true));
-  setInterval(() => fetchServerMetadata(true), 8000);
-
-  // Handler for row sentence click/activation
-  function recordDownload(entry) {
-    // Optimistic UI increment
-    count++;
-    counterEl.textContent = count;
-    counterEl.style.transform = 'scale(1.35)';
-    setTimeout(() => {
-      counterEl.style.transform = '';
-    }, 160);
-
-    // Save to localStorage as immediate offline cache
+  // Record a page view on load (per load instead of per click)
+  async function recordPageView() {
     try {
-      localStorage.setItem(STORAGE_KEY, count);
-    } catch (e) {
-      console.warn('Unable to persist download counter to localStorage', e);
-    }
-
-    // Visual feedback on the clicked row sentence
-    entry.classList.remove('clicked-flash');
-    void entry.offsetWidth; // Force reflow
-    entry.classList.add('clicked-flash');
-    setTimeout(() => {
-      entry.classList.remove('clicked-flash');
-    }, 350);
-
-    // Cyber audio feedback
-    if (audio && audio.playBlip) {
-      audio.playBlip();
-    }
-
-    // Extract rich metadata from the clicked row
-    const tagEl = entry.querySelector('.log-tag');
-    const textEl = entry.querySelector('.log-text');
-    const moduleTag = tagEl ? tagEl.textContent.trim() : 'SYSTEM';
-    const sentenceText = textEl ? textEl.textContent.trim() : '';
-
-    // Push metadata increment to server
-    fetch('/api/metadata', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ module: moduleTag, sentence: sentenceText })
-    })
-      .then(res => res.json())
-      .then(data => {
-        if (data && data.ok && typeof data.total === 'number') {
-          // Reconcile with authoritative server count
-          count = data.total;
+      const res = await fetch('/api/metadata', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'page_view', referrer: document.referrer || 'direct' })
+      });
+      if (res.ok) {
+        const data = await res.json();
+        const authoritativeCount = data.views ?? data.total;
+        if (typeof authoritativeCount === 'number') {
+          count = authoritativeCount;
           counterEl.textContent = count;
+          counterEl.style.transform = 'scale(1.3)';
+          setTimeout(() => {
+            counterEl.style.transform = '';
+          }, 200);
           try {
             localStorage.setItem(STORAGE_KEY, count);
           } catch (_) {}
+          return;
         }
-      })
-      .catch(err => {
-        console.warn('Server metadata sync error:', err);
-      });
+      }
+    } catch (_) {
+      // Optimistic offline increment
+      count++;
+      counterEl.textContent = count;
+      try {
+        localStorage.setItem(STORAGE_KEY, count);
+      } catch (_) {}
+    }
   }
 
-  // Delegated event listener for clicks inside terminal stream
-  streamContainer.addEventListener('click', (e) => {
-    const entry = e.target.closest('.log-entry');
-    if (entry) {
-      recordDownload(entry);
-    }
-  });
+  // Automatically record this page view on load!
+  recordPageView();
 
-  // Keyboard accessibility (Enter / Space on focused row)
-  streamContainer.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
+  // Background auto-sync: when visitor returns to tab or every 12s
+  window.addEventListener('focus', () => fetchServerMetadata(true));
+  setInterval(() => fetchServerMetadata(false), 12000);
+
+  // Optional pleasant interaction: clicking a log entry plays cyber blip
+  if (streamContainer) {
+    streamContainer.addEventListener('click', (e) => {
       const entry = e.target.closest('.log-entry');
-      if (entry) {
-        e.preventDefault();
-        recordDownload(entry);
+      if (entry && audio && audio.playBlip) {
+        audio.playBlip();
+        entry.classList.remove('clicked-flash');
+        void entry.offsetWidth;
+        entry.classList.add('clicked-flash');
+        setTimeout(() => {
+          entry.classList.remove('clicked-flash');
+        }, 300);
       }
-    }
-  });
+    });
+  }
 }
+
+const initConsoleDownloadCounter = initConsoleViewCounter;
 
 // --------------------------------------------------------------------------
 // 13. Navigation Scroll Spy (Active Menu Item Color on Browse)
