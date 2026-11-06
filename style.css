@@ -2225,24 +2225,39 @@ body {
   height: 175px;
   margin: 0.5rem auto 1.4rem auto;
   border-radius: 50%;
-  padding: 8px;
-  background: conic-gradient(from 180deg at 50% 50%, var(--accent-cyan) 0deg, var(--accent-color) 180deg, var(--accent-cyan) 360deg);
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   box-shadow: 0 0 35px rgba(0, 243, 255, 0.35);
-  animation: caelinAuraRotate 8s linear infinite;
 }
 
-@keyframes caelinAuraRotate {
-  0% { filter: hue-rotate(0deg); }
-  100% { filter: hue-rotate(360deg); }
+.caelin-avatar-wrapper::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, var(--accent-cyan) 0deg, var(--accent-color) 180deg, var(--accent-cyan) 360deg);
+  animation: caelinRingSpin 8s linear infinite;
+  z-index: 1;
+}
+
+@keyframes caelinRingSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 .caelin-avatar-image {
+  position: relative;
+  z-index: 2;
   width: 100%;
   height: 100%;
   object-fit: cover;
   border-radius: 50%;
   background: #050811;
   display: block;
+  border: 3px solid #070d22;
+  filter: none !important; /* Preserves natural, true-to-life skin tone without color alterations */
 }
 
 .caelin-avatar-status {
