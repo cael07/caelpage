@@ -1772,11 +1772,12 @@ function initAppsCarousel() {
       click: function (s, e) {
         const card = e.target.closest('.app-card-inline');
         if (!card) return;
-        // Coming Soon ribbons and cards are completely non-clickable
+        // In Development cards are non-clickable
         if (
+          card.classList.contains('card-in-development') ||
           card.classList.contains('card-coming-soon') ||
-          e.target.closest('.corner-ribbon-3d') ||
-          card.querySelector('.corner-ribbon-3d')
+          card.dataset.appId === 'colorgame' ||
+          card.dataset.appId === 'oncallservice'
         ) {
           e.preventDefault();
           e.stopPropagation();
