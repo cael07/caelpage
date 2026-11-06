@@ -394,7 +394,30 @@ async def handle_chat(request: Request):
 
 
 # -----------------------------------------------------------------------------
-# 4. Static Frontend File Router
+# 4. Search Engine Optimization & Crawl Endpoints
+# -----------------------------------------------------------------------------
+@app.get("/robots.txt", response_class=FileResponse)
+async def get_robots_txt():
+    dist_file = os.path.join(DIST_DIR, "robots.txt")
+    if os.path.isfile(dist_file):
+        return FileResponse(dist_file, media_type="text/plain")
+    root_file = os.path.join(BASE_DIR, "robots.txt")
+    if os.path.isfile(root_file):
+        return FileResponse(root_file, media_type="text/plain")
+    return Response(content="User-agent: *\nAllow: /\nSitemap: https://caelpage.onrender.com/sitemap.xml\n", media_type="text/plain")
+
+@app.get("/sitemap.xml", response_class=FileResponse)
+async def get_sitemap_xml():
+    dist_file = os.path.join(DIST_DIR, "sitemap.xml")
+    if os.path.isfile(dist_file):
+        return FileResponse(dist_file, media_type="application/xml")
+    root_file = os.path.join(BASE_DIR, "sitemap.xml")
+    if os.path.isfile(root_file):
+        return FileResponse(root_file, media_type="application/xml")
+    return Response(content="<?xml version=\"1.0\" encoding=\"UTF-8\"?><urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"><url><loc>https://caelpage.onrender.com/</loc></url></urlset>", media_type="application/xml")
+
+# -----------------------------------------------------------------------------
+# 5. Static Frontend File Router
 # -----------------------------------------------------------------------------
 @app.get("/{full_path:path}")
 async def serve_static(full_path: str):

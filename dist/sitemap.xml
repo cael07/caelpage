@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <!-- Homepage -->
+  <url>
+    <loc>https://caelpage.onrender.com/</loc>
+    <lastmod>2026-11-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://caelpage.onrender.com/mobilelogo3clear.png</image:loc>
+      <image:title>Cael Hub Logo</image:title>
+      <image:caption>Cael Hub Free Business Applications Platform</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://caelpage.onrender.com/ai.png</image:loc>
+      <image:title>CAELIN Autonomous AI Assistant</image:title>
+      <image:caption>Cael Hub Ecosystem AI Assistant</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Applications Modules Section -->
+  <url>
+    <loc>https://caelpage.onrender.com/#modules</loc>
+    <lastmod>2026-11-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://caelpage.onrender.com/ridehailing.jpg</image:loc>
+      <image:title>Cael Ride Hailing Mobile App</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://caelpage.onrender.com/massageservice.jpg</image:loc>
+      <image:title>Cael Massage Service Mobile App</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://caelpage.onrender.com/truckdelivery.jpg</image:loc>
+      <image:title>Cael Trucking Delivery Mobile App</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://caelpage.onrender.com/timelock.jpg</image:loc>
+      <image:title>Cael Child Time Lock Parental Control App</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://caelpage.onrender.com/childlogin.jpg</image:loc>
+      <image:title>Cael Child Safety Zones Protection App</image:title>
+    </image:image>
+  </url>
+
+  <!-- Meet CAELIN AI Section -->
+  <url>
+    <loc>https://caelpage.onrender.com/#caelin</loc>
+    <lastmod>2026-11-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Mission & Vision Directives -->
+  <url>
+    <loc>https://caelpage.onrender.com/#mission</loc>
+    <lastmod>2026-11-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Capabilities & Telemetry Features -->
+  <url>
+    <loc>https://caelpage.onrender.com/#features</loc>
+    <lastmod>2026-11-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Live Matrix Updates Console -->
+  <url>
+    <loc>https://caelpage.onrender.com/#console</loc>
+    <lastmod>2026-11-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+</urlset>

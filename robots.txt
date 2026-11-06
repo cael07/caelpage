@@ -1,0 +1,13 @@
+# Robots.txt for Cael Hub
+# https://caelpage.onrender.com
+
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /dist/
+
+# Rate limit crawler pace
+Crawl-delay: 1
+
+# Sitemap Index
+Sitemap: https://caelpage.onrender.com/sitemap.xml
