@@ -2,8 +2,29 @@
   "system": "CAEL MATRIX Updates",
   "version": "2.4.0",
   "views": {
-    "total": 12,
-    "lastUpdated": "2026-11-06T10:25:00.000Z",
-    "recentLoads": []
+    "total": 16,
+    "lastUpdated": "2026-11-06T02:40:51.175Z",
+    "recentLoads": [
+      {
+        "type": "page_view",
+        "referrer": "http://localhost:5173/",
+        "timestamp": "2026-11-06T02:40:51.175Z"
+      },
+      {
+        "type": "page_view",
+        "referrer": "http://localhost:5173/",
+        "timestamp": "2026-11-06T02:39:00.090Z"
+      },
+      {
+        "type": "page_view",
+        "referrer": "http://localhost:5173/",
+        "timestamp": "2026-11-06T02:36:06.351Z"
+      },
+      {
+        "type": "page_view",
+        "referrer": "http://localhost:5173/",
+        "timestamp": "2026-11-06T02:35:52.424Z"
+      }
+    ]
   }
 }

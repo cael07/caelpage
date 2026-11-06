@@ -98,6 +98,7 @@ def get_cael_system_prompt():
 - Location: Bulacan, Philippines.
 - Official Receiving / Contact Email: caelhub@gmail.com (Direct Contact Us terminal on the Cael website).
 - Mission: {k.get('mission', '')}
+- Vision: {k.get('vision', '')}
 - Official Applications in Cael Ecosystem:
 {apps_list}
 - Contact / Inquiries: caelhub@gmail.com.
