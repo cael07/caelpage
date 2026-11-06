@@ -1928,6 +1928,16 @@ body {
   letter-spacing: 1px;
 }
 
+.stat-main-text {
+  font-family: var(--font-hud);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.8px;
+  line-height: 1.35;
+  text-transform: uppercase;
+}
+
 /* Flip Back Content Specific Styles */
 .flip-card-back .stat-icon {
   font-size: 1.7rem;
