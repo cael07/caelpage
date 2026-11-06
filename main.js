@@ -1661,8 +1661,8 @@ function initAppsCarousel() {
     loop: true,
     loopPreventsSliding: false,
     watchSlidesProgress: true,
-    slidesPerView: 1.15,
-    spaceBetween: 14,
+    slidesPerView: 1.05,
+    spaceBetween: 10,
     grabCursor: true,
     simulateTouch: true,
     touchRatio: 1.3,
@@ -1700,7 +1700,11 @@ function initAppsCarousel() {
       onlyInViewport: true,
     },
     breakpoints: {
-      600: {
+      480: {
+        slidesPerView: 1.25,
+        spaceBetween: 12,
+      },
+      640: {
         slidesPerView: 1.6,
         spaceBetween: 16,
       },
@@ -2345,7 +2349,9 @@ function initContactUsModal() {
   }
 
   window.openContactUsModal = openContactModal;
+  window.openContactModal = openContactModal;
   window.closeContactUsModal = closeContactModal;
+  window.closeContactModal = closeContactModal;
 
   if (closeBtn) closeBtn.addEventListener('click', closeContactModal);
   if (cancelBtn) cancelBtn.addEventListener('click', closeContactModal);
@@ -2862,6 +2868,90 @@ function initSystemMaintenanceCards() {
 }
 
 // --------------------------------------------------------------------------
+// 13.5. Mobile Cyber Navigation Menu & Drawer
+// --------------------------------------------------------------------------
+function initMobileMenu() {
+  const menuBtn = document.getElementById('mobile-menu-btn');
+  const drawer = document.getElementById('mobile-nav-drawer');
+  if (!menuBtn || !drawer) return;
+
+  function toggleMenu(forceClose = false) {
+    const isOpen = !forceClose && !drawer.classList.contains('open');
+    if (isOpen) {
+      drawer.classList.add('open');
+      menuBtn.classList.add('open');
+      menuBtn.setAttribute('aria-expanded', 'true');
+      drawer.setAttribute('aria-hidden', 'false');
+      audio.playBlip();
+    } else {
+      drawer.classList.remove('open');
+      menuBtn.classList.remove('open');
+      menuBtn.setAttribute('aria-expanded', 'false');
+      drawer.setAttribute('aria-hidden', 'true');
+    }
+  }
+
+  menuBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleMenu();
+  });
+
+  // Handle mobile navigation links
+  const navLinks = drawer.querySelectorAll('.mobile-nav-links a');
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      audio.playChime();
+      toggleMenu(true);
+    });
+  });
+
+  // Mobile Contact Trigger Button
+  const mobileContactBtn = document.getElementById('mobile-contact-trigger-btn');
+  if (mobileContactBtn) {
+    mobileContactBtn.addEventListener('click', () => {
+      toggleMenu(true);
+      if (typeof window.openContactModal === 'function') {
+        window.openContactModal();
+      } else {
+        const contactNav = document.getElementById('nav-contact-link');
+        if (contactNav) contactNav.click();
+      }
+    });
+  }
+
+  // Mobile Chat Trigger Button
+  const mobileChatBtn = document.getElementById('mobile-chat-trigger-btn');
+  if (mobileChatBtn) {
+    mobileChatBtn.addEventListener('click', () => {
+      toggleMenu(true);
+      const floatingBtn = document.getElementById('floating-chat-btn');
+      if (floatingBtn) floatingBtn.click();
+    });
+  }
+
+  // Close on outside click
+  document.addEventListener('click', (e) => {
+    if (drawer.classList.contains('open') && !drawer.contains(e.target) && !menuBtn.contains(e.target)) {
+      toggleMenu(true);
+    }
+  });
+
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && drawer.classList.contains('open')) {
+      toggleMenu(true);
+    }
+  });
+
+  // Auto-close when resizing to desktop width
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 768 && drawer.classList.contains('open')) {
+      toggleMenu(true);
+    }
+  });
+}
+
+// --------------------------------------------------------------------------
 // 14. Application Initialization Entry Point
 // --------------------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', () => {
@@ -2872,6 +2962,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initIntroAnimation();
   initThemeAndAudio();
+  initMobileMenu();
 
   const visualizer = new Visualizer('audio-wave-canvas');
   initModalController(visualizer);
