@@ -254,16 +254,32 @@ function initHeroCanvas() {
   if (!canvas) return;
 
   const ctx = canvas.getContext('2d');
-  let width = canvas.width = canvas.parentElement.offsetWidth;
-  let height = canvas.height = canvas.parentElement.offsetHeight;
+  const parent = canvas.parentElement;
+
+  let width = canvas.width = parent.offsetWidth;
+  let height = canvas.height = parent.offsetHeight;
 
   let mouse = { x: width / 2, y: height / 2, radius: 150 };
 
-  window.addEventListener('resize', () => {
-    if (!canvas.parentElement) return;
-    width = canvas.width = canvas.parentElement.offsetWidth;
-    height = canvas.height = canvas.parentElement.offsetHeight;
-  });
+  const updateSize = () => {
+    if (!parent) return;
+    const newWidth = parent.offsetWidth;
+    const newHeight = parent.offsetHeight;
+    if (newWidth !== width || newHeight !== height) {
+      width = canvas.width = newWidth;
+      height = canvas.height = newHeight;
+    }
+  };
+
+  window.addEventListener('resize', updateSize);
+  if (window.ResizeObserver) {
+    const ro = new ResizeObserver(updateSize);
+    ro.observe(parent);
+  }
+
+  // Also re-check size after 500ms and 1500ms to catch dynamic image/Swiper layout expansions
+  setTimeout(updateSize, 500);
+  setTimeout(updateSize, 1500);
 
   window.addEventListener('mousemove', (e) => {
     const rect = canvas.getBoundingClientRect();
@@ -271,13 +287,13 @@ function initHeroCanvas() {
     mouse.y = e.clientY - rect.top;
   });
 
-  const particles = Array.from({ length: 65 }, () => ({
+  const particles = Array.from({ length: 110 }, () => ({
     x: Math.random() * width,
     y: Math.random() * height,
-    vx: (Math.random() - 0.5) * 1.2,
-    vy: (Math.random() - 0.5) * 1.2,
-    radius: Math.random() * 2 + 1,
-    color: Math.random() > 0.5 ? '#00f3ff' : '#00a8ff'
+    vx: (Math.random() - 0.5) * 1.1,
+    vy: (Math.random() - 0.5) * 1.1,
+    radius: Math.random() * 2.2 + 1.2,
+    color: Math.random() > 0.4 ? '#00f3ff' : '#00b4d8'
   }));
 
   function draw() {
@@ -289,8 +305,10 @@ function initHeroCanvas() {
       p.x += p.vx;
       p.y += p.vy;
 
-      if (p.x < 0 || p.x > width) p.vx *= -1;
-      if (p.y < 0 || p.y > height) p.vy *= -1;
+      if (p.x < 0) { p.x = 0; p.vx *= -1; }
+      if (p.x > width) { p.x = width; p.vx *= -1; }
+      if (p.y < 0) { p.y = 0; p.vy *= -1; }
+      if (p.y > height) { p.y = height; p.vy *= -1; }
 
       // Mouse interactive force
       const dx = mouse.x - p.x;
@@ -305,7 +323,7 @@ function initHeroCanvas() {
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
       ctx.fillStyle = p.color;
-      ctx.shadowBlur = 10;
+      ctx.shadowBlur = 12;
       ctx.shadowColor = p.color;
       ctx.fill();
       ctx.shadowBlur = 0;
@@ -314,12 +332,12 @@ function initHeroCanvas() {
       for (let j = i + 1; j < particles.length; j++) {
         const p2 = particles[j];
         const distance = Math.hypot(p.x - p2.x, p.y - p2.y);
-        if (distance < 110) {
+        if (distance < 115) {
           ctx.beginPath();
           ctx.moveTo(p.x, p.y);
           ctx.lineTo(p2.x, p2.y);
-          ctx.strokeStyle = `rgba(0, 243, 255, ${0.25 * (1 - distance / 110)})`;
-          ctx.lineWidth = 0.8;
+          ctx.strokeStyle = `rgba(0, 243, 255, ${0.28 * (1 - distance / 115)})`;
+          ctx.lineWidth = 0.85;
           ctx.stroke();
         }
       }
