@@ -1073,6 +1073,14 @@ Answer concisely with sleek markdown formatting when appropriate. Always conclud
       return `Cael Hub includes the **Cael Two Color Game App**, a modern interactive community gaming arena featuring 3D physics color wheel spins (Red vs White), provably fair SHA-256 cryptographic verification, and instant e-wallet payouts in under 15 seconds...`;
     }
 
+    if (textLower.includes('loan') || textLower.includes('microfinance') || textLower.includes('lending') || textLower.includes('credit score') || textLower.includes('capital')) {
+      return `Cael Hub features the **Cael Loan Service App** (currently *In Development*), a high-velocity micro-lending and fintech platform. It is engineered with automated AI credit scoring (FICO/behavioral risk models), 60-second loan approvals, sub-minute direct e-wallet (GCash, Maya) or bank disbursements, and automated recurring debit collections. Like all Cael Hub apps, it is 100% free with zero licensing fees for business operators.`;
+    }
+
+    if (textLower.includes('oncall') || textLower.includes('locksmith') || textLower.includes('plumber') || textLower.includes('handyman') || textLower.includes('appliance repair')) {
+      return `Cael Hub features the **Cael OnCall Service App** (currently *In Development*), an on-demand residential emergency repair radar connecting homeowners to nearby verified locksmiths, appliance technicians, emergency plumbers, and handymen with sub-minute proximity GPS radar and 1-call dispatch.`;
+    }
+
     // Cael Founder, CEO & Meaning Knowledge
     if (
       (textLower.includes('founder') || textLower.includes('ceo') || textLower.includes('creator') || textLower.includes('owner') || textLower.includes('who made') || textLower.includes('who created')) &&
@@ -1777,7 +1785,8 @@ function initAppsCarousel() {
           card.classList.contains('card-in-development') ||
           card.classList.contains('card-coming-soon') ||
           card.dataset.appId === 'colorgame' ||
-          card.dataset.appId === 'oncallservice'
+          card.dataset.appId === 'oncallservice' ||
+          card.dataset.appId === 'loanservice'
         ) {
           e.preventDefault();
           e.stopPropagation();
@@ -1873,7 +1882,7 @@ function initAppDetailsModal() {
 
   function openAppModal(appId) {
     // Coming Soon apps do not open modal
-    if (appId === 'colorgame' || appId === 'oncallservice') {
+    if (appId === 'colorgame' || appId === 'oncallservice' || appId === 'loanservice') {
       return;
     }
     const app = APPS_CATALOG[appId] || APPS_CATALOG['ridehailing'];

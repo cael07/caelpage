@@ -922,5 +922,82 @@ export const APPS_CATALOG = {
       { label: 'Payment Options', value: 'Cashless QR digital wallet, debit/credit cards, and Cash on Completion' },
       { label: 'Licensing Model', value: '100% Free Ecosystem for Tradespeople and Home Service Dreamers' }
     ]
+  },
+
+  loanservice: {
+    id: 'loanservice',
+    title: 'CAEL LOAN SERVICE APP',
+    badge: 'CAEL LOAN APP',
+    subtitle: 'Fast Business & Microfinance Lending Service App',
+    pitch: 'A free mobile app ready for micro-lending, business capital, peer-to-peer financing, automated credit scoring, and sub-minute digital disbursement.',
+    gallery: [
+      {
+        image: './loanservice.jpg',
+        title: 'Micro-Lending & Fast Capital Cockpit',
+        tag: 'HERO SHOWCASE',
+        desc: 'Interactive digital loan dashboard displaying credit limit gauges, instant disbursement approvals, and automated repayment tracking.'
+      },
+      {
+        image: createSvgScreen(
+          'Instant Loan Application & Risk Underwriting',
+          'Automated AI credit scoring assessing repayment capacity in under 60 seconds',
+          'Credit Engine',
+          '#00f3ff',
+          '#10b981',
+          [
+            { label: 'Instant Credit Approval', desc: 'Real-time financial risk modeling with zero manual paper processing', value: 'APPROVED' },
+            { label: 'Disbursement Readiness', desc: 'Direct digital payout into borrower e-wallet or connected bank account', value: 'INSTANT PAYOUT' },
+            { label: 'Dynamic Loan Calculator', desc: 'Transparent principal, interest rate, and daily/weekly amortization schedule', value: 'FLEXIBLE TERMS' },
+            { label: 'Biometric KYC Liveness', desc: 'Facial recognition and government ID OCR authentication prevents identity fraud', value: 'VERIFIED KYC' }
+          ]
+        ),
+        title: 'Instant Credit Scoring & Underwriting',
+        tag: 'AI UNDERWRITING',
+        desc: 'Sub-minute borrower credit scoring with zero paperwork and automated risk validation.'
+      },
+      {
+        image: createSvgScreen(
+          'Borrower Wallet & Disbursement Gateway',
+          'Multi-channel funds transfer, QR code payouts, and automated recurring repayments',
+          'Fintech Wallet',
+          '#10b981',
+          '#a855f7',
+          [
+            { label: 'Available Credit Limit', desc: 'Revolving line of credit increasing with positive repayment history', value: 'REVOLVING LINE' },
+            { label: 'Automated Payment Collection', desc: 'Scheduled recurring debits via bank transfer, e-wallet, and OTC retail counters', value: 'AUTO-DEBIT' },
+            { label: 'Payment Reminders & SMS Push', desc: 'Gentle multi-channel alerts notify borrowers 3 days and 1 day prior to due date', value: 'SMS / PUSH ALERTS' },
+            { label: 'Lender Telemetry Dashboard', desc: 'Portfolio collection efficiency, non-performing loan rates, and cashflow analytics', value: 'PORTFOLIO 99.4%' }
+          ]
+        ),
+        title: 'Digital Wallet & Auto-Repayment Gateway',
+        tag: 'DISBURSEMENT & RECOVERY',
+        desc: 'End-to-end loan disbursement and automated collection via digital wallets.'
+      }
+    ],
+    features: [
+      { title: 'Automated AI Credit Scoring & Underwriting', desc: 'Real-time assessment of applicant repayment history, digital cashflow, and risk tiering in under 60 seconds.' },
+      { title: 'Sub-Minute Digital Loan Disbursement', desc: 'Direct, instant transfer of approved loan proceeds directly into the borrower’s digital e-wallet or bank account.' },
+      { title: 'Flexible Microfinance & Business Loan Terms', desc: 'Configurable daily, weekly, or monthly repayment plans tailored for small businesses and independent vendors.' },
+      { title: 'Interactive Real-Time Loan Calculator', desc: 'Transparent calculation of interest, fees, and installment schedules with zero hidden penalties.' },
+      { title: 'Biometric KYC & Anti-Fraud Identification', desc: 'AI liveness facial verification and OCR government ID scanner ensure authentic identity compliance.' },
+      { title: 'Automated Payment Collections & Auto-Debits', desc: 'Seamless integration with retail payment counters, bank debiting, and e-wallets for frictionless repayments.' },
+      { title: 'Comprehensive Lender Portfolio Telemetry', desc: 'Real-time dashboard tracking portfolio health, collection rate efficiency, and delinquency prevention.' }
+    ],
+    details: {
+      overview: 'CAEL Loan Service App is an innovative digital micro-lending and financing platform designed to help entrepreneurs, cooperatives, and microfinance organizations deploy their own branded lending ecosystem with zero software licensing costs.',
+      workforce: 'Empower loan officers and field agents. Collection agents use mobile telemetry to log client visits, collect offline or online payments, and manage borrower portfolios on the go.',
+      monetization: '100% Free Open Platform. Lending entrepreneurs and financial organizations can deploy their customized lending platform with zero platform royalty fees.',
+      security: 'Bank-grade 256-bit AES encryption, biometric KYC authentication, and multi-factor transaction validation.'
+    },
+    specs: [
+      { label: 'Supported Platforms', value: 'Native Android, iOS, Web Lender Operations Cockpit' },
+      { label: 'Approval Speed', value: 'Automated AI scoring in under 60 seconds' },
+      { label: 'Disbursement Methods', value: 'Instant Digital E-Wallet, Bank Transfer, OTC Remittance' },
+      { label: 'Repayment Terms', value: 'Custom daily, weekly, bi-weekly, and monthly amortization' },
+      { label: 'KYC & Verification', value: 'Biometric facial liveness check, OCR ID extraction' },
+      { label: 'Interest Configuration', value: 'Flat, diminishing balance, or custom tiering' },
+      { label: 'Collection Channels', value: 'Auto-debit, QR code payments, field agent collections' },
+      { label: 'Licensing Model', value: '100% Free Ecosystem for Lending & Business Dreamers' }
+    ]
   }
 };

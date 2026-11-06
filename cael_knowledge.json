@@ -107,6 +107,39 @@
         "Multiplayer live chat room with winner celebration tickers and coin rain",
         "Comprehensive operator revenue ledger with multi-tier agent commissions"
       ]
+    },
+    {
+      "id": "oncallservice",
+      "name": "Cael OnCall Service App",
+      "category": "Home & Commercial Services",
+      "subtitle": "All Home Services • Closest To You • One Call Away",
+      "description": "An on-demand trade and home services platform connecting clients with nearest verified locksmiths, appliance technicians, plumbers, carpenters, and electricians.",
+      "key_features": [
+        "Sub-minute nearest technician matching via real-time GPS proximity radar",
+        "24/7 Emergency locksmith and lockout rescue services",
+        "Certified home appliance and refrigerator repair dispatch",
+        "Emergency plumbing and high-pressure pipe leak fixes",
+        "Master carpentry, electrical, and handyman services",
+        "One-call masked VoIP and live video diagnostics",
+        "Standardized transparent labor pricing and verified background checks"
+      ]
+    },
+    {
+      "id": "loanservice",
+      "name": "Cael Loan Service App",
+      "category": "Fintech & Microfinance Lending",
+      "subtitle": "Fast Business & Microfinance Lending Service App",
+      "description": "A turnkey white-label digital lending platform empowering microfinance institutions and entrepreneurs with automated credit scoring, instant loan disbursements, and digital payment collections.",
+      "key_features": [
+        "Automated AI-assisted borrower credit scoring and risk evaluation",
+        "Instant online loan application with 5-minute approval workflows",
+        "Direct e-wallet and bank account loan disbursement",
+        "Flexible daily, weekly, and monthly installment payment schedules",
+        "Interactive real-time loan calculator with transparent interest rates",
+        "Automated repayment reminders and recurring payment auto-debits",
+        "Digital KYC identity verification with biometric liveness checks",
+        "Comprehensive lender portfolio management and delinquency telemetry"
+      ]
     }
   ],
   "licensing_and_pricing": "100% Free Ecosystem. No monthly software licenses, no per-transaction platform royalties, and no user seat limits. Entrepreneurs can white-label with their own brand and logo.",
