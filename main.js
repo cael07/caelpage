@@ -427,6 +427,17 @@ function initModalController(visualizer) {
   if (headerBtn) headerBtn.addEventListener('click', openLightbox);
   if (heroBtn) heroBtn.addEventListener('click', openLightbox);
 
+  const caelinSectionBtn = document.getElementById('caelin-section-chat-btn');
+  if (caelinSectionBtn) caelinSectionBtn.addEventListener('click', openLightbox);
+
+  document.querySelectorAll('.open-chat-trigger').forEach(trigger => {
+    if (trigger !== floatingBtn && trigger !== headerBtn && trigger !== heroBtn && trigger !== caelinSectionBtn) {
+      trigger.addEventListener('click', openLightbox);
+    }
+  });
+
+  window.openCaelinChat = openLightbox;
+
   closeBtn.addEventListener('click', closeLightbox);
   backdrop.addEventListener('click', closeLightbox);
 
