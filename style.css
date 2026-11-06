@@ -2476,8 +2476,8 @@ body {
    -------------------------------------------------------------------------- */
 .cyber-footer {
   border-top: 1px solid var(--bg-card-border);
-  background: rgba(3, 5, 12, 0.9);
-  padding: 1.5rem 0;
+  background: rgba(3, 5, 12, 0.95);
+  padding: 2.5rem 0 2rem;
 }
 
 .footer-container {
@@ -2485,11 +2485,48 @@ body {
   max-width: 1280px;
   margin: 0 auto;
   display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
   align-items: center;
-  justify-content: space-between;
+  text-align: center;
   font-family: var(--font-code);
   font-size: 0.78rem;
   color: var(--text-muted);
+}
+
+.footer-motto-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding-bottom: 1.4rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  width: 100%;
+}
+
+.footer-motto-primary {
+  font-family: var(--font-hud);
+  font-size: clamp(0.95rem, 2.5vw, 1.25rem);
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #ffffff;
+  text-shadow: 0 0 14px rgba(0, 243, 255, 0.35);
+}
+
+.footer-motto-secondary {
+  font-family: var(--font-body);
+  font-size: clamp(0.85rem, 2vw, 1rem);
+  font-weight: 500;
+  color: var(--accent-cyan);
+  letter-spacing: 0.5px;
+}
+
+.footer-bottom-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
 .footer-brand {
@@ -3675,6 +3712,12 @@ body {
 
   .floating-badge {
     font-size: 0.55rem;
+  }
+
+  .footer-bottom-row {
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.65rem;
   }
 }
 
