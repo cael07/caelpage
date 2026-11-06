@@ -18,8 +18,8 @@
     href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;600;700;800;900&display=swap"
     rel="stylesheet">
 
-  <script type="module" crossorigin src="/assets/index-CkT6HDXY.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index-DmM-5DZs.css">
+  <script type="module" crossorigin src="/assets/index-Dy8SWflR.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-5Elt3cAO.css">
 </head>
 
 <body class="theme-purple">
@@ -482,6 +482,12 @@
             <p>We believe that building a business shouldn't require expensive software, overwhelming startup costs, or access to enterprise-level resources.</p>
             <p>With Cael Hub, individuals and small businesses can access modern technology, reduce operational expenses, and compete more confidently in a world where digital tools are becoming essential to success.</p>
             <p class="hero-manifesto-footer">Your dream deserves a chance. Your business deserves the tools. And your future deserves an opportunity.</p>
+            <div class="hero-manifesto-action">
+              <button type="button" id="explore-free-apps-btn" class="cyber-btn lg glow-cyan explore-apps-btn" aria-label="Explore Free Applications">
+                <span class="btn-text">Explore Free Applications</span>
+                <span class="btn-arrow">→</span>
+              </button>
+            </div>
           </div>
 
           <div class="hero-cta-group">
@@ -1180,6 +1186,410 @@
           </button>
         </div>
       </form>
+    </div>
+  </div>
+
+  <!-- ==================== EXPLORE FREE APPLICATIONS MODAL ==================== -->
+  <div id="apps-catalog-modal" class="app-modal-overlay hidden" aria-hidden="true" role="dialog" aria-labelledby="apps-catalog-modal-title">
+    <div class="app-modal-backdrop" id="apps-catalog-modal-backdrop"></div>
+    <div class="apps-catalog-window cyber-card">
+      <div class="app-modal-corner top-left"></div>
+      <div class="app-modal-corner top-right"></div>
+      <div class="app-modal-corner bottom-left"></div>
+      <div class="app-modal-corner bottom-right"></div>
+
+      <!-- Modal Header -->
+      <div class="apps-catalog-header">
+        <div class="apps-catalog-title-group">
+          <div class="apps-catalog-tag">
+            <span class="pulse-dot green"></span>
+            <span>ECOSYSTEM DIRECTORY • ZERO LICENSING FEES</span>
+          </div>
+          <h2 id="apps-catalog-modal-title" class="apps-catalog-title">
+            EXPLORE FREE APPLICATIONS
+          </h2>
+          <p class="apps-catalog-desc">
+            Ready-to-deploy, white-label mobile applications engineered for entrepreneurs, business builders, and families.
+          </p>
+        </div>
+        <button id="apps-catalog-close-btn" class="app-modal-close-btn" aria-label="Close modal" title="Close (Esc)">✕</button>
+      </div>
+
+      <!-- Dynamic Search & Filter Bar -->
+      <div class="apps-catalog-toolbar">
+        <div class="apps-search-box">
+          <span class="apps-search-icon">🔍</span>
+          <input type="text" id="apps-search-input" class="apps-search-input" placeholder="Search applications, features, or keywords (e.g. ride, massage, safety, tracking)..." autocomplete="off" />
+          <button type="button" id="apps-search-clear" class="apps-search-clear hidden" aria-label="Clear search">✕</button>
+        </div>
+
+        <div class="apps-filter-bar">
+          <div class="apps-filter-pills" id="apps-filter-pills">
+            <button type="button" class="filter-pill active" data-category="all">
+              <span>All Applications</span>
+              <span class="pill-count" id="pill-count-all">7</span>
+            </button>
+            <button type="button" class="filter-pill" data-category="business">
+              <span>Business</span>
+              <span class="pill-count" id="pill-count-business">4</span>
+            </button>
+            <button type="button" class="filter-pill" data-category="personal">
+              <span>Personal &amp; Family</span>
+              <span class="pill-count" id="pill-count-personal">2</span>
+            </button>
+            <button type="button" class="filter-pill" data-category="upcoming">
+              <span>Upcoming Projects</span>
+              <span class="pill-count" id="pill-count-upcoming">2</span>
+            </button>
+          </div>
+          <div class="apps-search-status" id="apps-search-status">
+            Showing all 7 applications
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Content Body (Scrollable with Categories) -->
+      <div class="apps-catalog-body" id="apps-catalog-body">
+
+        <!-- CATEGORY 1: Business Applications -->
+        <section class="apps-category-block" data-category-group="business" id="category-business">
+          <div class="category-header">
+            <div class="category-title-wrap">
+              <span class="category-icon">💼</span>
+              <div>
+                <h3 class="category-name">Business Applications</h3>
+                <p class="category-subtitle">Ride-hailing, massage services, trucking, logistics, and home services.</p>
+              </div>
+            </div>
+            <span class="category-badge">READY TO LAUNCH</span>
+          </div>
+
+          <div class="apps-grid">
+            <!-- App: Ride Hailing -->
+            <article class="catalog-app-card" data-app-id="ridehailing" data-category="business" data-search="cael ride hailing app motorcycle taxi courier delivery logistics tracking driver passenger payroll workforce booking">
+              <div class="card-img-wrap">
+                <img src="/assets/ridehailing-B--6yQCM.jpg?v=2" alt="CAEL Ride Hailing App" class="card-thumb" />
+                <span class="card-badge">FREE WHITE-LABEL</span>
+              </div>
+              <div class="card-content">
+                <div class="card-meta">
+                  <span class="card-domain">TRANSPORT &amp; LOGISTICS</span>
+                  <span class="card-version">v4.2 • READY</span>
+                </div>
+                <h4 class="card-title">CAEL RIDE HAILING APP</h4>
+                <p class="card-sub">Ride Hailing, Courier &amp; Delivery Service App</p>
+                <p class="card-pitch">A free mobile app ready for your own business and own logo with sub-second GPS dispatch and in-app payroll.</p>
+                
+                <ul class="card-features">
+                  <li><span class="f-bullet">✦</span> Driver Dispatch &amp; Passenger Booking Apps</li>
+                  <li><span class="f-bullet">✦</span> Automated Time Attendance &amp; Payroll</li>
+                  <li><span class="f-bullet">✦</span> Real-Time Turn-by-Turn GPS Navigation</li>
+                  <li><span class="f-bullet">✦</span> 24/7 Operations &amp; Live Support Portal</li>
+                </ul>
+
+                <div class="card-actions">
+                  <button type="button" class="cyber-btn sm glow-cyan catalog-view-btn" data-app-id="ridehailing">
+                    <span>View 8 Screens &amp; Specs</span>
+                    <span class="btn-arrow">→</span>
+                  </button>
+                  <button type="button" class="cyber-btn sm outline catalog-ask-btn" data-app-name="CAEL Ride Hailing App">
+                    <span>Ask CAELIN</span>
+                    <span>💬</span>
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <!-- App: Massage Service -->
+            <article class="catalog-app-card" data-app-id="massageservice" data-category="business" data-search="cael massage service app on-demand spa home wellness therapist dispatch booking branch route tracking appointments">
+              <div class="card-img-wrap">
+                <img src="/assets/massageservice-DDinqYsi.jpg?v=3" alt="CAEL Massage Service App" class="card-thumb" />
+                <span class="card-badge">FREE WHITE-LABEL</span>
+              </div>
+              <div class="card-content">
+                <div class="card-meta">
+                  <span class="card-domain">WELLNESS &amp; HEALTH</span>
+                  <span class="card-version">v3.8 • READY</span>
+                </div>
+                <h4 class="card-title">CAEL MASSAGE SERVICE APP</h4>
+                <p class="card-sub">On-Demand Spa &amp; Home Massage Service</p>
+                <p class="card-pitch">A free mobile app ready for your own massage &amp; wellness service business with live therapist routing.</p>
+                
+                <ul class="card-features">
+                  <li><span class="f-bullet">✦</span> Admin &amp; Multi-Branch Management Portal</li>
+                  <li><span class="f-bullet">✦</span> Therapist Portal with GPS &amp; Live Availability</li>
+                  <li><span class="f-bullet">✦</span> Client On-Demand Booking &amp; Service Selection</li>
+                  <li><span class="f-bullet">✦</span> In-App Chat, Ratings &amp; Reviews System</li>
+                </ul>
+
+                <div class="card-actions">
+                  <button type="button" class="cyber-btn sm glow-cyan catalog-view-btn" data-app-id="massageservice">
+                    <span>View 10 Screens &amp; Specs</span>
+                    <span class="btn-arrow">→</span>
+                  </button>
+                  <button type="button" class="cyber-btn sm outline catalog-ask-btn" data-app-name="CAEL Massage Service App">
+                    <span>Ask CAELIN</span>
+                    <span>💬</span>
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <!-- App: Trucking Delivery -->
+            <article class="catalog-app-card" data-app-id="truckdelivery" data-category="business" data-search="cael trucking delivery app commercial freight heavy cargo logistics waybill rate calculator fleet dispatch routing proof of delivery">
+              <div class="card-img-wrap">
+                <img src="/assets/truckdelivery-BEMb1ivk.jpg?v=6" alt="CAEL Trucking Delivery App" class="card-thumb" />
+                <span class="card-badge">FREE WHITE-LABEL</span>
+              </div>
+              <div class="card-content">
+                <div class="card-meta">
+                  <span class="card-domain">COMMERCIAL FREIGHT</span>
+                  <span class="card-version">v4.0 • READY</span>
+                </div>
+                <h4 class="card-title">CAEL TRUCKING DELIVERY APP</h4>
+                <p class="card-sub">Heavy Cargo &amp; Commercial Freight Dispatch</p>
+                <p class="card-pitch">A free mobile app ready for your commercial trucking, freight, and cargo logistics enterprise.</p>
+                
+                <ul class="card-features">
+                  <li><span class="f-bullet">✦</span> Fleet &amp; Multi-Truck Dispatch Operations</li>
+                  <li><span class="f-bullet">✦</span> Cargo Waybill &amp; Dynamic Weight Rate Calculator</li>
+                  <li><span class="f-bullet">✦</span> Driver Live GPS Routing &amp; Telemetry Tracking</li>
+                  <li><span class="f-bullet">✦</span> Digital Proof of Delivery &amp; E-Signatures</li>
+                </ul>
+
+                <div class="card-actions">
+                  <button type="button" class="cyber-btn sm glow-cyan catalog-view-btn" data-app-id="truckdelivery">
+                    <span>View 10 Screens &amp; Specs</span>
+                    <span class="btn-arrow">→</span>
+                  </button>
+                  <button type="button" class="cyber-btn sm outline catalog-ask-btn" data-app-name="CAEL Trucking Delivery App">
+                    <span>Ask CAELIN</span>
+                    <span>💬</span>
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <!-- App: OnCall Home Services -->
+            <article class="catalog-app-card" data-app-id="oncallservice" data-category="business" data-search="cael oncall home service app locksmith appliance repair emergency plumbing pipe carpentry handyman proximity radar dispatch">
+              <div class="card-img-wrap">
+                <img src="/assets/caeloncall-CCN9sEfD.jpg" alt="CAEL OnCall Service App" class="card-thumb" />
+                <span class="card-badge orange">HOME SERVICES</span>
+              </div>
+              <div class="card-content">
+                <div class="card-meta">
+                  <span class="card-domain">RESIDENTIAL SERVICES</span>
+                  <span class="card-version">PROXIMITY RADAR</span>
+                </div>
+                <h4 class="card-title">CAEL ONCALL SERVICE APP</h4>
+                <p class="card-sub">All Home Services • Closest To You • One Call Away</p>
+                <p class="card-pitch">Connecting homeowners with nearby verified locksmiths, appliance technicians, plumbers, and handymen.</p>
+                
+                <ul class="card-features">
+                  <li><span class="f-bullet">✦</span> 24/7 Locksmith &amp; Emergency Lock Services</li>
+                  <li><span class="f-bullet">✦</span> Refrigerator &amp; Home Appliance Repair</li>
+                  <li><span class="f-bullet">✦</span> Emergency Plumbing &amp; Pipe Leak Solutions</li>
+                  <li><span class="f-bullet">✦</span> Sub-Minute Live Proximity GPS Radar</li>
+                </ul>
+
+                <div class="card-actions">
+                  <button type="button" class="cyber-btn sm glow-cyan catalog-ask-btn" data-app-name="CAEL OnCall Home Service App">
+                    <span>Explore with CAELIN</span>
+                    <span>💬</span>
+                  </button>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- CATEGORY 2: Personal & Family Applications -->
+        <section class="apps-category-block" data-category-group="personal" id="category-personal">
+          <div class="category-header">
+            <div class="category-title-wrap">
+              <span class="category-icon">🛡️</span>
+              <div>
+                <h3 class="category-name">Personal &amp; Family Applications</h3>
+                <p class="category-subtitle">Parental controls, safety zones, and personal monitoring.</p>
+              </div>
+            </div>
+            <span class="category-badge green">FAMILY PROTECTION</span>
+          </div>
+
+          <div class="apps-grid">
+            <!-- App: Child Time Lock -->
+            <article class="catalog-app-card" data-app-id="timelock" data-category="personal" data-search="cael child time lock parental controls personal monitoring phone overuse bedtime sleep schedule remote device lockout screen capture">
+              <div class="card-img-wrap">
+                <img src="/assets/timelock-CINarS5Z.jpg?v=2" alt="CAEL Child Time Lock" class="card-thumb" />
+                <span class="card-badge">FREE WHITE-LABEL</span>
+              </div>
+              <div class="card-content">
+                <div class="card-meta">
+                  <span class="card-domain">PARENTAL CONTROL</span>
+                  <span class="card-version">v3.5 • READY</span>
+                </div>
+                <h4 class="card-title">CAEL CHILD TIME LOCK</h4>
+                <p class="card-sub">Protect Child From Phone Overuse And Misuse</p>
+                <p class="card-pitch">A free mobile app to protect children from screen addiction with automated bedtime lockouts and remote oversight.</p>
+                
+                <ul class="card-features">
+                  <li><span class="f-bullet">✦</span> Multiple Child Phone Control Management</li>
+                  <li><span class="f-bullet">✦</span> Remote Parental Device Control &amp; Oversight</li>
+                  <li><span class="f-bullet">✦</span> Automated Bedtime &amp; Sleep Schedule Lockout</li>
+                  <li><span class="f-bullet">✦</span> Instant Remote Lockout &amp; Screen Verification</li>
+                </ul>
+
+                <div class="card-actions">
+                  <button type="button" class="cyber-btn sm glow-cyan catalog-view-btn" data-app-id="timelock">
+                    <span>View 10 Screens &amp; Specs</span>
+                    <span class="btn-arrow">→</span>
+                  </button>
+                  <button type="button" class="cyber-btn sm outline catalog-ask-btn" data-app-name="CAEL Child Time Lock">
+                    <span>Ask CAELIN</span>
+                    <span>💬</span>
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <!-- App: Child Safety Zones -->
+            <article class="catalog-app-card" data-app-id="childzones" data-category="personal" data-search="cael child safety zones parental controls personal monitoring geofencing gps route home school breach alert auto camera capture stolen phone anti-kidnapping">
+              <div class="card-img-wrap">
+                <img src="/assets/childlogin-B03NNIQi.jpg?v=3" alt="CAEL Child Safety Zones" class="card-thumb" />
+                <span class="card-badge">FREE WHITE-LABEL</span>
+              </div>
+              <div class="card-content">
+                <div class="card-meta">
+                  <span class="card-domain">GEO-PROTECTION</span>
+                  <span class="card-version">v4.1 • READY</span>
+                </div>
+                <h4 class="card-title">CAEL CHILD SAFETY ZONES</h4>
+                <p class="card-sub">Child Realtime Safety Zones and Alerts</p>
+                <p class="card-pitch">A free mobile app ensuring parents stay worry-free with real-time geofenced zones and instant boundary breach alerts.</p>
+                
+                <ul class="card-features">
+                  <li><span class="f-bullet">✦</span> Dynamic Safe Zones (Home, School, Pathways)</li>
+                  <li><span class="f-bullet">✦</span> Monitored Safe Routes with Off-Path Alerts</li>
+                  <li><span class="f-bullet">✦</span> Instant Parental Alert if Child Exits Safety Zone</li>
+                  <li><span class="f-bullet">✦</span> Auto-Camera Silent Capture if Phone is Tampered</li>
+                </ul>
+
+                <div class="card-actions">
+                  <button type="button" class="cyber-btn sm glow-cyan catalog-view-btn" data-app-id="childzones">
+                    <span>View 10 Screens &amp; Specs</span>
+                    <span class="btn-arrow">→</span>
+                  </button>
+                  <button type="button" class="cyber-btn sm outline catalog-ask-btn" data-app-name="CAEL Child Safety Zones">
+                    <span>Ask CAELIN</span>
+                    <span>💬</span>
+                  </button>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- CATEGORY 3: Upcoming Projects -->
+        <section class="apps-category-block" data-category-group="upcoming" id="category-upcoming">
+          <div class="category-header">
+            <div class="category-title-wrap">
+              <span class="category-icon">🚀</span>
+              <div>
+                <h3 class="category-name">Upcoming Projects</h3>
+                <p class="category-subtitle">Applications currently being developed or tested.</p>
+              </div>
+            </div>
+            <span class="category-badge purple">ACTIVE LABS</span>
+          </div>
+
+          <div class="apps-grid">
+            <!-- App: Two Color Game -->
+            <article class="catalog-app-card" data-app-id="colorgame" data-category="upcoming" data-search="cael two color game app upcoming projects developed tested entertainment betting odds calculator wallet payout live community game probability dashboard">
+              <div class="card-img-wrap">
+                <img src="/assets/colorgame-Dl0OktSW.jpg" alt="CAEL Two Color Game App" class="card-thumb" />
+                <span class="card-badge purple">IN DEVELOPMENT</span>
+              </div>
+              <div class="card-content">
+                <div class="card-meta">
+                  <span class="card-domain">GAMING &amp; ENTERTAINMENT</span>
+                  <span class="card-version">LABS • BETA TESTING</span>
+                </div>
+                <h4 class="card-title">CAEL TWO COLOR GAME APP</h4>
+                <p class="card-sub">Interactive Two-Color Betting &amp; Entertainment App</p>
+                <p class="card-pitch">A free mobile app ready for interactive community color guessing, probability analysis, and instant automated rewards.</p>
+                
+                <ul class="card-features">
+                  <li><span class="f-bullet">✦</span> Real-Time 2-Color Round Engine &amp; Live Odds</li>
+                  <li><span class="f-bullet">✦</span> Dynamic Multi-Player Pool &amp; Balance Wallet</li>
+                  <li><span class="f-bullet">✦</span> Automated Winning Payout &amp; Security Validation</li>
+                  <li><span class="f-bullet">✦</span> Round History, Probability Charts &amp; Audit Trail</li>
+                </ul>
+
+                <div class="card-actions">
+                  <button type="button" class="cyber-btn sm glow-cyan catalog-ask-btn" data-app-name="CAEL Two Color Game App">
+                    <span>Ask CAELIN about Roadmap</span>
+                    <span>💬</span>
+                  </button>
+                </div>
+              </div>
+            </article>
+
+            <!-- App: OnCall Radar Dispatch Labs -->
+            <article class="catalog-app-card" data-app-id="oncallradar" data-category="upcoming" data-search="cael oncall home services upcoming projects developed tested proximity radar locksmith emergency dispatch local services ai routing">
+              <div class="card-img-wrap">
+                <img src="/assets/caeloncall-CCN9sEfD.jpg" alt="CAEL OnCall Proximity Radar" class="card-thumb" />
+                <span class="card-badge purple">BETA TESTING</span>
+              </div>
+              <div class="card-content">
+                <div class="card-meta">
+                  <span class="card-domain">DISPATCH INFRASTRUCTURE</span>
+                  <span class="card-version">LABS • TESTING</span>
+                </div>
+                <h4 class="card-title">CAEL PROXIMITY DISPATCH RADAR</h4>
+                <p class="card-sub">Sub-Minute Emergency Service Radar Architecture</p>
+                <p class="card-pitch">Next-generation real-time proximity matchmaking algorithm connecting service technicians with clients instantly.</p>
+                
+                <ul class="card-features">
+                  <li><span class="f-bullet">✦</span> Sub-Second Proximity Radar Engine</li>
+                  <li><span class="f-bullet">✦</span> Autonomous Technician Geo-Allocation</li>
+                  <li><span class="f-bullet">✦</span> In-App Encrypted Video Diagnostics</li>
+                  <li><span class="f-bullet">✦</span> Commission-Free Direct Settlement</li>
+                </ul>
+
+                <div class="card-actions">
+                  <button type="button" class="cyber-btn sm glow-cyan catalog-ask-btn" data-app-name="CAEL Proximity Dispatch Radar">
+                    <span>Ask CAELIN about Pilot Access</span>
+                    <span>💬</span>
+                  </button>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- No Results Empty State -->
+        <div id="apps-no-results" class="apps-no-results hidden">
+          <div class="no-results-icon">📡</div>
+          <h4 class="no-results-title">No Applications Found</h4>
+          <p class="no-results-desc">No applications match your query: <strong id="no-results-query" class="text-accent"></strong></p>
+          <button type="button" id="reset-apps-search-btn" class="cyber-btn sm glow-cyan">
+            <span>Reset Search &amp; Show All</span>
+          </button>
+        </div>
+
+      </div> <!-- /apps-catalog-body -->
+
+      <!-- Modal Footer -->
+      <div class="apps-catalog-footer">
+        <div class="catalog-footer-note">
+          <span class="note-bullet">✦</span>
+          <span>All Cael Hub applications come with 100% free white-label deployment, source code customization, and zero ongoing licensing fees.</span>
+        </div>
+        <button type="button" id="catalog-talk-caelin-btn" class="cyber-btn sm glow-cyan">
+          <span>Discuss Your App with CAELIN</span>
+          <span>→</span>
+        </button>
+      </div>
     </div>
   </div>
 

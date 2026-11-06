@@ -420,7 +420,15 @@ function initModalController(visualizer) {
   function closeLightbox() {
     audio.playBlip();
     lightbox.classList.add('hidden');
-    document.body.style.overflow = '';
+    const appModal = document.getElementById('app-details-modal');
+    const contactModal = document.getElementById('contact-modal');
+    const catalogModal = document.getElementById('apps-catalog-modal');
+    const isAppModalOpen = appModal && !appModal.classList.contains('hidden');
+    const isContactOpen = contactModal && !contactModal.classList.contains('hidden');
+    const isCatalogOpen = catalogModal && !catalogModal.classList.contains('hidden');
+    if (!isAppModalOpen && !isContactOpen && !isCatalogOpen) {
+      document.body.style.overflow = '';
+    }
   }
 
   floatingBtn.addEventListener('click', openLightbox);
@@ -1923,7 +1931,12 @@ function initAppDetailsModal() {
     modal.classList.add('hidden');
     modal.setAttribute('aria-hidden', 'true');
     const chatLightbox = document.getElementById('chat-lightbox');
-    if (!chatLightbox || chatLightbox.classList.contains('hidden')) {
+    const catalogModal = document.getElementById('apps-catalog-modal');
+    const contactModal = document.getElementById('contact-modal');
+    const isAnyOpen = (chatLightbox && !chatLightbox.classList.contains('hidden')) ||
+                      (catalogModal && !catalogModal.classList.contains('hidden')) ||
+                      (contactModal && !contactModal.classList.contains('hidden'));
+    if (!isAnyOpen) {
       document.body.style.overflow = '';
     }
   }
@@ -2368,9 +2381,11 @@ function initContactUsModal() {
     modal.setAttribute('aria-hidden', 'true');
     const appModal = document.getElementById('app-details-modal');
     const chatModal = document.getElementById('chat-lightbox');
+    const catalogModal = document.getElementById('apps-catalog-modal');
     const isAppModalOpen = appModal && !appModal.classList.contains('hidden');
     const isChatOpen = chatModal && !chatModal.classList.contains('hidden');
-    if (!isAppModalOpen && !isChatOpen) {
+    const isCatalogOpen = catalogModal && !catalogModal.classList.contains('hidden');
+    if (!isAppModalOpen && !isChatOpen && !isCatalogOpen) {
       document.body.style.overflow = '';
     }
     // Re-trigger scroll event to restore current section's active state
@@ -2956,7 +2971,243 @@ function initMobileMenu() {
 }
 
 // --------------------------------------------------------------------------
-// 14. Application Initialization Entry Point
+// 14. Explore Free Applications Catalog Modal Controller (Search & Categories)
+// --------------------------------------------------------------------------
+function initAppsCatalogModal() {
+  const modal = document.getElementById('apps-catalog-modal');
+  if (!modal) return;
+
+  const openBtn = document.getElementById('explore-free-apps-btn');
+  const backdrop = document.getElementById('apps-catalog-modal-backdrop');
+  const closeBtn = document.getElementById('apps-catalog-close-btn');
+  const searchInput = document.getElementById('apps-search-input');
+  const searchClearBtn = document.getElementById('apps-search-clear');
+  const filterPills = modal.querySelectorAll('.apps-filter-pills .filter-pill');
+  const categoryBlocks = modal.querySelectorAll('.apps-category-block');
+  const appCards = modal.querySelectorAll('.catalog-app-card');
+  const statusText = document.getElementById('apps-search-status');
+  const noResultsBox = document.getElementById('apps-no-results');
+  const noResultsQueryEl = document.getElementById('no-results-query');
+  const resetSearchBtn = document.getElementById('reset-apps-search-btn');
+  const footerCaelinBtn = document.getElementById('catalog-talk-caelin-btn');
+
+  const pillCountAll = document.getElementById('pill-count-all');
+  const pillCountBusiness = document.getElementById('pill-count-business');
+  const pillCountPersonal = document.getElementById('pill-count-personal');
+  const pillCountUpcoming = document.getElementById('pill-count-upcoming');
+
+  let currentCategoryFilter = 'all';
+
+  function updateGlobalModalOverflow() {
+    const appModal = document.getElementById('app-details-modal');
+    const chatModal = document.getElementById('chat-lightbox');
+    const contactModal = document.getElementById('contact-modal');
+    const catalogModal = document.getElementById('apps-catalog-modal');
+    const isAnyOpen = (appModal && !appModal.classList.contains('hidden')) ||
+                      (chatModal && !chatModal.classList.contains('hidden')) ||
+                      (contactModal && !contactModal.classList.contains('hidden')) ||
+                      (catalogModal && !catalogModal.classList.contains('hidden'));
+    if (!isAnyOpen) {
+      document.body.style.overflow = '';
+      window.dispatchEvent(new Event('scroll'));
+    }
+  }
+
+  function openCatalogModal() {
+    audio.playChime();
+    modal.classList.remove('hidden');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => {
+      if (searchInput) searchInput.focus();
+    }, 200);
+  }
+
+  function closeCatalogModal() {
+    audio.playBlip();
+    modal.classList.add('hidden');
+    modal.setAttribute('aria-hidden', 'true');
+    updateGlobalModalOverflow();
+  }
+
+  function filterApps() {
+    const query = searchInput ? searchInput.value.trim().toLowerCase() : '';
+    if (searchClearBtn) {
+      if (query.length > 0) {
+        searchClearBtn.classList.remove('hidden');
+      } else {
+        searchClearBtn.classList.add('hidden');
+      }
+    }
+
+    let totalVisible = 0;
+    const categoryCounts = { business: 0, personal: 0, upcoming: 0 };
+
+    categoryBlocks.forEach(block => {
+      const blockCategory = block.dataset.categoryGroup;
+      const cards = block.querySelectorAll('.catalog-app-card');
+      let blockVisibleCards = 0;
+
+      cards.forEach(card => {
+        const cardCategory = card.dataset.category;
+        const searchData = (card.dataset.search || card.textContent || '').toLowerCase();
+        const matchesCategory = currentCategoryFilter === 'all' || currentCategoryFilter === cardCategory;
+        const matchesQuery = query === '' || searchData.includes(query);
+
+        if (matchesCategory && matchesQuery) {
+          card.style.display = '';
+          blockVisibleCards++;
+          totalVisible++;
+          if (categoryCounts[cardCategory] !== undefined) {
+            categoryCounts[cardCategory]++;
+          }
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      // Show/hide entire category block
+      if (blockVisibleCards > 0) {
+        block.style.display = '';
+      } else {
+        block.style.display = 'none';
+      }
+    });
+
+    // Update pill counters
+    if (pillCountBusiness) pillCountBusiness.textContent = categoryCounts.business;
+    if (pillCountPersonal) pillCountPersonal.textContent = categoryCounts.personal;
+    if (pillCountUpcoming) pillCountUpcoming.textContent = categoryCounts.upcoming;
+    if (pillCountAll) pillCountAll.textContent = categoryCounts.business + categoryCounts.personal + categoryCounts.upcoming;
+
+    // Empty state
+    if (totalVisible === 0) {
+      if (noResultsBox) noResultsBox.classList.remove('hidden');
+      if (noResultsQueryEl) noResultsQueryEl.textContent = `"${query}"`;
+      if (statusText) statusText.textContent = `No applications match "${query}"`;
+    } else {
+      if (noResultsBox) noResultsBox.classList.add('hidden');
+      if (statusText) {
+        if (query) {
+          statusText.textContent = `Found ${totalVisible} application${totalVisible === 1 ? '' : 's'} matching "${query}"`;
+        } else if (currentCategoryFilter !== 'all') {
+          statusText.textContent = `Showing ${totalVisible} application${totalVisible === 1 ? '' : 's'} in selected category`;
+        } else {
+          statusText.textContent = `Showing all ${totalVisible} applications`;
+        }
+      }
+    }
+  }
+
+  // Event Listeners
+  if (openBtn) openBtn.addEventListener('click', openCatalogModal);
+  if (closeBtn) closeBtn.addEventListener('click', closeCatalogModal);
+  if (backdrop) backdrop.addEventListener('click', closeCatalogModal);
+
+  // Delegate for any other trigger with .explore-apps-trigger
+  document.querySelectorAll('.explore-apps-trigger').forEach(trigger => {
+    if (trigger !== openBtn) {
+      trigger.addEventListener('click', openCatalogModal);
+    }
+  });
+
+  if (searchInput) {
+    searchInput.addEventListener('input', filterApps);
+  }
+
+  if (searchClearBtn) {
+    searchClearBtn.addEventListener('click', () => {
+      audio.playBlip();
+      if (searchInput) {
+        searchInput.value = '';
+        searchInput.focus();
+      }
+      filterApps();
+    });
+  }
+
+  if (resetSearchBtn) {
+    resetSearchBtn.addEventListener('click', () => {
+      audio.playBlip();
+      if (searchInput) searchInput.value = '';
+      currentCategoryFilter = 'all';
+      filterPills.forEach(p => p.classList.toggle('active', p.dataset.category === 'all'));
+      filterApps();
+    });
+  }
+
+  filterPills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      audio.playBlip();
+      filterPills.forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      currentCategoryFilter = pill.dataset.category || 'all';
+      filterApps();
+    });
+  });
+
+  // Card Action Buttons
+  modal.querySelectorAll('.catalog-view-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const appId = btn.dataset.appId;
+      closeCatalogModal();
+      if (typeof window.openAppDetailsModal === 'function') {
+        window.openAppDetailsModal(appId);
+      }
+    });
+  });
+
+  modal.querySelectorAll('.catalog-ask-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const appName = btn.dataset.appName || 'Cael Hub applications';
+      closeCatalogModal();
+      const chatLightbox = document.getElementById('chat-lightbox');
+      if (chatLightbox) {
+        audio.playChime();
+        chatLightbox.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+        const input = document.getElementById('chat-input');
+        if (input) {
+          input.value = `Tell me more about the features and business opportunities of the ${appName}.`;
+          setTimeout(() => input.focus(), 250);
+        }
+      }
+    });
+  });
+
+  if (footerCaelinBtn) {
+    footerCaelinBtn.addEventListener('click', () => {
+      closeCatalogModal();
+      const chatLightbox = document.getElementById('chat-lightbox');
+      if (chatLightbox) {
+        audio.playChime();
+        chatLightbox.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+        const input = document.getElementById('chat-input');
+        if (input) {
+          input.value = `Can you guide me on which Cael Hub application fits my business vision best?`;
+          setTimeout(() => input.focus(), 250);
+        }
+      }
+    });
+  }
+
+  // Keyboard close
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+      closeCatalogModal();
+    }
+  });
+
+  // Expose global controller
+  window.openAppsCatalogModal = openCatalogModal;
+  window.closeAppsCatalogModal = closeCatalogModal;
+}
+
+// --------------------------------------------------------------------------
+// 15. Application Initialization Entry Point
 // --------------------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', () => {
   if ('speechSynthesis' in window) {
@@ -2974,6 +3225,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initAppsCarousel();
   initAppDetailsModal();
   initContactUsModal();
+  initAppsCatalogModal();
   initConsoleDownloadCounter();
   initScrollSpy();
   initSystemMaintenanceCards();
