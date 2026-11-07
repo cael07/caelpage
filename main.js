@@ -3059,6 +3059,15 @@ function initAppsCatalogModal() {
     modal.classList.remove('hidden');
     modal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
+
+    // Reset view to show all applications at the top
+    currentCategoryFilter = 'all';
+    filterPills.forEach(p => p.classList.toggle('active', p.dataset.category === 'all'));
+    if (searchInput) searchInput.value = '';
+    const catalogBody = document.getElementById('apps-catalog-body');
+    if (catalogBody) catalogBody.scrollTop = 0;
+    filterApps();
+
     setTimeout(() => {
       if (searchInput) searchInput.focus();
     }, 200);
@@ -3080,6 +3089,18 @@ function initAppsCatalogModal() {
         searchClearBtn.classList.add('hidden');
       }
     }
+
+    const wiSection = document.getElementById('catalog-whats-included');
+
+    if (currentCategoryFilter === 'whats-included') {
+      categoryBlocks.forEach(block => block.style.display = 'none');
+      if (noResultsBox) noResultsBox.classList.add('hidden');
+      if (wiSection) wiSection.style.display = 'block';
+      if (statusText) statusText.textContent = "Showing What's Included & source code transparency";
+      return;
+    }
+
+    if (wiSection) wiSection.style.display = 'none';
 
     let totalVisible = 0;
     const categoryCounts = { business: 0, personal: 0, upcoming: 0 };
@@ -3184,6 +3205,8 @@ function initAppsCatalogModal() {
       pill.classList.add('active');
       currentCategoryFilter = pill.dataset.category || 'all';
       filterApps();
+      const catalogBody = document.getElementById('apps-catalog-body');
+      if (catalogBody) catalogBody.scrollTop = 0;
     });
   });
 
@@ -3235,18 +3258,17 @@ function initAppsCatalogModal() {
     });
   }
 
-  // Smooth scroll to "What's Included?" transparency breakdown
+  // Switch to "What's Included?" transparency breakdown
   const wiTrigger = document.getElementById('catalog-whats-included-trigger');
-  const wiSection = document.getElementById('catalog-whats-included');
-  if (wiTrigger && wiSection) {
+  if (wiTrigger) {
     wiTrigger.addEventListener('click', (e) => {
       e.preventDefault();
       audio.playChime();
-      wiSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      wiSection.classList.add('highlight-flash');
-      setTimeout(() => {
-        wiSection.classList.remove('highlight-flash');
-      }, 1600);
+      currentCategoryFilter = 'whats-included';
+      filterPills.forEach(p => p.classList.toggle('active', p.dataset.category === 'whats-included'));
+      filterApps();
+      const catalogBody = document.getElementById('apps-catalog-body');
+      if (catalogBody) catalogBody.scrollTop = 0;
     });
   }
 
