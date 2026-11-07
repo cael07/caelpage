@@ -108,13 +108,20 @@ Launch your business with your own branded mobile application while Cael Hub tak
 5. **🚀 Google Play Store Management:** We manage publishing and eligible app updates so you can focus on your business.
 6. **🛠️ Ongoing Technical Support:** Get assistance with application configuration, technical issues, and troubleshooting to help keep your business application running smoothly.
 
-**A SIMPLE 2% SERVICE SHARE:**
-Cael Hub automatically receives an agreed **2% share** of your business's collected service fee on each eligible transaction.
-*For example: If your business collects a 15% service fee, Cael Hub's share is deducted automatically from that fee.*
+**TRANSPARENT REVENUE MODEL: YOUR 2% HELPS KEEP YOUR BUSINESS RUNNING.**
 
-This helps cover hosting, database management, software maintenance, and technical support.
+The agreed 2% service share helps cover the technology and infrastructure behind your business application, including server/database hosting, software maintenance, regular updates, and technical support.
 
-**You build the business. We handle the technology.**`:t.includes("what's included")||t.includes("whats included")||t.includes("source code")||t.includes("white label")||t.includes("white-label")||t.includes("own logo")||t.includes("company name")||t.includes("own brand")||t.includes("deployment assistance")||t.includes("hosting included")||t.includes("maintenance cost")||t.includes("setup cost")||t.includes("hidden cost")||t.includes("licensing fee")||t.includes("pricing")?`### ✦ How Our Partnership & Managed Technology Works
+**HOW DOES IT WORK?**
+If a customer transaction is ₱1,000 and your business collects a 15% service fee (₱150):
+- **Customer transaction:** ₱1,000
+- **Your business's service fee (15%):** ₱150
+- **Cael Hub's share (2% of ₱150):** ₱3
+- **Your remaining service fee:** ₱147
+
+The deduction is automatic, helping keep your application and technical infrastructure maintained while you focus on running your business.
+
+**You grow your business. We keep the technology running.**`:t.includes("what's included")||t.includes("whats included")||t.includes("source code")||t.includes("white label")||t.includes("white-label")||t.includes("own logo")||t.includes("company name")||t.includes("own brand")||t.includes("deployment assistance")||t.includes("hosting included")||t.includes("maintenance cost")||t.includes("setup cost")||t.includes("hidden cost")||t.includes("licensing fee")||t.includes("pricing")?`### ✦ How Our Partnership & Managed Technology Works
 
 All Cael Hub applications are personalized under your company branding and backed by managed infrastructure, ongoing software maintenance, and a simple 2% service share:
 

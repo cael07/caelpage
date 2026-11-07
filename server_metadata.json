@@ -2,9 +2,39 @@
   "system": "CAEL MATRIX Updates",
   "version": "2.4.0",
   "views": {
-    "total": 122,
-    "lastUpdated": "2026-11-07T11:31:43.104Z",
+    "total": 128,
+    "lastUpdated": "2026-11-07T11:53:47.151Z",
     "recentLoads": [
+      {
+        "type": "page_view",
+        "referrer": "http://localhost:5173/",
+        "timestamp": "2026-11-07T11:53:47.151Z"
+      },
+      {
+        "type": "page_view",
+        "referrer": "http://localhost:5173/",
+        "timestamp": "2026-11-07T11:53:23.893Z"
+      },
+      {
+        "type": "page_view",
+        "referrer": "http://localhost:5173/",
+        "timestamp": "2026-11-07T11:53:02.291Z"
+      },
+      {
+        "type": "page_view",
+        "referrer": "http://localhost:5173/",
+        "timestamp": "2026-11-07T11:48:32.150Z"
+      },
+      {
+        "type": "page_view",
+        "referrer": "http://localhost:5173/",
+        "timestamp": "2026-11-07T11:48:30.994Z"
+      },
+      {
+        "type": "page_view",
+        "referrer": "http://localhost:5173/",
+        "timestamp": "2026-11-07T11:35:06.222Z"
+      },
       {
         "type": "page_view",
         "referrer": "http://localhost:5173/",
@@ -224,36 +254,6 @@
         "type": "page_view",
         "referrer": "http://localhost:5173/",
         "timestamp": "2026-11-07T04:48:40.131Z"
-      },
-      {
-        "type": "page_view",
-        "referrer": "http://localhost:5173/",
-        "timestamp": "2026-11-07T04:42:18.299Z"
-      },
-      {
-        "type": "page_view",
-        "referrer": "http://localhost:5173/",
-        "timestamp": "2026-11-07T04:40:44.037Z"
-      },
-      {
-        "type": "page_view",
-        "referrer": "http://localhost:5173/",
-        "timestamp": "2026-11-07T04:40:26.030Z"
-      },
-      {
-        "type": "page_view",
-        "referrer": "http://localhost:5173/",
-        "timestamp": "2026-11-07T04:31:35.785Z"
-      },
-      {
-        "type": "page_view",
-        "referrer": "http://localhost:5173/",
-        "timestamp": "2026-11-07T04:26:09.052Z"
-      },
-      {
-        "type": "page_view",
-        "referrer": "http://localhost:5173/",
-        "timestamp": "2026-11-07T04:25:47.056Z"
       }
     ]
   }
