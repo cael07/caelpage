@@ -143,6 +143,16 @@
     }
   ],
   "licensing_and_pricing": "100% Free Ecosystem. No monthly software licenses, no per-transaction platform royalties, and no user seat limits. Entrepreneurs can white-label with their own brand and logo.",
+  "whats_included_breakdown": {
+    "closing_statement": "All Cael Hub applications come with 100% free white-label deployment, source code customization, and zero ongoing licensing fees.",
+    "answers": {
+      "source_code": "Yes, 100% full source code access for both client applications and backend APIs, giving entrepreneurs total control to customize business logic and integrations.",
+      "white_label_logo": "Yes, complete white-label branding freedom. You can use your own company name, logo, custom color scheme, app icons, and custom domain with zero Cael Hub watermarks.",
+      "deployment_assistance": "Yes, guided onboarding documentation, step-by-step launch checklists, and direct CAELIN AI deployment assistance are included.",
+      "hosting_and_third_party": "Software and code are 100% free with zero licensing fees. You maintain direct account ownership of your chosen cloud hosting and third-party APIs (Google Maps, SMS, payment gateways), paying raw provider costs with zero markup from us.",
+      "setup_and_maintenance_costs": "Zero setup fees and zero ongoing licensing fees (₱0 / $0 forever). No monthly software fees, no royalties on your revenue, and no vendor lock-in."
+    }
+  },
   "contact": {
     "ceo_and_founder": "Caesar Augustus E. Literatus",
     "developer": "Caesar Augustus E. Literatus",

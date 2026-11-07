@@ -1081,6 +1081,37 @@ Answer concisely with sleek markdown formatting when appropriate. Always conclud
       return `Cael Hub features the **Cael OnCall Service App** (currently *In Development*), an on-demand residential emergency repair radar connecting homeowners to nearby verified locksmiths, appliance technicians, emergency plumbers, and handymen with sub-minute proximity GPS radar and 1-call dispatch.`;
     }
 
+    // What's Included / White-Label / Source Code / Pricing Inquiries
+    if (
+      textLower.includes("what's included") || textLower.includes("whats included") ||
+      textLower.includes("source code") || textLower.includes("white label") || textLower.includes("white-label") ||
+      textLower.includes("own logo") || textLower.includes("company name") || textLower.includes("own brand") ||
+      textLower.includes("deployment assistance") || textLower.includes("hosting included") ||
+      textLower.includes("maintenance cost") || textLower.includes("setup cost") || textLower.includes("hidden cost") ||
+      textLower.includes("licensing fee")
+    ) {
+      return `### ✦ What's Included in Every Cael Hub Application?
+
+Our closing commitment is simple: **All Cael Hub applications come with 100% free white-label deployment, source code customization, and zero ongoing licensing fees.**
+
+Here is the exact breakdown to the questions visitors ask:
+
+- **💻 Do you receive the source code?**
+  **Yes, 100% full source code access.** You get complete, unminified source code for both frontend mobile apps and backend APIs to modify features, business logic, and local payment gateways.
+
+- **🏷️ Can you use your own company name and logo?**
+  **Yes, complete white-label freedom.** Replace all Cael Hub branding with your company name, logo, custom color palette, app icons, and custom domain with zero third-party watermarks.
+
+- **🚀 Is deployment assistance included?**
+  **Yes, guided onboarding & AI support.** Comprehensive step-by-step setup guides, launch checklists, and direct guidance from myself (**CAELIN**) to compile, configure, and launch to app stores or private fleets.
+
+- **☁️ Are hosting and third-party services included?**
+  **Transparent infrastructure.** The software and code are 100% free. You maintain direct ownership of your cloud hosting (e.g. Render, Supabase, Firebase) and API keys (Google Maps, SMS OTP, payment processors) with zero markup from Cael Hub.
+
+- **💸 Are there any setup or ongoing maintenance costs?**
+  **Zero setup fees and zero ongoing licensing fees.** Cael Hub charges ₱0 ($0) upfront, ₱0 royalties, and ₱0 monthly software fees forever.`;
+    }
+
     // Cael Founder, CEO & Meaning Knowledge
     if (
       (textLower.includes('founder') || textLower.includes('ceo') || textLower.includes('creator') || textLower.includes('owner') || textLower.includes('who made') || textLower.includes('who created')) &&
@@ -3201,6 +3232,21 @@ function initAppsCatalogModal() {
           setTimeout(() => input.focus(), 250);
         }
       }
+    });
+  }
+
+  // Smooth scroll to "What's Included?" transparency breakdown
+  const wiTrigger = document.getElementById('catalog-whats-included-trigger');
+  const wiSection = document.getElementById('catalog-whats-included');
+  if (wiTrigger && wiSection) {
+    wiTrigger.addEventListener('click', (e) => {
+      e.preventDefault();
+      audio.playChime();
+      wiSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      wiSection.classList.add('highlight-flash');
+      setTimeout(() => {
+        wiSection.classList.remove('highlight-flash');
+      }, 1600);
     });
   }
 
