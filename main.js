@@ -1097,7 +1097,7 @@ Launch your business with your own branded mobile application while Cael Hub tak
 3. **🔄 Free Software Maintenance:** Enjoy ongoing updates, bug fixes, and eligible personalization at no additional development fee.
 4. **☁️ Managed Infrastructure:** We handle your application's servers, database, hosting, and maintenance.
 5. **🚀 Google Play Store Management:** We manage publishing and eligible app updates so you can focus on your business.
-6. **🛠️ Technical Assistance (Ongoing Technical Support):** Get assistance with application configuration, technical issues, and troubleshooting to help keep your business application running smoothly.
+6. **🛠️ Ongoing Technical Support:** Get assistance with application configuration, technical issues, and troubleshooting to help keep your business application running smoothly.
 
 **A SIMPLE 2% SERVICE SHARE:**
 Cael Hub automatically receives an agreed **2% share** of your business's collected service fee on each eligible transaction.
