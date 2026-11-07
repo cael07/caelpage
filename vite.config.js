@@ -238,7 +238,7 @@ function setupChatMiddleware(server, env) {
           res.setHeader('Content-Type', 'application/json');
           res.end(JSON.stringify({
             ok: true,
-            answer: `The CEO and Founder of **Cael** (also known as **Cael Hub**) is **Caesar Augustus E. Literatus**. Under his leadership, Cael was established with the vision to empower entrepreneurs and business dreamers to "Come And Earn Literally" through a 100% free white-label ecosystem of enterprise mobile applications with zero licensing fees.`,
+            answer: `The CEO and Founder of **Cael** (also known as **Cael Hub**) is **Caesar Augustus E. Literatus**. Under his leadership, Cael was established with the vision to empower entrepreneurs and business dreamers to "Come And Earn Literally" through a managed partnership model providing personalized enterprise mobile applications, managed infrastructure, and a simple 2% service share.`,
             provider: 'Cael Verified Registry'
           }));
           return;
@@ -253,7 +253,7 @@ function setupChatMiddleware(server, env) {
           res.setHeader('Content-Type', 'application/json');
           res.end(JSON.stringify({
             ok: true,
-            answer: `**CAEL** stands for **"Come And Earn Literally"**! The system is referred to interchangeably as **Cael** or **Cael Hub**, founded and led by CEO **Caesar Augustus E. Literatus**. It is a 100% free white-label ecosystem designed to help business dreamers launch their own branded businesses (such as ride-hailing, trucking, massage services, child safety, and entertainment) with zero licensing fees.`,
+            answer: `**CAEL** stands for **"Come And Earn Literally"**! The system is referred to interchangeably as **Cael** or **Cael Hub**, founded and led by CEO **Caesar Augustus E. Literatus**. It is a managed partnership ecosystem designed to help business dreamers launch their own branded businesses (such as ride-hailing, trucking, massage services, child safety, and entertainment) with managed technology and a 2% service share.`,
             provider: 'Cael Verified Registry'
           }));
           return;

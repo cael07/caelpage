@@ -142,7 +142,7 @@
       ]
     }
   ],
-  "licensing_and_pricing": "100% Free Ecosystem. No monthly software licenses, no per-transaction platform royalties, and no user seat limits. Entrepreneurs can white-label with their own brand and logo.",
+  "licensing_and_pricing": "Managed Partnership Model: Zero upfront software licensing or development fees. Cael Hub manages the software, maintenance, and technical infrastructure under a simple 2% service-share arrangement.",
   "partnership_model": {
     "tagline": "YOUR BUSINESS. YOUR BRAND. OUR TECHNOLOGY.",
     "subheading": "Start Your Business. We'll Handle the Technology.",
@@ -157,13 +157,13 @@
     "service_share": "A Simple 2% Service Share: Cael Hub automatically receives an agreed 2% share of your business's collected service fee on each eligible transaction (e.g. if you collect a 15% service fee, Cael Hub's share is deducted automatically from that fee). This covers hosting, database management, software maintenance, and technical support."
   },
   "whats_included_breakdown": {
-    "closing_statement": "All Cael Hub applications come with 100% free white-label deployment, source code customization, and zero ongoing licensing fees.",
+    "closing_statement": "All Cael Hub applications are personalized under your company branding and backed by managed infrastructure, ongoing software maintenance, and a simple 2% service share.",
     "answers": {
-      "source_code": "Yes, 100% full source code access for both client applications and backend APIs, giving entrepreneurs total control to customize business logic and integrations.",
-      "white_label_logo": "Yes, complete white-label branding freedom. You can use your own company name, logo, custom color scheme, app icons, and custom domain with zero Cael Hub watermarks.",
-      "deployment_assistance": "Yes, guided onboarding documentation, step-by-step launch checklists, and direct CAELIN AI deployment assistance are included.",
-      "hosting_and_third_party": "Software and code are 100% free with zero licensing fees. You maintain direct account ownership of your chosen cloud hosting and third-party APIs (Google Maps, SMS, payment gateways), paying raw provider costs with zero markup from us.",
-      "setup_and_maintenance_costs": "Zero setup fees and zero ongoing licensing fees (₱0 / $0 forever). No monthly software fees, no royalties on your revenue, and no vendor lock-in."
+      "white_label_logo": "Yes, complete brand personalization. You can use your own company name, logo, custom color scheme, app icons, and custom domain.",
+      "software_maintenance": "Yes, continuous managed software maintenance. Ongoing updates, bug fixes, performance improvements, and eligible personalization are handled at no additional development fee.",
+      "deployment_and_store": "Yes, guided onboarding and Google Play Store publishing management are provided so you can focus on your business operations.",
+      "managed_infrastructure": "We handle your application's servers, database administration, server hosting, and security maintenance.",
+      "service_share": "A simple 2% service share. Cael Hub automatically receives an agreed 2% share of your business's collected service fee on each eligible transaction to cover hosting, maintenance, and support."
     }
   },
   "contact": {

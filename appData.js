@@ -545,7 +545,7 @@ export const APPS_CATALOG = {
     title: 'CAEL TWO COLOR GAME APP',
     badge: 'CAEL COLOR GAME',
     subtitle: 'Interactive Two-Color Betting & Entertainment App',
-    pitch: 'A free mobile app ready for your own interactive color guessing and community game business.',
+    pitch: 'Operate your own interactive color guessing and community game business under your brand, with Cael Hub managing the software and infrastructure.',
     gallery: [
       {
         image: './colorgame.jpg',
@@ -929,7 +929,7 @@ export const APPS_CATALOG = {
     title: 'CAEL LOAN SERVICE APP',
     badge: 'CAEL LOAN APP',
     subtitle: 'Fast Business & Microfinance Lending Service App',
-    pitch: 'A free mobile app ready for micro-lending, business capital, peer-to-peer financing, automated credit scoring, and sub-minute digital disbursement.',
+    pitch: 'Operate your micro-lending and financing business under your company brand, with Cael Hub managing the software and infrastructure.',
     gallery: [
       {
         image: './loanservice.jpg',

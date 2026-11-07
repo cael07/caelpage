@@ -899,7 +899,7 @@ Answer concisely with sleek markdown formatting when appropriate. Always conclud
     // 0. Cael Hub Official Ecosystem RAG
     if (textLower.includes('cael') || textLower.includes('caelin')) {
       return {
-        summary: `• **Official Name & Meaning:** **CAEL** stands for **"Come And Earn Literally"** (interchangeably referred to as **Cael** or **Cael Hub**).\n• **Founder & Visionary:** Founded and led by CEO **Caesar Augustus E. Literatus**.\n• **Location:** Bulacan, Philippines.\n• **Contact & Inquiries:** caelhub@gmail.com.\n• **Architecture:** 100% free white-label ecosystem of turnkey enterprise mobile applications with zero licensing fees.`,
+        summary: `• **Official Name & Meaning:** **CAEL** stands for **"Come And Earn Literally"** (interchangeably referred to as **Cael** or **Cael Hub**).\n• **Founder & Visionary:** Founded and led by CEO **Caesar Augustus E. Literatus**.\n• **Location:** Bulacan, Philippines.\n• **Contact & Inquiries:** caelhub@gmail.com.\n• **Architecture:** Managed partnership ecosystem of turnkey enterprise mobile applications under a simple 2% service-share model.`,
         sources: [`Cael Hub Verified Ecosystem Registry`, `Official Cael Knowledge Base`]
       };
     }
@@ -1050,7 +1050,7 @@ Answer concisely with sleek markdown formatting when appropriate. Always conclud
 
     // Official Cael Hub Ecosystem Knowledge
     if (textLower.includes('ride hailing') || textLower.includes('ride-hailing') || textLower.includes('ride hail') || textLower.includes('motorcycle taxi') || (textLower.includes('ride') && textLower.includes('app'))) {
-      return `Yes! Cael Hub proudly provides the **Cael Ride Hailing App**! It is a complete passenger and driver mobile ecosystem featuring motorcycle taxi dispatch, express courier delivery, sub-second GPS tracking, facial biometric driver attendance, automated driver payroll, and 360° SOS safety beacons—100% free with zero licensing fees...`;
+      return `Yes! Cael Hub proudly provides the **Cael Ride Hailing App**! It is a complete passenger and driver mobile ecosystem featuring motorcycle taxi dispatch, express courier delivery, sub-second GPS tracking, facial biometric driver attendance, automated driver payroll, and 360° SOS safety beacons — personalized under your company branding and managed by Cael Hub under our 2% service share partnership...`;
     }
 
     if (textLower.includes('timelock') || textLower.includes('time lock') || textLower.includes('overuse') || textLower.includes('screen time') || (textLower.includes('child') && textLower.includes('phone'))) {
@@ -1074,7 +1074,7 @@ Answer concisely with sleek markdown formatting when appropriate. Always conclud
     }
 
     if (textLower.includes('loan') || textLower.includes('microfinance') || textLower.includes('lending') || textLower.includes('credit score') || textLower.includes('capital')) {
-      return `Cael Hub features the **Cael Loan Service App** (currently *In Development*), a high-velocity micro-lending and fintech platform. It is engineered with automated AI credit scoring (FICO/behavioral risk models), 60-second loan approvals, sub-minute direct e-wallet (GCash, Maya) or bank disbursements, and automated recurring debit collections. Like all Cael Hub apps, it is 100% free with zero licensing fees for business operators.`;
+      return `Cael Hub features the **Cael Loan Service App** (currently *In Development*), a high-velocity micro-lending and fintech platform. It is engineered with automated AI credit scoring (FICO/behavioral risk models), 60-second loan approvals, sub-minute direct e-wallet (GCash, Maya) or bank disbursements, and automated recurring debit collections, personalized under your company branding.`;
     }
 
     if (textLower.includes('oncall') || textLower.includes('locksmith') || textLower.includes('plumber') || textLower.includes('handyman') || textLower.includes('appliance repair')) {
@@ -1107,35 +1107,36 @@ This helps cover hosting, database management, software maintenance, and technic
 **You build the business. We handle the technology.**`;
     }
 
-    // What's Included / White-Label / Source Code / Pricing Inquiries
+    // What's Included / Partnership / Pricing Inquiries
     if (
       textLower.includes("what's included") || textLower.includes("whats included") ||
       textLower.includes("source code") || textLower.includes("white label") || textLower.includes("white-label") ||
       textLower.includes("own logo") || textLower.includes("company name") || textLower.includes("own brand") ||
       textLower.includes("deployment assistance") || textLower.includes("hosting included") ||
       textLower.includes("maintenance cost") || textLower.includes("setup cost") || textLower.includes("hidden cost") ||
-      textLower.includes("licensing fee")
+      textLower.includes("licensing fee") || textLower.includes("pricing")
     ) {
-      return `### ✦ What's Included in Every Cael Hub Application?
+      return `### ✦ How Our Partnership & Managed Technology Works
 
-Our closing commitment is simple: **All Cael Hub applications come with 100% free white-label deployment, source code customization, and zero ongoing licensing fees.**
-
-Here is the exact breakdown to the questions visitors ask:
-
-- **💻 Do you receive the source code?**
-  **Yes, 100% full source code access.** You get complete, unminified source code for both frontend mobile apps and backend APIs to modify features, business logic, and local payment gateways.
+All Cael Hub applications are personalized under your company branding and backed by managed infrastructure, ongoing software maintenance, and a simple 2% service share:
 
 - **🏷️ Can you use your own company name and logo?**
-  **Yes, complete white-label freedom.** Replace all Cael Hub branding with your company name, logo, custom color palette, app icons, and custom domain with zero third-party watermarks.
+  **Yes, 100% your brand.** Your mobile application is personalized under your own company name, logo, custom color palette, app icons, and branding.
 
-- **🚀 Is deployment assistance included?**
-  **Yes, guided onboarding & AI support.** Comprehensive step-by-step setup guides, launch checklists, and direct guidance from myself (**CAELIN**) to compile, configure, and launch to app stores or private fleets.
+- **📱 Are there upfront software development or licensing fees?**
+  **Zero upfront software development fees.** Gain access to a business application ready for deployment without traditional software licensing or custom development expenses under our partnership.
 
-- **☁️ Are hosting and third-party services included?**
-  **Transparent infrastructure.** The software and code are 100% free. You maintain direct ownership of your cloud hosting (e.g. Render, Supabase, Firebase) and API keys (Google Maps, SMS OTP, payment processors) with zero markup from Cael Hub.
+- **🔄 Is software maintenance included?**
+  **Yes, continuous managed maintenance.** Enjoy regular system updates, bug fixes, performance improvements, and eligible personalization handled by Cael Hub at no additional development fee.
 
-- **💸 Are there any setup or ongoing maintenance costs?**
-  **Zero setup fees and zero ongoing licensing fees.** Cael Hub charges ₱0 ($0) upfront, ₱0 royalties, and ₱0 monthly software fees forever.`;
+- **☁️ How are servers, hosting, and databases handled?**
+  **Fully managed technical infrastructure.** Cael Hub handles your application's servers, database administration, server hosting, and technical maintenance.
+
+- **🚀 Google Play Store Management:**
+  **Included in partnership.** We manage publishing and eligible app updates so you can focus on serving customers.
+
+- **💡 What is the 2% service share?**
+  **Transparent transaction share.** Cael Hub automatically receives an agreed 2% share of your business's collected service fee on each eligible transaction (e.g., if you collect a 15% booking service fee, Cael Hub's 2% share is deducted automatically from that fee) to cover hosting, database management, software maintenance, and technical support.`;
     }
 
     // Cael Founder, CEO & Meaning Knowledge
@@ -1143,14 +1144,14 @@ Here is the exact breakdown to the questions visitors ask:
       (textLower.includes('founder') || textLower.includes('ceo') || textLower.includes('creator') || textLower.includes('owner') || textLower.includes('who made') || textLower.includes('who created')) &&
       (textLower.includes('cael') || textLower.includes('hub') || textLower.includes('system') || textLower.includes('app') || textLower.includes('platform'))
     ) {
-      return `The CEO and Founder of **Cael** (also known as **Cael Hub**) is **Caesar Augustus E. Literatus**. Under his leadership, Cael was established with the vision to empower entrepreneurs and business dreamers to "Come And Earn Literally" through a 100% free white-label ecosystem of enterprise mobile applications with zero licensing fees...`;
+      return `The CEO and Founder of **Cael** (also known as **Cael Hub**) is **Caesar Augustus E. Literatus**. Under his leadership, Cael was established with the vision to empower entrepreneurs and business dreamers to "Come And Earn Literally" through a managed partnership model providing personalized enterprise mobile applications, managed infrastructure, and a simple 2% service share...`;
     }
 
     if (
       (textLower.includes('mean') || textLower.includes('stand for') || textLower.includes('definition') || textLower.includes('acronym')) &&
       (textLower.includes('cael') || textLower.includes('hub'))
     ) {
-      return `**CAEL** stands for **"Come And Earn Literally"**! The system is referred to interchangeably as **Cael** or **Cael Hub**, founded and led by CEO **Caesar Augustus E. Literatus**. It is a 100% free white-label ecosystem designed to help business dreamers launch their own branded businesses with zero licensing fees...`;
+      return `**CAEL** stands for **"Come And Earn Literally"**! The system is referred to interchangeably as **Cael** or **Cael Hub**, founded and led by CEO **Caesar Augustus E. Literatus**. It is a managed partnership ecosystem designed to help business dreamers launch their own branded businesses with managed technology and a 2% service share...`;
     }
 
     if (textLower.includes('who are you') || textLower.includes('what are you') || (textLower.includes('caelin') && !textLower.includes('about'))) {
@@ -1223,7 +1224,7 @@ Here is the exact breakdown to the questions visitors ask:
       textLower === 'cael?' ||
       textLower.includes('cael apps')
     ) {
-      return `**CAEL** stands for **"Come And Earn Literally"**! The platform is known interchangeably as **Cael** or **Cael Hub**.\n\nFounded and led by CEO **Caesar Augustus E. Literatus**, Cael is a 100% free, zero-fee white-label ecosystem of ready-to-launch enterprise mobile applications engineered to empower entrepreneurs and business dreamers to start their own branded businesses (such as ride-hailing, child protection, trucking, massage, and entertainment) with zero licensing fees...`;
+      return `**CAEL** stands for **"Come And Earn Literally"**! The platform is known interchangeably as **Cael** or **Cael Hub**.\n\nFounded and led by CEO **Caesar Augustus E. Literatus**, Cael is a managed technology platform and partnership ecosystem empowering entrepreneurs and business dreamers to launch their own branded businesses (such as ride-hailing, child protection, trucking, massage, and entertainment) with professionally managed mobile applications, ongoing maintenance, and a simple 2% service share...`;
     }
 
     if (textLower.includes('anime')) {
@@ -2862,98 +2863,6 @@ function initScrollSpy() {
 }
 
 // --------------------------------------------------------------------------
-// 13b. System Mode Directives & Interactive 3D Flip Cards
-// --------------------------------------------------------------------------
-function initSystemMaintenanceCards() {
-  const capabilitiesBtn = document.getElementById('hero-capabilities-btn');
-  const maintenanceBtn = document.getElementById('hero-maintenance-btn');
-  const cards = Array.from(document.querySelectorAll('#hero-flip-grid .stat-card.flip-card'));
-
-  if (cards.length === 0) return;
-
-  // Flips all cards to the System Maintenance directives side (won't flip back)
-  function showMaintenance() {
-    const allAlreadyFlipped = cards.every(c => c.classList.contains('is-flipped'));
-    if (allAlreadyFlipped) return;
-
-    audio.playChime();
-
-    if (maintenanceBtn) maintenanceBtn.classList.add('active');
-    if (capabilitiesBtn) capabilitiesBtn.classList.remove('active');
-
-    // Staggered 3D card cascade animation to maintenance side
-    cards.forEach((card, index) => {
-      setTimeout(() => {
-        card.classList.add('is-flipped');
-      }, index * 75);
-    });
-  }
-
-  // Reverts / flips all cards back to the System Capabilities side (won't flip to maintenance)
-  function showCapabilities() {
-    const noneAlreadyFlipped = cards.every(c => !c.classList.contains('is-flipped'));
-    if (noneAlreadyFlipped) return;
-
-    audio.playBlip();
-
-    if (capabilitiesBtn) capabilitiesBtn.classList.add('active');
-    if (maintenanceBtn) maintenanceBtn.classList.remove('active');
-
-    // Staggered 3D card cascade animation back to capabilities side
-    cards.forEach((card, index) => {
-      setTimeout(() => {
-        card.classList.remove('is-flipped');
-      }, index * 75);
-    });
-  }
-
-  if (maintenanceBtn) {
-    maintenanceBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      showMaintenance();
-    });
-  }
-
-  if (capabilitiesBtn) {
-    capabilitiesBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      showCapabilities();
-    });
-  }
-
-  // Sync button states if individual cards are clicked
-  function syncButtonStates() {
-    const flippedCount = cards.filter(c => c.classList.contains('is-flipped')).length;
-    if (flippedCount === cards.length) {
-      if (maintenanceBtn) maintenanceBtn.classList.add('active');
-      if (capabilitiesBtn) capabilitiesBtn.classList.remove('active');
-    } else if (flippedCount === 0) {
-      if (capabilitiesBtn) capabilitiesBtn.classList.add('active');
-      if (maintenanceBtn) maintenanceBtn.classList.remove('active');
-    }
-  }
-
-  // Also support clicking individual cards to inspect
-  cards.forEach(card => {
-    card.addEventListener('click', () => {
-      audio.playBlip();
-      card.classList.toggle('is-flipped');
-      syncButtonStates();
-    });
-
-    // Keyboard accessibility (Enter / Space to flip)
-    card.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        audio.playBlip();
-        card.classList.toggle('is-flipped');
-        syncButtonStates();
-      }
-    });
-  });
-}
-
-// --------------------------------------------------------------------------
 // 13.5. Mobile Cyber Navigation Menu & Drawer
 // --------------------------------------------------------------------------
 function initMobileMenu() {
@@ -3111,7 +3020,7 @@ function initAppsCatalogModal() {
     if (appsListWrap) appsListWrap.style.display = 'none';
     if (noResultsBox) noResultsBox.classList.add('hidden');
     if (wiSection) wiSection.style.display = 'block';
-    if (statusText) statusText.textContent = "Showing What's Included & source code transparency";
+    if (statusText) statusText.textContent = "Showing How Our Partnership Works & Managed Technology";
     
     const catalogBody = document.getElementById('apps-catalog-body');
     if (catalogBody) catalogBody.scrollTop = 0;
@@ -3264,7 +3173,7 @@ function initAppsCatalogModal() {
     });
   });
 
-  // Switch to "What's Included?" triggers
+  // Switch to Partnership Model triggers
   const wiTrigger = document.getElementById('catalog-whats-included-trigger');
   if (wiTrigger) {
     wiTrigger.addEventListener('click', (e) => {
@@ -3344,7 +3253,7 @@ function initAppsCatalogModal() {
         document.body.style.overflow = 'hidden';
         const input = document.getElementById('chat-input');
         if (input) {
-          input.value = `Can you explain how full source code access and white-label ownership work with Cael Hub?`;
+          input.value = `Can you explain how Cael Hub's managed technology, software maintenance, and 2% service share partnership work?`;
           setTimeout(() => input.focus(), 250);
         }
       }
@@ -3410,7 +3319,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initConsoleDownloadCounter();
   initScrollSpy();
   initPartnershipButtons();
-  initSystemMaintenanceCards();
 });
 
 
