@@ -77,7 +77,7 @@ export const APPS_CATALOG = {
     title: 'CAEL RIDE HAILING APP',
     badge: 'CAEL RIDE',
     subtitle: 'Ride Hailing, Courier & Delivery Service Mobile App',
-    pitch: 'A free mobile app ready for your own business and own logo with sub-second GPS dispatch and in-app payroll.',
+    pitch: 'Launch your own ride-hailing and delivery service under your company brand, with Cael Hub managing the software, updates, and technical infrastructure.',
     gallery: [
       {
         image: './cael_ride_motorcycle_1791599622441.jpg?v=2',
