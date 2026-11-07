@@ -2832,11 +2832,12 @@ body {
 
 .service-includes-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0.9rem;
   max-width: 860px;
   margin: 0 auto 1.6rem;
   text-align: left;
+  width: 100%;
 }
 
 .service-include-item {
@@ -2848,6 +2849,8 @@ body {
   border-radius: 8px;
   padding: 0.75rem 1rem;
   transition: transform 0.2s ease, border-color 0.2s ease;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 .service-include-item:hover {
@@ -4502,6 +4505,26 @@ body {
     width: 100% !important;
     box-sizing: border-box !important;
   }
+
+  /* 2-column layout for service included technology pills */
+  .service-includes-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 0.65rem !important;
+  }
+
+  .service-include-item {
+    padding: 0.65rem 0.75rem !important;
+    gap: 0.55rem !important;
+  }
+
+  .service-include-item .include-icon {
+    font-size: 1.15rem !important;
+  }
+
+  .service-include-item .include-text {
+    font-size: 0.82rem !important;
+    line-height: 1.35 !important;
+  }
 }
 
 /* Small Tablets & Large Phones (<= 640px) */
@@ -4757,6 +4780,25 @@ body {
     font-size: 0.52rem !important;
     padding: 0.2rem 0.25rem !important;
     letter-spacing: 0.02em !important;
+  }
+
+  .service-includes-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 0.5rem !important;
+  }
+
+  .service-include-item {
+    padding: 0.55rem 0.5rem !important;
+    gap: 0.4rem !important;
+  }
+
+  .service-include-item .include-icon {
+    font-size: 1.05rem !important;
+  }
+
+  .service-include-item .include-text {
+    font-size: 0.74rem !important;
+    line-height: 1.3 !important;
   }
 }
 
