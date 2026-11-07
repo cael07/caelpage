@@ -1081,6 +1081,32 @@ Answer concisely with sleek markdown formatting when appropriate. Always conclud
       return `Cael Hub features the **Cael OnCall Service App** (currently *In Development*), an on-demand residential emergency repair radar connecting homeowners to nearby verified locksmiths, appliance technicians, emergency plumbers, and handymen with sub-minute proximity GPS radar and 1-call dispatch.`;
     }
 
+    // Partnership & 2% Service Share Inquiries
+    if (
+      textLower.includes("how our partnership works") || textLower.includes("how the partnership works") ||
+      textLower.includes("partnership") || textLower.includes("2% service share") || textLower.includes("2%") ||
+      textLower.includes("service share") || textLower.includes("what you get") || textLower.includes("managed technology")
+    ) {
+      return `### ✦ How the Cael Hub Partnership Works: Your Business. Your Brand. Our Technology.
+
+Launch your business with your own branded mobile application while Cael Hub takes care of the technology, maintenance, and infrastructure behind it.
+
+**WHAT YOU GET:**
+1. **🏷️ Your Own Brand:** Use your company name and logo with a personalized application.
+2. **📱 Your Own Business App:** Access your business application without upfront software licensing or development fees under our partnership.
+3. **🔄 Free Software Maintenance:** Enjoy ongoing updates, bug fixes, and eligible personalization at no additional development fee.
+4. **☁️ Managed Infrastructure:** We handle your application's servers, database, hosting, and maintenance.
+5. **🚀 Google Play Store Management:** We manage publishing and eligible app updates so you can focus on your business.
+
+**A SIMPLE 2% SERVICE SHARE:**
+Cael Hub automatically receives an agreed **2% share** of your business's collected service fee on each eligible transaction.
+*For example: If your business collects a 15% service fee, Cael Hub's share is deducted automatically from that fee.*
+
+This helps cover hosting, database management, software maintenance, and technical support.
+
+**You build the business. We handle the technology.**`;
+    }
+
     // What's Included / White-Label / Source Code / Pricing Inquiries
     if (
       textLower.includes("what's included") || textLower.includes("whats included") ||
@@ -3337,6 +3363,29 @@ function initAppsCatalogModal() {
   window.closeAppsCatalogModal = closeCatalogModal;
 }
 
+function initPartnershipButtons() {
+  const btn = document.getElementById('partnership-how-btn');
+  if (!btn) return;
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    const chatLightbox = document.getElementById('chat-lightbox');
+    if (chatLightbox) {
+      if (typeof audio !== 'undefined' && audio.playChime) audio.playChime();
+      chatLightbox.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      const input = document.getElementById('chat-input');
+      if (input) {
+        input.value = `Tell me more about how the Cael Hub partnership works, the 2% service share, and managed technology.`;
+        setTimeout(() => {
+          input.focus();
+          const form = document.getElementById('chat-form');
+          if (form) form.dispatchEvent(new Event('submit', { cancelable: true }));
+        }, 220);
+      }
+    }
+  });
+}
+
 // --------------------------------------------------------------------------
 // 15. Application Initialization Entry Point
 // --------------------------------------------------------------------------
@@ -3359,6 +3408,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initAppsCatalogModal();
   initConsoleDownloadCounter();
   initScrollSpy();
+  initPartnershipButtons();
   initSystemMaintenanceCards();
 });
 

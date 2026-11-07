@@ -143,6 +143,19 @@
     }
   ],
   "licensing_and_pricing": "100% Free Ecosystem. No monthly software licenses, no per-transaction platform royalties, and no user seat limits. Entrepreneurs can white-label with their own brand and logo.",
+  "partnership_model": {
+    "tagline": "YOUR BUSINESS. YOUR BRAND. OUR TECHNOLOGY.",
+    "subheading": "Start Your Business. We'll Handle the Technology.",
+    "description": "Launch your business with your own branded mobile application while Cael Hub takes care of the technology, maintenance, and infrastructure behind it.",
+    "what_you_get": [
+      "01. Your Own Brand: Use your company name and logo with a personalized application.",
+      "02. Your Own Business App: Get access to a business application without upfront software licensing or development fees under our partnership.",
+      "03. Free Software Maintenance: Enjoy ongoing updates, bug fixes, and eligible personalization at no additional development fee.",
+      "04. Managed Infrastructure: We handle your application's servers, database, hosting, and maintenance.",
+      "05. Google Play Store Management: We manage publishing and eligible app updates so you can focus on your business."
+    ],
+    "service_share": "A Simple 2% Service Share: Cael Hub automatically receives an agreed 2% share of your business's collected service fee on each eligible transaction (e.g. if you collect a 15% service fee, Cael Hub's share is deducted automatically from that fee). This covers hosting, database management, software maintenance, and technical support."
+  },
   "whats_included_breakdown": {
     "closing_statement": "All Cael Hub applications come with 100% free white-label deployment, source code customization, and zero ongoing licensing fees.",
     "answers": {
