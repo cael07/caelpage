@@ -396,50 +396,100 @@ async def handle_chat(request: Request):
 # -----------------------------------------------------------------------------
 # 4. Search Engine Optimization & Crawl Endpoints
 # -----------------------------------------------------------------------------
-@app.get("/robots.txt", response_class=FileResponse)
+@app.api_route("/robots.txt", methods=["GET", "HEAD"])
 async def get_robots_txt():
     dist_file = os.path.join(DIST_DIR, "robots.txt")
     if os.path.isfile(dist_file):
-        return FileResponse(dist_file, media_type="text/plain")
+        return FileResponse(dist_file, media_type="text/plain; charset=utf-8")
     root_file = os.path.join(BASE_DIR, "robots.txt")
     if os.path.isfile(root_file):
-        return FileResponse(root_file, media_type="text/plain")
-    return Response(content="User-agent: *\nAllow: /\nSitemap: https://caelpage.onrender.com/sitemap.xml\n", media_type="text/plain")
+        return FileResponse(root_file, media_type="text/plain; charset=utf-8")
+    return Response(content="User-agent: *\nAllow: /\nSitemap: https://caelpage.onrender.com/sitemap.xml\n", media_type="text/plain; charset=utf-8")
 
-@app.get("/sitemap.xml", response_class=FileResponse)
+@app.api_route("/sitemap.xml", methods=["GET", "HEAD"])
 async def get_sitemap_xml():
     dist_file = os.path.join(DIST_DIR, "sitemap.xml")
     if os.path.isfile(dist_file):
-        return FileResponse(dist_file, media_type="application/xml")
+        return FileResponse(dist_file, media_type="application/xml; charset=utf-8")
     root_file = os.path.join(BASE_DIR, "sitemap.xml")
     if os.path.isfile(root_file):
-        return FileResponse(root_file, media_type="application/xml")
-    return Response(content="<?xml version=\"1.0\" encoding=\"UTF-8\"?><urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"><url><loc>https://caelpage.onrender.com/</loc></url></urlset>", media_type="application/xml")
+        return FileResponse(root_file, media_type="application/xml; charset=utf-8")
+    return Response(content="<?xml version=\"1.0\" encoding=\"UTF-8\"?><urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"><url><loc>https://caelpage.onrender.com/</loc></url></urlset>", media_type="application/xml; charset=utf-8")
 
 # -----------------------------------------------------------------------------
-# 5. Static Frontend File Router
+# 5. Static Frontend File Router (Supports GET and HEAD for Social Crawlers)
 # -----------------------------------------------------------------------------
-@app.get("/{full_path:path}")
+def get_media_type(filepath: str):
+    ext = os.path.splitext(filepath)[1].lower()
+    mapping = {
+        ".html": "text/html; charset=utf-8",
+        ".png": "image/png",
+        ".jpg": "image/jpeg",
+        ".jpeg": "image/jpeg",
+        ".webp": "image/webp",
+        ".ico": "image/x-icon",
+        ".svg": "image/svg+xml",
+        ".css": "text/css; charset=utf-8",
+        ".js": "application/javascript; charset=utf-8",
+        ".json": "application/json; charset=utf-8",
+        ".xml": "application/xml; charset=utf-8",
+        ".txt": "text/plain; charset=utf-8",
+    }
+    return mapping.get(ext, None)
+
+@app.api_route("/", methods=["GET", "HEAD"])
+async def serve_root():
+    dist_index = os.path.join(DIST_DIR, "index.html")
+    if os.path.isfile(dist_index):
+        return FileResponse(
+            dist_index,
+            media_type="text/html; charset=utf-8",
+            headers={"Cache-Control": "public, max-age=300", "Accept-Ranges": "bytes"}
+        )
+    return FileResponse(
+        os.path.join(BASE_DIR, "index.html"),
+        media_type="text/html; charset=utf-8",
+        headers={"Cache-Control": "public, max-age=300", "Accept-Ranges": "bytes"}
+    )
+
+@app.api_route("/{full_path:path}", methods=["GET", "HEAD"])
 async def serve_static(full_path: str):
     clean_path = full_path.split("?")[0].strip("/")
     if not clean_path or clean_path == "":
-        clean_path = "index.html"
+        return await serve_root()
 
     # 1. Try in dist/ (Vite build output)
     dist_file = os.path.join(DIST_DIR, clean_path)
     if os.path.isfile(dist_file):
-        return FileResponse(dist_file)
+        media_type = get_media_type(dist_file)
+        return FileResponse(
+            dist_file,
+            media_type=media_type,
+            headers={"Cache-Control": "public, max-age=86400", "Accept-Ranges": "bytes"}
+        )
 
-    # 2. Try in root project directory
+    # 2. Try in public/
+    public_file = os.path.join(BASE_DIR, "public", clean_path)
+    if os.path.isfile(public_file):
+        media_type = get_media_type(public_file)
+        return FileResponse(
+            public_file,
+            media_type=media_type,
+            headers={"Cache-Control": "public, max-age=86400", "Accept-Ranges": "bytes"}
+        )
+
+    # 3. Try in root project directory
     root_file = os.path.join(BASE_DIR, clean_path)
     if os.path.isfile(root_file):
-        return FileResponse(root_file)
+        media_type = get_media_type(root_file)
+        return FileResponse(
+            root_file,
+            media_type=media_type,
+            headers={"Cache-Control": "public, max-age=86400", "Accept-Ranges": "bytes"}
+        )
 
-    # 3. Default fallback: serve index.html
-    dist_index = os.path.join(DIST_DIR, "index.html")
-    if os.path.isfile(dist_index):
-        return FileResponse(dist_index)
-    return FileResponse(os.path.join(BASE_DIR, "index.html"))
+    # 4. Default fallback: serve index.html
+    return await serve_root()
 
 
 if __name__ == "__main__":
