@@ -3060,13 +3060,9 @@ function initAppsCatalogModal() {
     modal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
 
-    // Reset view to show all applications at the top
-    currentCategoryFilter = 'all';
-    filterPills.forEach(p => p.classList.toggle('active', p.dataset.category === 'all'));
+    // Always reset view to show all applications at the top
     if (searchInput) searchInput.value = '';
-    const catalogBody = document.getElementById('apps-catalog-body');
-    if (catalogBody) catalogBody.scrollTop = 0;
-    filterApps();
+    switchToApps('all');
 
     setTimeout(() => {
       if (searchInput) searchInput.focus();
@@ -3080,6 +3076,35 @@ function initAppsCatalogModal() {
     updateGlobalModalOverflow();
   }
 
+  function switchToWhatsIncluded() {
+    currentCategoryFilter = 'whats-included';
+    filterPills.forEach(p => p.classList.toggle('active', p.dataset.category === 'whats-included'));
+    
+    const appsListWrap = document.getElementById('catalog-apps-list-wrap');
+    const wiSection = document.getElementById('catalog-whats-included');
+    if (appsListWrap) appsListWrap.style.display = 'none';
+    if (noResultsBox) noResultsBox.classList.add('hidden');
+    if (wiSection) wiSection.style.display = 'block';
+    if (statusText) statusText.textContent = "Showing What's Included & source code transparency";
+    
+    const catalogBody = document.getElementById('apps-catalog-body');
+    if (catalogBody) catalogBody.scrollTop = 0;
+  }
+
+  function switchToApps(category = 'all') {
+    currentCategoryFilter = category;
+    filterPills.forEach(p => p.classList.toggle('active', p.dataset.category === category));
+
+    const appsListWrap = document.getElementById('catalog-apps-list-wrap');
+    const wiSection = document.getElementById('catalog-whats-included');
+    if (wiSection) wiSection.style.display = 'none';
+    if (appsListWrap) appsListWrap.style.display = 'block';
+
+    filterApps();
+    const catalogBody = document.getElementById('apps-catalog-body');
+    if (catalogBody) catalogBody.scrollTop = 0;
+  }
+
   function filterApps() {
     const query = searchInput ? searchInput.value.trim().toLowerCase() : '';
     if (searchClearBtn) {
@@ -3090,17 +3115,15 @@ function initAppsCatalogModal() {
       }
     }
 
-    const wiSection = document.getElementById('catalog-whats-included');
-
     if (currentCategoryFilter === 'whats-included') {
-      categoryBlocks.forEach(block => block.style.display = 'none');
-      if (noResultsBox) noResultsBox.classList.add('hidden');
-      if (wiSection) wiSection.style.display = 'block';
-      if (statusText) statusText.textContent = "Showing What's Included & source code transparency";
+      switchToWhatsIncluded();
       return;
     }
 
+    const appsListWrap = document.getElementById('catalog-apps-list-wrap');
+    const wiSection = document.getElementById('catalog-whats-included');
     if (wiSection) wiSection.style.display = 'none';
+    if (appsListWrap) appsListWrap.style.display = 'block';
 
     let totalVisible = 0;
     const categoryCounts = { business: 0, personal: 0, upcoming: 0 };
@@ -3174,7 +3197,14 @@ function initAppsCatalogModal() {
   });
 
   if (searchInput) {
-    searchInput.addEventListener('input', filterApps);
+    searchInput.addEventListener('input', () => {
+      // If typing in search while in What's Included, automatically switch to apps
+      if (currentCategoryFilter === 'whats-included') {
+        currentCategoryFilter = 'all';
+        filterPills.forEach(p => p.classList.toggle('active', p.dataset.category === 'all'));
+      }
+      filterApps();
+    });
   }
 
   if (searchClearBtn) {
@@ -3192,23 +3222,59 @@ function initAppsCatalogModal() {
     resetSearchBtn.addEventListener('click', () => {
       audio.playBlip();
       if (searchInput) searchInput.value = '';
-      currentCategoryFilter = 'all';
-      filterPills.forEach(p => p.classList.toggle('active', p.dataset.category === 'all'));
-      filterApps();
+      switchToApps('all');
     });
   }
 
   filterPills.forEach(pill => {
     pill.addEventListener('click', () => {
       audio.playBlip();
-      filterPills.forEach(p => p.classList.remove('active'));
-      pill.classList.add('active');
-      currentCategoryFilter = pill.dataset.category || 'all';
-      filterApps();
-      const catalogBody = document.getElementById('apps-catalog-body');
-      if (catalogBody) catalogBody.scrollTop = 0;
+      const cat = pill.dataset.category || 'all';
+      if (cat === 'whats-included') {
+        switchToWhatsIncluded();
+      } else {
+        switchToApps(cat);
+      }
     });
   });
+
+  // Switch to "What's Included?" triggers
+  const wiTrigger = document.getElementById('catalog-whats-included-trigger');
+  if (wiTrigger) {
+    wiTrigger.addEventListener('click', (e) => {
+      e.preventDefault();
+      audio.playChime();
+      switchToWhatsIncluded();
+    });
+  }
+
+  const wiOpenBtn = document.getElementById('catalog-wi-open-btn');
+  if (wiOpenBtn) {
+    wiOpenBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      audio.playChime();
+      switchToWhatsIncluded();
+    });
+  }
+
+  // Back to All Applications buttons inside What's Included
+  const wiBackBtn = document.getElementById('wi-back-to-apps-btn');
+  if (wiBackBtn) {
+    wiBackBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      audio.playBlip();
+      switchToApps('all');
+    });
+  }
+
+  const wiBackBottomBtn = document.getElementById('wi-back-to-apps-bottom-btn');
+  if (wiBackBottomBtn) {
+    wiBackBottomBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      audio.playBlip();
+      switchToApps('all');
+    });
+  }
 
   // Card Action Buttons
   modal.querySelectorAll('.catalog-view-btn').forEach(btn => {
@@ -3241,8 +3307,9 @@ function initAppsCatalogModal() {
     });
   });
 
-  if (footerCaelinBtn) {
-    footerCaelinBtn.addEventListener('click', () => {
+  // Direct CAELIN consultation button inside Transparency view
+  modal.querySelectorAll('.catalog-talk-caelin-direct-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
       closeCatalogModal();
       const chatLightbox = document.getElementById('chat-lightbox');
       if (chatLightbox) {
@@ -3251,26 +3318,12 @@ function initAppsCatalogModal() {
         document.body.style.overflow = 'hidden';
         const input = document.getElementById('chat-input');
         if (input) {
-          input.value = `Can you guide me on which Cael Hub application fits my business vision best?`;
+          input.value = `Can you explain how full source code access and white-label ownership work with Cael Hub?`;
           setTimeout(() => input.focus(), 250);
         }
       }
     });
-  }
-
-  // Switch to "What's Included?" transparency breakdown
-  const wiTrigger = document.getElementById('catalog-whats-included-trigger');
-  if (wiTrigger) {
-    wiTrigger.addEventListener('click', (e) => {
-      e.preventDefault();
-      audio.playChime();
-      currentCategoryFilter = 'whats-included';
-      filterPills.forEach(p => p.classList.toggle('active', p.dataset.category === 'whats-included'));
-      filterApps();
-      const catalogBody = document.getElementById('apps-catalog-body');
-      if (catalogBody) catalogBody.scrollTop = 0;
-    });
-  }
+  });
 
   // Keyboard close
   document.addEventListener('keydown', (e) => {
