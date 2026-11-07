@@ -449,7 +449,7 @@ export const APPS_CATALOG = {
     title: 'CAEL TRUCKING DELIVERY APP',
     badge: 'CAEL TRUCKING APP',
     subtitle: 'Heavy Cargo & Commercial Freight Dispatch',
-    pitch: 'A free mobile app ready for your commercial trucking, freight, and cargo logistics business.',
+    pitch: 'Manage your commercial trucking and freight operations through your own branded application, with Cael Hub managing the software, updates, and technical infrastructure.',
     gallery: [
       {
         image: './truckdelivery.jpg?v=6',
