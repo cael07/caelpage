@@ -404,7 +404,10 @@ async def get_robots_txt():
     root_file = os.path.join(BASE_DIR, "robots.txt")
     if os.path.isfile(root_file):
         return FileResponse(root_file, media_type="text/plain; charset=utf-8")
-    return Response(content="User-agent: *\nAllow: /\nSitemap: https://caelpage.onrender.com/sitemap.xml\n", media_type="text/plain; charset=utf-8")
+    return Response(
+        content="User-agent: facebookexternalhit\nAllow: /\n\nUser-agent: Facebot\nAllow: /\n\nUser-agent: *\nAllow: /\nDisallow: /api/\n\nSitemap: https://caelpage.onrender.com/sitemap.xml\n",
+        media_type="text/plain; charset=utf-8"
+    )
 
 @app.api_route("/sitemap.xml", methods=["GET", "HEAD"])
 async def get_sitemap_xml():
