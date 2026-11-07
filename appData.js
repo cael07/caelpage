@@ -353,7 +353,7 @@ export const APPS_CATALOG = {
     title: 'CAEL MASSAGE SERVICE APP',
     badge: 'CAEL MASSAGE APP',
     subtitle: 'On-Demand Spa & Home Massage Service',
-    pitch: 'A free mobile app ready for your own massage & wellness service business with therapist dispatch and payroll.',
+    pitch: 'Operate your own massage and wellness booking business using a professionally managed application, with Cael Hub managing the software, updates, and technical infrastructure.',
     gallery: [
       {
         image: './massageservice.jpg?v=3',
