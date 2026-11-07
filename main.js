@@ -1097,6 +1097,7 @@ Launch your business with your own branded mobile application while Cael Hub tak
 3. **🔄 Free Software Maintenance:** Enjoy ongoing updates, bug fixes, and eligible personalization at no additional development fee.
 4. **☁️ Managed Infrastructure:** We handle your application's servers, database, hosting, and maintenance.
 5. **🚀 Google Play Store Management:** We manage publishing and eligible app updates so you can focus on your business.
+6. **🛠️ Technical Assistance (Ongoing Technical Support):** Get assistance with application configuration, technical issues, and troubleshooting to help keep your business application running smoothly.
 
 **A SIMPLE 2% SERVICE SHARE:**
 Cael Hub automatically receives an agreed **2% share** of your business's collected service fee on each eligible transaction.
@@ -1134,6 +1135,9 @@ All Cael Hub applications are personalized under your company branding and backe
 
 - **🚀 Google Play Store Management:**
   **Included in partnership.** We manage publishing and eligible app updates so you can focus on serving customers.
+
+- **🛠️ What technical assistance and ongoing support is provided?**
+  **Dedicated technical support.** Get assistance with application configuration, technical issues, and troubleshooting to help keep your business application running smoothly.
 
 - **💡 What is the 2% service share?**
   **Transparent transaction share.** Cael Hub automatically receives an agreed 2% share of your business's collected service fee on each eligible transaction (e.g., if you collect a 15% booking service fee, Cael Hub's 2% share is deducted automatically from that fee) to cover hosting, database management, software maintenance, and technical support.`;
@@ -2863,6 +2867,98 @@ function initScrollSpy() {
 }
 
 // --------------------------------------------------------------------------
+// 13b. System Mode Directives & Interactive 3D Flip Cards
+// --------------------------------------------------------------------------
+function initSystemMaintenanceCards() {
+  const capabilitiesBtn = document.getElementById('hero-capabilities-btn');
+  const maintenanceBtn = document.getElementById('hero-maintenance-btn');
+  const cards = Array.from(document.querySelectorAll('#hero-flip-grid .stat-card.flip-card'));
+
+  if (cards.length === 0) return;
+
+  // Flips all cards to the System Maintenance directives side (won't flip back)
+  function showMaintenance() {
+    const allAlreadyFlipped = cards.every(c => c.classList.contains('is-flipped'));
+    if (allAlreadyFlipped) return;
+
+    audio.playChime();
+
+    if (maintenanceBtn) maintenanceBtn.classList.add('active');
+    if (capabilitiesBtn) capabilitiesBtn.classList.remove('active');
+
+    // Staggered 3D card cascade animation to maintenance side
+    cards.forEach((card, index) => {
+      setTimeout(() => {
+        card.classList.add('is-flipped');
+      }, index * 75);
+    });
+  }
+
+  // Reverts / flips all cards back to the System Capabilities side (won't flip to maintenance)
+  function showCapabilities() {
+    const noneAlreadyFlipped = cards.every(c => !c.classList.contains('is-flipped'));
+    if (noneAlreadyFlipped) return;
+
+    audio.playBlip();
+
+    if (capabilitiesBtn) capabilitiesBtn.classList.add('active');
+    if (maintenanceBtn) maintenanceBtn.classList.remove('active');
+
+    // Staggered 3D card cascade animation back to capabilities side
+    cards.forEach((card, index) => {
+      setTimeout(() => {
+        card.classList.remove('is-flipped');
+      }, index * 75);
+    });
+  }
+
+  if (maintenanceBtn) {
+    maintenanceBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      showMaintenance();
+    });
+  }
+
+  if (capabilitiesBtn) {
+    capabilitiesBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      showCapabilities();
+    });
+  }
+
+  // Sync button states if individual cards are clicked
+  function syncButtonStates() {
+    const flippedCount = cards.filter(c => c.classList.contains('is-flipped')).length;
+    if (flippedCount === cards.length) {
+      if (maintenanceBtn) maintenanceBtn.classList.add('active');
+      if (capabilitiesBtn) capabilitiesBtn.classList.remove('active');
+    } else if (flippedCount === 0) {
+      if (capabilitiesBtn) capabilitiesBtn.classList.add('active');
+      if (maintenanceBtn) maintenanceBtn.classList.remove('active');
+    }
+  }
+
+  // Also support clicking individual cards to inspect
+  cards.forEach(card => {
+    card.addEventListener('click', () => {
+      audio.playBlip();
+      card.classList.toggle('is-flipped');
+      syncButtonStates();
+    });
+
+    // Keyboard accessibility (Enter / Space to flip)
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        audio.playBlip();
+        card.classList.toggle('is-flipped');
+        syncButtonStates();
+      }
+    });
+  });
+}
+
+// --------------------------------------------------------------------------
 // 13.5. Mobile Cyber Navigation Menu & Drawer
 // --------------------------------------------------------------------------
 function initMobileMenu() {
@@ -3173,7 +3269,7 @@ function initAppsCatalogModal() {
     });
   });
 
-  // Switch to Partnership Model triggers
+  // Switch to "What's Included?" triggers
   const wiTrigger = document.getElementById('catalog-whats-included-trigger');
   if (wiTrigger) {
     wiTrigger.addEventListener('click', (e) => {
@@ -3319,6 +3415,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initConsoleDownloadCounter();
   initScrollSpy();
   initPartnershipButtons();
+  initSystemMaintenanceCards();
 });
 
 

@@ -2786,6 +2786,17 @@ body {
   line-height: 1;
 }
 
+.partnership-card .card-domain {
+  display: block;
+  font-family: var(--font-code);
+  font-size: 0.68rem;
+  color: var(--accent-cyan);
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+  text-transform: uppercase;
+}
+
 .service-share-box {
   margin-top: 2.8rem;
   padding: 2.2rem 2rem;
