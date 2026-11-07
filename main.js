@@ -3364,25 +3364,26 @@ function initAppsCatalogModal() {
 }
 
 function initPartnershipButtons() {
-  const btn = document.getElementById('partnership-how-btn');
-  if (!btn) return;
-  btn.addEventListener('click', (e) => {
-    e.preventDefault();
-    const chatLightbox = document.getElementById('chat-lightbox');
-    if (chatLightbox) {
-      if (typeof audio !== 'undefined' && audio.playChime) audio.playChime();
-      chatLightbox.classList.remove('hidden');
-      document.body.style.overflow = 'hidden';
-      const input = document.getElementById('chat-input');
-      if (input) {
-        input.value = `Tell me more about how the Cael Hub partnership works, the 2% service share, and managed technology.`;
-        setTimeout(() => {
-          input.focus();
-          const form = document.getElementById('chat-form');
-          if (form) form.dispatchEvent(new Event('submit', { cancelable: true }));
-        }, 220);
+  const buttons = document.querySelectorAll('.partnership-how-trigger, #partnership-how-btn, #hero-partnership-how-btn');
+  buttons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const chatLightbox = document.getElementById('chat-lightbox');
+      if (chatLightbox) {
+        if (typeof audio !== 'undefined' && audio.playChime) audio.playChime();
+        chatLightbox.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+        const input = document.getElementById('chat-input');
+        if (input) {
+          input.value = `Tell me more about how the Cael Hub partnership works, the 2% service share, and managed technology.`;
+          setTimeout(() => {
+            input.focus();
+            const form = document.getElementById('chat-form');
+            if (form) form.dispatchEvent(new Event('submit', { cancelable: true }));
+          }, 220);
+        }
       }
-    }
+    });
   });
 }
 

@@ -5570,6 +5570,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .explore-apps-btn {
@@ -6430,8 +6432,10 @@ body {
 @media (max-width: 640px) {
   .hero-manifesto-action {
     width: 100%;
+    flex-direction: column;
+    gap: 0.75rem;
   }
-  .explore-apps-btn {
+  .hero-manifesto-action .cyber-btn {
     width: 100%;
     justify-content: center;
     padding: 0.85rem 1.2rem;
