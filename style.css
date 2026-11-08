@@ -4469,35 +4469,27 @@ body {
     flex-direction: column;
   }
 
-  .modal-left-column {
-    width: 100%;
-    min-width: unset;
-    height: 180px;
-    border-right: none;
-    border-bottom: 1px solid var(--bg-card-border);
-    padding: 0.75rem;
+  /* In mobile & tablet view, hide the CAELIN image showcase column 
+     to give maximum chat box space for easy reading. 
+     Users can tap the AI profile avatar inside the chat to view the full image. */
+  .modal-left-column,
+  #chat-left-side {
+    display: none !important;
   }
 
-  .ai-model-card {
-    flex-direction: row;
-    align-items: center;
-    gap: 1rem;
+  .modal-right-column,
+  #chat-right-side {
+    width: 100% !important;
+    height: 100% !important;
+    flex: 1 1 100% !important;
   }
 
-  .model-image-frame {
-    width: 100px;
-    height: 140px;
-    flex-shrink: 0;
+  .chat-messages-container {
+    padding: 0.85rem 0.75rem;
   }
 
-  .visualizer-wrapper,
-  .model-stats-panel {
-    display: none;
-  }
-
-  .left-controls {
-    flex: 1;
-    margin-top: 0;
+  .chat-bubble {
+    max-width: 92%;
   }
 }
 
