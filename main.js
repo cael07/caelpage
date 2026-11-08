@@ -692,128 +692,163 @@ Answer concisely with sleek markdown formatting when appropriate. Always conclud
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!SpeechRecognition) {
       if (this.micBtn) {
-        this.micBtn.title = "Voice recognition not supported by browser";
-        this.micBtn.style.opacity = '0.5';
+        this.micBtn.title = "Voice recognition is supported in Google Chrome, Microsoft Edge, and Safari";
+        this.micBtn.addEventListener('click', () => {
+          alert('Speech-to-Text is supported in Google Chrome, Microsoft Edge, and Safari browsers. Please open Cael Hub in Chrome or Edge to use voice input.');
+        });
       }
       return;
     }
 
     let isRecording = false;
-    let autoSendTimeout = null;
-    let activeStream = null;
-    const recognition = new SpeechRecognition();
-    recognition.continuous = false;
-    recognition.interimResults = true;
-    recognition.lang = navigator.language || 'en-US';
-
+    let silenceTimer = null;
+    let recognition = null;
     const defaultPlaceholder = "Type your query into CAELIN...";
 
     const stopRecording = () => {
       isRecording = false;
-      if (this.micBtn) this.micBtn.classList.remove('recording');
-      if (this.input) this.input.placeholder = defaultPlaceholder;
-      if (activeStream) {
+      if (silenceTimer) {
+        clearTimeout(silenceTimer);
+        silenceTimer = null;
+      }
+      if (this.micBtn) {
+        this.micBtn.classList.remove('recording');
+        this.micBtn.title = "Voice Input (Click to speak)";
+      }
+      if (this.input) {
+        this.input.placeholder = defaultPlaceholder;
+      }
+      if (recognition) {
         try {
-          activeStream.getTracks().forEach(t => t.stop());
-        } catch (e) {}
-        activeStream = null;
+          recognition.abort();
+        } catch (err) {}
       }
     };
 
-    this.micBtn.addEventListener('click', async () => {
-      audio.playBlip();
-
-      if (isRecording) {
+    const finishAndSend = () => {
+      if (silenceTimer) {
+        clearTimeout(silenceTimer);
+        silenceTimer = null;
+      }
+      isRecording = false;
+      if (this.micBtn) {
+        this.micBtn.classList.remove('recording');
+        this.micBtn.title = "Voice Input (Click to speak)";
+      }
+      if (this.input) {
+        this.input.placeholder = defaultPlaceholder;
+      }
+      if (recognition) {
         try {
           recognition.stop();
         } catch (err) {}
-        stopRecording();
-        return;
       }
-
-      // Check protocol security context (Chrome restricts Web Speech API on file://)
-      if (window.location.protocol === 'file:') {
-        alert("🎤 Web Speech API Notice:\n\nGoogle Chrome & Edge require running over http://localhost:5173 (dev server) or HTTPS for speech recognition to access your laptop microphone.");
+      if (this.input && this.input.value.trim()) {
+        setTimeout(() => {
+          this.handleUserSend();
+        }, 200);
       }
+    };
 
-      // Explicitly request laptop internal microphone hardware access first
+    const startRecording = () => {
+      // Create a fresh instance for every session to guarantee clean state
       try {
-        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-          activeStream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        }
-      } catch (micErr) {
-        console.warn('Laptop microphone getUserMedia access error:', micErr);
-        alert('Microphone hardware access was denied or not detected. Please check your browser microphone permission prompt or Windows Privacy settings.');
-        stopRecording();
+        recognition = new SpeechRecognition();
+      } catch (e) {
+        console.error('Failed to create SpeechRecognition instance:', e);
         return;
       }
+
+      recognition.continuous = true;
+      recognition.interimResults = true;
+      recognition.maxAlternatives = 1;
+      const userLang = (navigator.languages && navigator.languages[0]) || navigator.language || 'en-US';
+      recognition.lang = userLang;
+
+      recognition.onstart = () => {
+        isRecording = true;
+        if (this.micBtn) {
+          this.micBtn.classList.add('recording');
+          this.micBtn.title = "Listening... (Click to send or stop speaking)";
+        }
+        if (this.input) {
+          this.input.placeholder = "🎤 Listening... Speak into your microphone now!";
+          this.input.focus();
+        }
+      };
+
+      recognition.onresult = (e) => {
+        let fullTranscript = '';
+        for (let i = 0; i < e.results.length; i++) {
+          fullTranscript += e.results[i][0].transcript;
+        }
+
+        if (fullTranscript.trim()) {
+          this.input.value = fullTranscript;
+        }
+
+        // Auto-send after 1.4s of silence following speech
+        if (silenceTimer) clearTimeout(silenceTimer);
+        silenceTimer = setTimeout(() => {
+          if (isRecording && this.input.value.trim()) {
+            finishAndSend();
+          }
+        }, 1400);
+      };
+
+      recognition.onerror = (e) => {
+        console.warn('Speech recognition error:', e.error);
+        if (e.error === 'no-speech') {
+          // If no speech yet, don't crash, keep listening
+          if (this.input && !this.input.value.trim()) {
+            this.input.placeholder = "🎤 Still listening... Speak into your microphone.";
+          }
+          return;
+        }
+
+        stopRecording();
+
+        if (e.error === 'not-allowed' || e.error === 'service-not-allowed') {
+          alert('Microphone permission was not granted. Please click the camera/microphone icon in your browser address bar to allow microphone access.');
+        } else if (e.error === 'audio-capture') {
+          alert('No microphone was detected on your device. Please verify your Windows or device sound settings.');
+        } else if (e.error === 'network') {
+          alert('Speech recognition network error. Please check your internet connection and try again.');
+        }
+      };
+
+      recognition.onend = () => {
+        if (isRecording) {
+          if (this.input && this.input.value.trim()) {
+            finishAndSend();
+          } else {
+            stopRecording();
+          }
+        }
+      };
 
       try {
         this.input.value = '';
-        this.input.placeholder = "🎤 Listening... Speak into your laptop microphone now!";
-        this.input.focus();
-        isRecording = true;
-        this.micBtn.classList.add('recording');
         recognition.start();
       } catch (err) {
-        console.warn('Speech recognition start error:', err);
+        console.warn('Error starting speech recognition:', err);
         stopRecording();
       }
-    });
+    };
 
-    recognition.onresult = (e) => {
-      let currentTranscript = '';
-      let isFinalResult = false;
+    if (this.micBtn) {
+      this.micBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        audio.playBlip();
 
-      for (let i = e.resultIndex; i < e.results.length; i++) {
-        const transcriptPart = e.results[i][0].transcript;
-        currentTranscript += transcriptPart;
-        if (e.results[i].isFinal) {
-          isFinalResult = true;
+        if (isRecording) {
+          // If already recording, clicking the mic sends whatever has been spoken!
+          finishAndSend();
+        } else {
+          startRecording();
         }
-      }
-
-      // Real-time autotype into input box as user speaks!
-      if (currentTranscript.trim()) {
-        this.input.value = currentTranscript;
-      }
-
-      // If speech finished with final result, auto-send query
-      if (isFinalResult && this.input.value.trim()) {
-        stopRecording();
-        try {
-          recognition.stop();
-        } catch (err) {}
-        if (autoSendTimeout) clearTimeout(autoSendTimeout);
-        autoSendTimeout = setTimeout(() => {
-          this.handleUserSend();
-        }, 300);
-      }
-    };
-
-    recognition.onerror = (e) => {
-      console.warn('Speech recognition error:', e.error);
-      stopRecording();
-      if (e.error === 'not-allowed') {
-        alert('Microphone permission denied. Please allow microphone access in your browser address bar to use voice input.');
-      } else if (e.error === 'no-speech') {
-        if (this.input) this.input.placeholder = "No speech detected. Click 🎙️ to speak again.";
-      } else if (e.error === 'audio-capture') {
-        alert('No laptop microphone detected or active. Please verify your Windows microphone settings.');
-      }
-    };
-
-    recognition.onend = () => {
-      if (isRecording) {
-        stopRecording();
-        if (this.input.value.trim()) {
-          if (autoSendTimeout) clearTimeout(autoSendTimeout);
-          autoSendTimeout = setTimeout(() => {
-            this.handleUserSend();
-          }, 300);
-        }
-      }
-    };
+      });
+    }
   }
 
   async handleUserSend(isAutoAlreadyPopped = false) {
