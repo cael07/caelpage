@@ -790,13 +790,32 @@ Answer concisely with sleek markdown formatting when appropriate. Always conclud
         };
 
         recognition.onresult = (e) => {
-          let sessionTranscript = '';
+          let finalPart = '';
+          let latestInterim = '';
+
           for (let i = 0; i < e.results.length; ++i) {
-            sessionTranscript += e.results[i][0].transcript;
+            const res = e.results[i];
+            if (res.isFinal) {
+              const phrase = res[0].transcript.trim();
+              if (phrase) {
+                // Deduplicate if browser repeats the exact same phrase
+                if (!finalPart.endsWith(phrase)) {
+                  finalPart = (finalPart ? (finalPart + ' ') : '') + phrase;
+                }
+              }
+            } else {
+              // Take ONLY the latest interim hypothesis (never concatenate progressive interim attempts)
+              latestInterim = res[0].transcript.trim();
+            }
           }
 
-          const cleanSessionText = sessionTranscript.trim();
-          const fullText = (prefixText ? (prefixText + ' ' + cleanSessionText) : cleanSessionText).trim();
+          // If latest interim is already a subset of the finalized part, ignore it
+          if (finalPart && latestInterim && finalPart.endsWith(latestInterim)) {
+            latestInterim = '';
+          }
+
+          const currentSessionText = (finalPart ? (finalPart + (latestInterim ? (' ' + latestInterim) : '')) : latestInterim).trim();
+          const fullText = (prefixText ? (prefixText + ' ' + currentSessionText) : currentSessionText).trim();
 
           if (fullText) {
             this.input.value = fullText;
