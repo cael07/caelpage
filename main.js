@@ -2414,18 +2414,22 @@ function initAppDetailsModal() {
     thumbsViewport.addEventListener('dragstart', (e) => e.preventDefault());
   }
 
-  // Touch swipe support on modal large image for mobile view
+  // Touch swipe and Click-to-Zoom support on modal large image
   const heroImageContainer = modal.querySelector('.hero-image-container');
   if (heroImageContainer) {
     let touchStartX = 0;
     let touchStartY = 0;
     let touchEndX = 0;
+    let touchEndY = 0;
+    let heroTouchDidSwipe = false;
 
     heroImageContainer.addEventListener('touchstart', (e) => {
       if (e.touches && e.touches.length === 1) {
         touchStartX = e.touches[0].clientX;
         touchStartY = e.touches[0].clientY;
         touchEndX = touchStartX;
+        touchEndY = touchStartY;
+        heroTouchDidSwipe = false;
         isAutoplayPaused = true;
       }
     }, { passive: true });
@@ -2433,6 +2437,10 @@ function initAppDetailsModal() {
     heroImageContainer.addEventListener('touchmove', (e) => {
       if (e.touches && e.touches.length === 1) {
         touchEndX = e.touches[0].clientX;
+        touchEndY = e.touches[0].clientY;
+        if (Math.abs(touchEndX - touchStartX) > 18 || Math.abs(touchEndY - touchStartY) > 18) {
+          heroTouchDidSwipe = true;
+        }
       }
     }, { passive: true });
 
@@ -2443,6 +2451,7 @@ function initAppDetailsModal() {
       resetModalAutoplay();
 
       if (Math.abs(deltaX) > 40 && Math.abs(deltaX) > deltaY) {
+        heroTouchDidSwipe = true;
         if (deltaX < 0) {
           audio.playBlip();
           displayScreen(currentScreenIndex + 1, 'forward');
@@ -2452,7 +2461,39 @@ function initAppDetailsModal() {
         }
       }
     }, { passive: true });
+
+    // Open Fullscreen Zoom Overlay on Click/Tap of Large Image
+    heroImageContainer.addEventListener('click', (e) => {
+      // Ignore clicks on previous/next arrow buttons
+      if (e.target.closest('#hero-prev-btn') || e.target.closest('#hero-next-btn')) {
+        return;
+      }
+      if (heroTouchDidSwipe) {
+        heroTouchDidSwipe = false;
+        return;
+      }
+      const app = APPS_CATALOG[currentAppId] || APPS_CATALOG['ridehailing'];
+      const currentScreen = (app && app.gallery && app.gallery[currentScreenIndex]) ? app.gallery[currentScreenIndex] : null;
+      const activeSlide = slides[activeLayerIndex] || slides[0];
+      const imgSrc = (currentScreen && currentScreen.image) ? currentScreen.image : (activeSlide ? activeSlide.src : '');
+      const title = currentScreen ? `${app.title} — ${currentScreen.title}` : (app ? app.title : 'Preview Screen');
+
+      if (imgSrc && typeof window.openImageZoom === 'function') {
+        window.openImageZoom(imgSrc, title);
+      }
+    });
   }
+
+  // Handle image zoom open/close events to pause/resume modal autoplay
+  window.addEventListener('cael:image-zoom-open', () => {
+    isAutoplayPaused = true;
+  });
+  window.addEventListener('cael:image-zoom-close', () => {
+    if (!modal.classList.contains('hidden')) {
+      isAutoplayPaused = false;
+      resetModalAutoplay();
+    }
+  });
 
   // Pause on hover over viewer frame or details info section
   const viewerFrame = modal.querySelector('.hero-viewer-frame');
@@ -2538,6 +2579,354 @@ function initAppDetailsModal() {
 
   // Expose global openAppModal
   window.openAppDetailsModal = openAppModal;
+}
+
+// --------------------------------------------------------------------------
+// 10B. Fullscreen Image Zoom Controller (Overlay with Zoom In/Out & Pan)
+// --------------------------------------------------------------------------
+function initImageZoomController() {
+  const overlay = document.getElementById('image-zoom-overlay');
+  if (!overlay) return;
+
+  const backdrop = document.getElementById('image-zoom-backdrop');
+  const stage = document.getElementById('image-zoom-stage');
+  const viewport = document.getElementById('image-zoom-viewport');
+  const target = document.getElementById('image-zoom-target');
+  const titleBadge = document.getElementById('image-zoom-title');
+  const zoomInBtn = document.getElementById('zoom-in-btn');
+  const zoomOutBtn = document.getElementById('zoom-out-btn');
+  const zoomResetBtn = document.getElementById('zoom-reset-btn');
+  const zoomCloseBtn = document.getElementById('zoom-close-btn');
+  const zoomLevelBadge = document.getElementById('zoom-level-badge');
+
+  let scale = 1.0;
+  const MIN_SCALE = 1.0;
+  const MAX_SCALE = 4.5;
+  const STEP = 0.35;
+
+  let panX = 0;
+  let panY = 0;
+  let isDragging = false;
+  let dragStartX = 0;
+  let dragStartY = 0;
+  let panStartX = 0;
+  let panStartY = 0;
+  let hasDragged = false;
+
+  let initialPinchDistance = 0;
+  let initialPinchScale = 1.0;
+  let lastTapTime = 0;
+
+  function updateTransform(withTransition = true) {
+    if (!target) return;
+    if (withTransition) {
+      target.style.transition = 'transform 0.12s cubic-bezier(0.16, 1, 0.3, 1)';
+    } else {
+      target.style.transition = 'none';
+    }
+    target.style.transform = `translate3d(${panX}px, ${panY}px, 0) scale(${scale})`;
+
+    if (zoomLevelBadge) {
+      zoomLevelBadge.textContent = `${Math.round(scale * 100)}%`;
+    }
+
+    if (scale > 1.02) {
+      target.classList.add('is-zoomed');
+    } else {
+      target.classList.remove('is-zoomed');
+    }
+
+    if (isDragging) {
+      target.classList.add('is-dragging');
+    } else {
+      target.classList.remove('is-dragging');
+    }
+  }
+
+  function clampPan() {
+    if (!stage || !target || scale <= 1.02) {
+      panX = 0;
+      panY = 0;
+      return;
+    }
+
+    const stageRect = stage.getBoundingClientRect();
+    const imgWidth = target.offsetWidth * scale;
+    const imgHeight = target.offsetHeight * scale;
+
+    // Maximum pan bounds so user can't throw image completely out of sight
+    const maxPanX = Math.max(0, (imgWidth - stageRect.width) / 2 + stageRect.width * 0.35);
+    const maxPanY = Math.max(0, (imgHeight - stageRect.height) / 2 + stageRect.height * 0.35);
+
+    panX = Math.min(maxPanX, Math.max(-maxPanX, panX));
+    panY = Math.min(maxPanY, Math.max(-maxPanY, panY));
+  }
+
+  function setScale(newScale, focalX = null, focalY = null, withTransition = true) {
+    const clampedScale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, newScale));
+    if (clampedScale === scale && focalX === null) return;
+
+    if (focalX !== null && focalY !== null && scale > 0) {
+      const ratio = clampedScale / scale;
+      panX = focalX - (focalX - panX) * ratio;
+      panY = focalY - (focalY - panY) * ratio;
+    }
+
+    scale = clampedScale;
+    if (scale <= 1.02) {
+      panX = 0;
+      panY = 0;
+    } else {
+      clampPan();
+    }
+    updateTransform(withTransition);
+  }
+
+  function zoomIn() {
+    audio.playBlip();
+    setScale(scale + STEP);
+  }
+
+  function zoomOut() {
+    audio.playBlip();
+    setScale(scale - STEP);
+  }
+
+  function resetZoom() {
+    audio.playBlip();
+    scale = 1.0;
+    panX = 0;
+    panY = 0;
+    updateTransform(true);
+  }
+
+  function open(src, title) {
+    if (!overlay || !target) return;
+    target.src = src;
+    target.alt = title || 'Fullscreen Image Preview';
+    if (titleBadge) {
+      titleBadge.textContent = title || 'IMAGE PREVIEW';
+    }
+
+    scale = 1.0;
+    panX = 0;
+    panY = 0;
+    isDragging = false;
+    hasDragged = false;
+    updateTransform(false);
+
+    overlay.classList.remove('hidden');
+    overlay.setAttribute('aria-hidden', 'false');
+    audio.playChime();
+
+    window.dispatchEvent(new CustomEvent('cael:image-zoom-open'));
+  }
+
+  function close() {
+    if (!overlay || overlay.classList.contains('hidden')) return;
+    overlay.classList.add('hidden');
+    overlay.setAttribute('aria-hidden', 'true');
+    audio.playBlip();
+
+    window.dispatchEvent(new CustomEvent('cael:image-zoom-close'));
+  }
+
+  // Zoom control buttons
+  if (zoomInBtn) zoomInBtn.addEventListener('click', (e) => { e.stopPropagation(); zoomIn(); });
+  if (zoomOutBtn) zoomOutBtn.addEventListener('click', (e) => { e.stopPropagation(); zoomOut(); });
+  if (zoomResetBtn) zoomResetBtn.addEventListener('click', (e) => { e.stopPropagation(); resetZoom(); });
+  if (zoomCloseBtn) zoomCloseBtn.addEventListener('click', (e) => { e.stopPropagation(); close(); });
+
+  // Backdrop / Stage click outside to close
+  if (backdrop) {
+    backdrop.addEventListener('click', (e) => {
+      e.stopPropagation();
+      close();
+    });
+  }
+
+  if (stage) {
+    stage.addEventListener('click', (e) => {
+      // If user was dragging/panning the image, do not close
+      if (hasDragged) {
+        hasDragged = false;
+        return;
+      }
+      // If click was directly on the image itself, don't close (handled by double click/tap)
+      if (e.target === target) {
+        return;
+      }
+      close();
+    });
+
+    // Mouse wheel zoom
+    stage.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      const stageRect = stage.getBoundingClientRect();
+      const focalX = e.clientX - stageRect.left - stageRect.width / 2;
+      const focalY = e.clientY - stageRect.top - stageRect.height / 2;
+      const delta = e.deltaY < 0 ? STEP : -STEP;
+      setScale(scale + delta, focalX, focalY, false);
+    }, { passive: false });
+  }
+
+  // Mouse Drag to Pan
+  if (target) {
+    target.addEventListener('mousedown', (e) => {
+      if (e.button !== 0) return; // Left click only
+      isDragging = true;
+      hasDragged = false;
+      dragStartX = e.clientX;
+      dragStartY = e.clientY;
+      panStartX = panX;
+      panStartY = panY;
+      updateTransform(false);
+    });
+
+    // Double click to toggle zoom
+    target.addEventListener('dblclick', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      audio.playBlip();
+      if (scale > 1.2) {
+        resetZoom();
+      } else {
+        const stageRect = stage.getBoundingClientRect();
+        const focalX = e.clientX - stageRect.left - stageRect.width / 2;
+        const focalY = e.clientY - stageRect.top - stageRect.height / 2;
+        setScale(2.2, focalX, focalY, true);
+      }
+    });
+  }
+
+  window.addEventListener('mousemove', (e) => {
+    if (!isDragging || overlay.classList.contains('hidden')) return;
+    const dx = e.clientX - dragStartX;
+    const dy = e.clientY - dragStartY;
+    if (Math.abs(dx) > 4 || Math.abs(dy) > 4) {
+      hasDragged = true;
+    }
+    if (scale > 1.0) {
+      panX = panStartX + dx;
+      panY = panStartY + dy;
+      clampPan();
+      updateTransform(false);
+    }
+  });
+
+  window.addEventListener('mouseup', () => {
+    if (!isDragging) return;
+    isDragging = false;
+    updateTransform(true);
+  });
+
+  // Touch Drag, Pinch-to-Zoom & Double-Tap (Mobile)
+  if (stage) {
+    stage.addEventListener('touchstart', (e) => {
+      if (overlay.classList.contains('hidden')) return;
+
+      if (e.touches.length === 1) {
+        isDragging = true;
+        hasDragged = false;
+        dragStartX = e.touches[0].clientX;
+        dragStartY = e.touches[0].clientY;
+        panStartX = panX;
+        panStartY = panY;
+
+        // Double tap detection
+        const now = Date.now();
+        if (now - lastTapTime < 300) {
+          e.preventDefault();
+          audio.playBlip();
+          if (scale > 1.2) {
+            resetZoom();
+          } else {
+            const stageRect = stage.getBoundingClientRect();
+            const focalX = e.touches[0].clientX - stageRect.left - stageRect.width / 2;
+            const focalY = e.touches[0].clientY - stageRect.top - stageRect.height / 2;
+            setScale(2.2, focalX, focalY, true);
+          }
+          lastTapTime = 0;
+          return;
+        }
+        lastTapTime = now;
+      } else if (e.touches.length === 2) {
+        isDragging = false;
+        hasDragged = true;
+        initialPinchDistance = Math.hypot(
+          e.touches[0].clientX - e.touches[1].clientX,
+          e.touches[0].clientY - e.touches[1].clientY
+        );
+        initialPinchScale = scale;
+      }
+    }, { passive: false });
+
+    stage.addEventListener('touchmove', (e) => {
+      if (overlay.classList.contains('hidden')) return;
+
+      if (e.touches.length === 1 && isDragging) {
+        const dx = e.touches[0].clientX - dragStartX;
+        const dy = e.touches[0].clientY - dragStartY;
+        if (Math.abs(dx) > 6 || Math.abs(dy) > 6) {
+          hasDragged = true;
+        }
+        if (scale > 1.0) {
+          e.preventDefault();
+          panX = panStartX + dx;
+          panY = panStartY + dy;
+          clampPan();
+          updateTransform(false);
+        }
+      } else if (e.touches.length === 2 && initialPinchDistance > 0) {
+        e.preventDefault();
+        hasDragged = true;
+        const currentDistance = Math.hypot(
+          e.touches[0].clientX - e.touches[1].clientX,
+          e.touches[0].clientY - e.touches[1].clientY
+        );
+        const ratio = currentDistance / initialPinchDistance;
+        const newScale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, initialPinchScale * ratio));
+        scale = newScale;
+        if (scale <= 1.02) {
+          panX = 0;
+          panY = 0;
+        } else {
+          clampPan();
+        }
+        updateTransform(false);
+      }
+    }, { passive: false });
+
+    stage.addEventListener('touchend', (e) => {
+      if (e.touches.length === 0) {
+        isDragging = false;
+        updateTransform(true);
+      }
+    });
+  }
+
+  // Keyboard navigation
+  window.addEventListener('keydown', (e) => {
+    if (overlay.classList.contains('hidden')) return;
+
+    if (e.key === 'Escape') {
+      e.stopPropagation();
+      close();
+    } else if (e.key === '+' || e.key === '=') {
+      e.preventDefault();
+      zoomIn();
+    } else if (e.key === '-' || e.key === '_') {
+      e.preventDefault();
+      zoomOut();
+    } else if (e.key === '0') {
+      e.preventDefault();
+      resetZoom();
+    }
+  });
+
+  // Global exposure
+  window.openImageZoom = open;
+  window.closeImageZoom = close;
 }
 
 // --------------------------------------------------------------------------
@@ -3544,6 +3933,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.caelinChatEngine = new AIChatEngine(visualizer);
   initAppsCarousel();
   initAppDetailsModal();
+  initImageZoomController();
   initContactUsModal();
   initAppsCatalogModal();
   initConsoleDownloadCounter();

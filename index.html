@@ -1394,11 +1394,15 @@
             <div class="hero-corner-decor bl"></div>
             <div class="hero-corner-decor br"></div>
             
-            <div class="hero-image-container">
+            <div class="hero-image-container" id="hero-image-container">
               <button class="hero-nav-btn hero-nav-prev" id="hero-prev-btn" title="Previous Image (←)">❮</button>
               <img id="modal-large-img" src="./ridehailing.jpg" alt="App Preview Large" class="hero-large-img active" />
               <img id="modal-large-img-next" src="" alt="App Preview Large" class="hero-large-img" />
               <button class="hero-nav-btn hero-nav-next" id="hero-next-btn" title="Next Image (→)">❯</button>
+              <div class="hero-zoom-hint" id="hero-zoom-hint" aria-label="Click to Zoom Fullscreen">
+                <span class="zoom-hint-icon">🔍</span>
+                <span class="zoom-hint-text">Click to Zoom</span>
+              </div>
             </div>
             
             <!-- THUMBS CAROUSEL INTEGRATED IN PLACE OF CAPTION OVERLAY -->
@@ -2041,6 +2045,46 @@
         <span>💬</span>
       </button>
     </div>
+    </div>
+  </div>
+
+  <!-- ==================== FULLSCREEN IMAGE ZOOM OVERLAY ==================== -->
+  <div id="image-zoom-overlay" class="image-zoom-overlay hidden" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Fullscreen Image Viewer">
+    <!-- Backdrop: clicking outside the image closes the viewer -->
+    <div class="image-zoom-backdrop" id="image-zoom-backdrop"></div>
+
+    <!-- Floating Sci-Fi HUD Header Controls -->
+    <div class="image-zoom-toolbar" id="image-zoom-toolbar">
+      <div class="zoom-toolbar-left">
+        <span class="zoom-toolbar-badge" id="image-zoom-title">IMAGE PREVIEW</span>
+      </div>
+      <div class="zoom-toolbar-center">
+        <button type="button" class="zoom-ctrl-btn" id="zoom-out-btn" aria-label="Zoom Out" title="Zoom Out (-)">
+          <span class="zoom-btn-icon">−</span>
+        </button>
+        <span class="zoom-level-badge" id="zoom-level-badge" title="Current zoom factor">100%</span>
+        <button type="button" class="zoom-ctrl-btn" id="zoom-in-btn" aria-label="Zoom In" title="Zoom In (+)">
+          <span class="zoom-btn-icon">+</span>
+        </button>
+        <button type="button" class="zoom-ctrl-btn zoom-ctrl-reset" id="zoom-reset-btn" aria-label="Reset Zoom (1:1)" title="Reset Zoom (1:1)">
+          <span>1:1</span>
+        </button>
+      </div>
+      <div class="zoom-toolbar-right">
+        <button type="button" class="zoom-close-btn" id="zoom-close-btn" aria-label="Close Fullscreen View" title="Close (Esc)">✕</button>
+      </div>
+    </div>
+
+    <!-- Zoom Stage & Viewport Canvas -->
+    <div class="image-zoom-stage" id="image-zoom-stage">
+      <div class="image-zoom-viewport" id="image-zoom-viewport">
+        <img id="image-zoom-target" src="" alt="Fullscreen Zoom Preview" class="image-zoom-target" draggable="false" />
+      </div>
+    </div>
+
+    <!-- Floating Sci-Fi Bottom Instruction Hint -->
+    <div class="image-zoom-hint-bar" id="image-zoom-hint-bar">
+      <span>✦ Pinch or scroll to zoom • Drag to pan • Click outside or ✕ to close</span>
     </div>
   </div>
 
