@@ -1048,7 +1048,7 @@
               </div>
 
               <div class="revenue-table-wrapper">
-                <table class="revenue-breakdown-table">
+                <table class="revenue-breakdown-table" aria-label="Transparent 2% Service Share Calculation Table">
                   <thead>
                     <tr>
                       <th scope="col">Breakdown</th>
@@ -1056,21 +1056,21 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>Customer transaction</td>
-                      <td class="amount-val">₱1,000</td>
+                    <tr class="transaction-row">
+                      <td data-label="Breakdown">Customer transaction</td>
+                      <td class="amount-val" data-label="Amount">₱1,000</td>
                     </tr>
-                    <tr>
-                      <td>Your business's service fee (15%)</td>
-                      <td class="amount-val highlight-cyan">₱150</td>
+                    <tr class="fee-row">
+                      <td data-label="Breakdown">Your business's service fee (15%)</td>
+                      <td class="amount-val highlight-cyan" data-label="Amount">₱150</td>
                     </tr>
                     <tr class="share-row">
-                      <td><strong>Cael Hub's share (2% of ₱150)</strong></td>
-                      <td class="amount-val highlight-share">₱3</td>
+                      <td data-label="Breakdown"><strong>Cael Hub's share (2% of ₱150)</strong></td>
+                      <td class="amount-val highlight-share" data-label="Amount"><strong>₱3</strong></td>
                     </tr>
                     <tr class="remaining-row">
-                      <td><strong>Your remaining service fee</strong></td>
-                      <td class="amount-val highlight-green"><strong>₱147</strong></td>
+                      <td data-label="Breakdown"><strong>Your remaining service fee</strong></td>
+                      <td class="amount-val highlight-green" data-label="Amount"><strong>₱147</strong></td>
                     </tr>
                   </tbody>
                 </table>
