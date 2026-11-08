@@ -454,6 +454,17 @@ function initModalController(visualizer) {
     windowEl.classList.toggle('fullscreen');
   });
 
+  // Clicking the AI Model Image on the left side displays its full image
+  const aiModelImg = document.getElementById('ai-model-img');
+  if (aiModelImg) {
+    aiModelImg.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (typeof window.openImageZoom === 'function') {
+        window.openImageZoom('./ai.png', 'CAELIN CYBER AI — FULL SYSTEM MODEL');
+      }
+    });
+  }
+
   // Overlay toggle handlers
   const toggleOverlayBtn = document.getElementById('toggle-stats-overlay-btn');
   const closeOverlayBtn = document.getElementById('close-stats-overlay-btn');
@@ -556,7 +567,7 @@ Answer concisely with sleek markdown formatting when appropriate. Always conclud
         audio.playBlip();
         this.messagesContainer.innerHTML = `
           <div class="chat-bubble ai-bubble">
-            <div class="bubble-avatar"><img src="./ai.png" alt="AI Avatar" /></div>
+            <div class="bubble-avatar caelin-avatar-clickable" title="Click to view full image" role="button" tabindex="0"><img src="./ai.png" alt="CAELIN Avatar" /></div>
             <div class="bubble-content-wrapper">
               <div class="bubble-header">
                 <span class="sender-name">CAELIN</span>
@@ -605,9 +616,20 @@ Answer concisely with sleek markdown formatting when appropriate. Always conclud
       });
     });
 
-    // Delegated click on chat messages (e.g. email icon button, contact modal link)
+    // Delegated click on chat messages (e.g. CAELIN avatar to view full image, email icon, contact modal link)
     if (this.messagesContainer) {
       this.messagesContainer.addEventListener('click', (e) => {
+        // Clicking CAELIN profile icon in the chat displays full image
+        const aiAvatar = e.target.closest('.ai-bubble .bubble-avatar, .caelin-avatar-clickable');
+        if (aiAvatar) {
+          e.preventDefault();
+          e.stopPropagation();
+          if (typeof window.openImageZoom === 'function') {
+            window.openImageZoom('./ai.png', 'CAELIN CYBER AI — FULL SYSTEM MODEL');
+          }
+          return;
+        }
+
         const emailBtn = e.target.closest('.chat-email-icon-btn');
         const contactLink = e.target.closest('.chat-contact-modal-link');
         if (emailBtn || contactLink) {
@@ -618,6 +640,33 @@ Answer concisely with sleek markdown formatting when appropriate. Always conclud
           audio.playBlip();
           if (typeof window.openContactUsModal === 'function') {
             window.openContactUsModal();
+          }
+        }
+      });
+
+      // Keyboard support: pressing Enter / Space on CAELIN avatar displays full image
+      this.messagesContainer.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          const aiAvatar = e.target.closest('.ai-bubble .bubble-avatar, .caelin-avatar-clickable');
+          if (aiAvatar) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (typeof window.openImageZoom === 'function') {
+              window.openImageZoom('./ai.png', 'CAELIN CYBER AI — FULL SYSTEM MODEL');
+            }
+          }
+        }
+      });
+    }
+
+    // Typing indicator avatar click displays full image
+    if (this.typingIndicator) {
+      this.typingIndicator.addEventListener('click', (e) => {
+        const avatar = e.target.closest('.typing-avatar, .caelin-avatar-clickable');
+        if (avatar) {
+          e.stopPropagation();
+          if (typeof window.openImageZoom === 'function') {
+            window.openImageZoom('./ai.png', 'CAELIN CYBER AI — FULL SYSTEM MODEL');
           }
         }
       });
@@ -1631,8 +1680,8 @@ Owning source code often requires hiring expensive full-time software engineers,
       .replace(/\n/g, '<br/>');
 
     bubble.innerHTML = `
-      <div class="bubble-avatar">
-        ${isUser ? '👤' : '<img src="./ai.png" alt="AI Avatar" />'}
+      <div class="bubble-avatar ${isUser ? '' : 'caelin-avatar-clickable'}" ${isUser ? '' : 'title="Click to view full image" role="button" tabindex="0"'}>
+        ${isUser ? '👤' : '<img src="./ai.png" alt="CAELIN Avatar" />'}
       </div>
       <div class="bubble-content-wrapper">
         <div class="bubble-header">

@@ -3785,6 +3785,7 @@ body {
   object-position: center center;
   transition: transform 0.5s ease, filter 0.5s ease;
   filter: drop-shadow(0 0 15px var(--accent-glow));
+  cursor: zoom-in;
 }
 
 .model-image-frame:hover .ai-model-img {
@@ -4161,6 +4162,27 @@ body {
   border: 1px solid var(--accent-color);
   box-shadow: 0 0 10px var(--accent-glow);
   flex-shrink: 0;
+}
+
+.ai-bubble .bubble-avatar,
+.typing-avatar,
+.caelin-avatar-clickable {
+  cursor: pointer;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.ai-bubble .bubble-avatar:hover,
+.typing-avatar:hover,
+.caelin-avatar-clickable:hover {
+  transform: scale(1.18);
+  border-color: #00f3ff;
+  box-shadow: 0 0 16px rgba(0, 243, 255, 0.75);
+}
+
+.ai-bubble .bubble-avatar:active,
+.typing-avatar:active,
+.caelin-avatar-clickable:active {
+  transform: scale(0.95);
 }
 
 .bubble-avatar img {
