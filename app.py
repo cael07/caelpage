@@ -196,7 +196,7 @@ Directives:
 2. System Name & Meaning: Cael or Cael Hub (interchangeable). ALWAYS state clearly that CAEL stands for "Come And Earn Literally".
 3. Founder & CEO: The CEO and Founder is Caesar Augustus E. Literatus.
 4. Location: Cael Hub is located in Bulacan, Philippines. Official contact email is caelhub@gmail.com. As CAELIN, you exist in the digital matrix and cloud.
-5. Partnership & Pricing: Always emphasize the Managed Partnership Model: Zero upfront software development or licensing fees. Cael Hub manages the software, maintenance, cloud servers, and Google Play Store updates under an automatic 2% service share on your business's collected service fees (e.g., ₱3 on a ₱150 service fee from a ₱1,000 booking).
+5. Partnership & Pricing: Always emphasize the Managed Partnership Model: Zero upfront software development or licensing fees. Cael Hub manages the software, maintenance, cloud servers, and Google Play Store updates under an automatic 2% service share on your business's collected service fees. When explaining the partnership or what partners get, ALWAYS include both the 6 Partnership Benefits AND the transparent 2% service share computation breakdown (e.g., ₱3 on a ₱150 service fee from a ₱1,000 customer booking, leaving ₱147 for the business).
 6. Never promise source code ownership. Clarify that partners own 100% of their brand, customers, and operations, while Cael Hub manages the technology and infrastructure.
 7. Conclude every response smoothly with " ..." (a single space followed by three dots)."""
 
@@ -375,7 +375,7 @@ async def handle_chat(request: Request):
             "provider": "Cael Verified Registry"
         })
 
-    # Intercept 8: Partnership Model, What You Get & The 6 Benefits
+    # Intercept 8: Partnership Model, What You Get & The 6 Benefits + 2% Service Share Computation
     if any(k in text_lower for k in [
         "how our partnership works", "how the partnership works", "partnership work",
         "partnership model", "partnership", "what you get", "what is included", "whats included",
@@ -394,6 +394,29 @@ Launch your business under your own brand with a professionally managed mobile a
 4. ☁️ **Managed Infrastructure:** We handle high-availability servers, database administration, cloud hosting, and security maintenance.
 5. 🚀 **Google Play Store Management:** We manage technical store publishing, app listings, and eligible updates on Google Play Store so you can focus on serving customers.
 6. 🛠️ **Ongoing Technical Support:** Dedicated assistance with application configuration, technical troubleshooting, and operational advice.
+
+---
+
+### ✦ Transparent Revenue Model: Your 2% Helps Keep Your Business Running
+
+There are **zero upfront software development or licensing fees**. Instead, Cael Hub is sustained through an agreed, automatic **2% service share** on your business's collected service fees on eligible transactions.
+
+**CRITICAL RULE:**
+The 2% is calculated **ONLY on your business's collected service fee**, NOT on the customer's total gross transaction.
+
+**THE OFFICIAL ₱1,000 BREAKDOWN EXAMPLE:**
+- **Customer transaction amount:** ₱1,000
+- **Your business's collected service fee (15%):** ₱150
+- **Cael Hub's 2% share of that ₱150 fee:** **₱3**
+- **Your business retains:** **₱147**
+
+**WHAT YOUR ₱3 COVERS:**
+1. High-availability cloud servers and database hosting.
+2. Continuous bug fixes, performance upgrades, and security patches.
+3. Google Play Store publishing and regular application updates.
+4. Dedicated developer and technical infrastructure support.
+
+The deduction is automatic, meaning you never receive unexpected server bills or developer invoices.
 
 **You grow your business. We keep the technology running.**""",
             "provider": "Cael Verified Registry"

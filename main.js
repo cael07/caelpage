@@ -1089,28 +1089,38 @@ Answer concisely with sleek markdown formatting when appropriate. Always conclud
     ) {
       return `### ✦ How the Cael Hub Partnership Works: Your Business. Your Brand. Our Technology.
 
-Launch your business with your own branded mobile application while Cael Hub takes care of the technology, maintenance, and infrastructure behind it.
+Launch your business under your own brand with a professionally managed mobile application while Cael Hub takes care of the technology, maintenance, and infrastructure behind it.
 
-**WHAT YOU GET:**
-1. **🏷️ Your Own Brand:** Use your company name and logo with a personalized application.
-2. **📱 Your Own Business App:** Access your business application without upfront software licensing or development fees under our partnership.
-3. **🔄 Free Software Maintenance:** Enjoy ongoing updates, bug fixes, and eligible personalization at no additional development fee.
-4. **☁️ Managed Infrastructure:** We handle your application's servers, database, hosting, and maintenance.
-5. **🚀 Google Play Store Management:** We manage publishing and eligible app updates so you can focus on your business.
-6. **🛠️ Ongoing Technical Support:** Get assistance with application configuration, technical issues, and troubleshooting to help keep your business application running smoothly.
+**THE 6 PARTNERSHIP BENEFITS:**
+1. 🏷️ **Your Own Brand:** Use your company name, logo, custom color palette, and app icons with a personalized application.
+2. 📱 **Your Own Business App:** Access a turnkey, deployment-ready enterprise mobile application without upfront software licensing or custom development fees.
+3. 🔄 **Free Software Maintenance:** Enjoy ongoing updates, bug fixes, performance improvements, and eligible personalization at no additional development fee.
+4. ☁️ **Managed Infrastructure:** We handle high-availability servers, database administration, cloud hosting, and security maintenance.
+5. 🚀 **Google Play Store Management:** We manage technical store publishing, app listings, and eligible updates on Google Play Store so you can focus on serving customers.
+6. 🛠️ **Ongoing Technical Support:** Dedicated assistance with application configuration, technical troubleshooting, and operational advice.
 
-**TRANSPARENT REVENUE MODEL: YOUR 2% HELPS KEEP YOUR BUSINESS RUNNING.**
+---
 
-The agreed 2% service share helps cover the technology and infrastructure behind your business application, including server/database hosting, software maintenance, regular updates, and technical support.
+### ✦ Transparent Revenue Model: Your 2% Helps Keep Your Business Running
 
-**HOW DOES IT WORK?**
-If a customer transaction is ₱1,000 and your business collects a 15% service fee (₱150):
-- **Customer transaction:** ₱1,000
-- **Your business's service fee (15%):** ₱150
-- **Cael Hub's share (2% of ₱150):** ₱3
-- **Your remaining service fee:** ₱147
+There are **zero upfront software development or licensing fees**. Instead, Cael Hub is sustained through an agreed, automatic **2% service share** on your business's collected service fees on eligible transactions.
 
-The deduction is automatic, helping keep your application and technical infrastructure maintained while you focus on running your business.
+**CRITICAL RULE:**
+The 2% is calculated **ONLY on your business's collected service fee**, NOT on the customer's total gross transaction.
+
+**THE OFFICIAL ₱1,000 BREAKDOWN EXAMPLE:**
+- **Customer transaction amount:** ₱1,000
+- **Your business's collected service fee (15%):** ₱150
+- **Cael Hub's 2% share of that ₱150 fee:** **₱3**
+- **Your business retains:** **₱147**
+
+**WHAT YOUR ₱3 COVERS:**
+1. High-availability cloud servers and database hosting.
+2. Continuous bug fixes, performance upgrades, and security patches.
+3. Google Play Store publishing and regular application updates.
+4. Dedicated developer and technical infrastructure support.
+
+The deduction is automatic, meaning you never receive unexpected server bills or developer invoices.
 
 **You grow your business. We keep the technology running.**`;
     }
