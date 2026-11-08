@@ -700,13 +700,16 @@ Answer concisely with sleek markdown formatting when appropriate. Always conclud
       return;
     }
 
-    let isRecording = false;
+    let isListening = false;
     let silenceTimer = null;
     let recognition = null;
+    let finalTranscript = '';
+    let restartAttempts = 0;
+    const maxRestarts = 8;
     const defaultPlaceholder = "Type your query into CAELIN...";
 
-    const stopRecording = () => {
-      isRecording = false;
+    const stopListening = () => {
+      isListening = false;
       if (silenceTimer) {
         clearTimeout(silenceTimer);
         silenceTimer = null;
@@ -722,6 +725,7 @@ Answer concisely with sleek markdown formatting when appropriate. Always conclud
         try {
           recognition.abort();
         } catch (err) {}
+        recognition = null;
       }
     };
 
@@ -730,7 +734,7 @@ Answer concisely with sleek markdown formatting when appropriate. Always conclud
         clearTimeout(silenceTimer);
         silenceTimer = null;
       }
-      isRecording = false;
+      isListening = false;
       if (this.micBtn) {
         this.micBtn.classList.remove('recording');
         this.micBtn.title = "Voice Input (Click to speak)";
@@ -742,98 +746,156 @@ Answer concisely with sleek markdown formatting when appropriate. Always conclud
         try {
           recognition.stop();
         } catch (err) {}
+        recognition = null;
       }
       if (this.input && this.input.value.trim()) {
         setTimeout(() => {
           this.handleUserSend();
-        }, 200);
+        }, 150);
       }
     };
 
-    const startRecording = () => {
-      // Create a fresh instance for every session to guarantee clean state
+    const createAndStartSession = () => {
+      if (!isListening) return;
+
       try {
+        if (recognition) {
+          try { recognition.abort(); } catch (e) {}
+          recognition = null;
+        }
+
         recognition = new SpeechRecognition();
-      } catch (e) {
-        console.error('Failed to create SpeechRecognition instance:', e);
-        return;
-      }
+        recognition.continuous = true;
+        recognition.interimResults = true;
+        recognition.maxAlternatives = 1;
 
-      recognition.continuous = true;
-      recognition.interimResults = true;
-      recognition.maxAlternatives = 1;
-      const userLang = (navigator.languages && navigator.languages[0]) || navigator.language || 'en-US';
-      recognition.lang = userLang;
+        // Auto-detect browser/system language with fallback to en-US
+        const userLang = (navigator.languages && navigator.languages[0]) || navigator.language || 'en-US';
+        recognition.lang = userLang;
 
-      recognition.onstart = () => {
-        isRecording = true;
-        if (this.micBtn) {
-          this.micBtn.classList.add('recording');
-          this.micBtn.title = "Listening... (Click to send or stop speaking)";
-        }
-        if (this.input) {
-          this.input.placeholder = "🎤 Listening... Speak into your microphone now!";
-          this.input.focus();
-        }
-      };
+        let shouldRestart = false;
 
-      recognition.onresult = (e) => {
-        let fullTranscript = '';
-        for (let i = 0; i < e.results.length; i++) {
-          fullTranscript += e.results[i][0].transcript;
-        }
-
-        if (fullTranscript.trim()) {
-          this.input.value = fullTranscript;
-        }
-
-        // Auto-send after 1.4s of silence following speech
-        if (silenceTimer) clearTimeout(silenceTimer);
-        silenceTimer = setTimeout(() => {
-          if (isRecording && this.input.value.trim()) {
-            finishAndSend();
+        recognition.onstart = () => {
+          if (this.micBtn) {
+            this.micBtn.classList.add('recording');
+            this.micBtn.title = "Listening to laptop mic... (Click to finish & send)";
           }
-        }, 1400);
-      };
-
-      recognition.onerror = (e) => {
-        console.warn('Speech recognition error:', e.error);
-        if (e.error === 'no-speech') {
-          // If no speech yet, don't crash, keep listening
-          if (this.input && !this.input.value.trim()) {
-            this.input.placeholder = "🎤 Still listening... Speak into your microphone.";
+          if (this.input) {
+            if (!this.input.value.trim()) {
+              this.input.placeholder = "🎤 Listening to your laptop mic... Speak now!";
+            }
+            this.input.focus();
           }
-          return;
-        }
+        };
 
-        stopRecording();
+        recognition.onresult = (e) => {
+          let interimTranscript = '';
+          for (let i = e.resultIndex; i < e.results.length; ++i) {
+            if (e.results[i].isFinal) {
+              finalTranscript += e.results[i][0].transcript + ' ';
+            } else {
+              interimTranscript += e.results[i][0].transcript;
+            }
+          }
 
-        if (e.error === 'not-allowed' || e.error === 'service-not-allowed') {
-          alert('Microphone permission was not granted. Please click the camera/microphone icon in your browser address bar to allow microphone access.');
-        } else if (e.error === 'audio-capture') {
-          alert('No microphone was detected on your device. Please verify your Windows or device sound settings.');
-        } else if (e.error === 'network') {
-          alert('Speech recognition network error. Please check your internet connection and try again.');
-        }
-      };
+          const fullText = (finalTranscript + interimTranscript).trim();
+          if (fullText) {
+            this.input.value = fullText;
+            this.input.scrollTop = this.input.scrollHeight;
+            if (this.visualizer) {
+              this.visualizer.setActive(true);
+            }
+            if (this.input) {
+              this.input.placeholder = "🎙️ Hearing your voice... Keep speaking or pause to send.";
+            }
+          }
 
-      recognition.onend = () => {
-        if (isRecording) {
+          // Auto-send after 1.4s of silence after speech is detected
+          if (silenceTimer) clearTimeout(silenceTimer);
+          silenceTimer = setTimeout(() => {
+            if (isListening && this.input.value.trim()) {
+              finishAndSend();
+            }
+          }, 1400);
+        };
+
+        recognition.onerror = (e) => {
+          console.warn('Speech recognition status:', e.error);
+          if (e.error === 'no-speech') {
+            // Built-in laptop mic picked up silence before speaking: keep listening!
+            shouldRestart = true;
+            return;
+          }
+
+          if (e.error === 'not-allowed' || e.error === 'service-not-allowed') {
+            stopListening();
+            alert('Microphone permission was not allowed. Please click the lock or microphone icon in your browser address bar to allow microphone access.');
+            return;
+          }
+
+          if (e.error === 'audio-capture') {
+            stopListening();
+            alert('No microphone was detected on your laptop. Please verify your Windows Sound Settings to ensure your built-in microphone is enabled.');
+            return;
+          }
+
+          if (e.error === 'network') {
+            // Transient network interruption on speech model connection; allow restart
+            shouldRestart = true;
+            return;
+          }
+
+          // Other unexpected errors
+          shouldRestart = false;
+          stopListening();
+        };
+
+        recognition.onend = () => {
+          if (!isListening) return;
+
+          // If speech was recognized and we have text, finish and execute
           if (this.input && this.input.value.trim()) {
             finishAndSend();
+          } else if (shouldRestart && restartAttempts < maxRestarts) {
+            // Smoothly restart so laptop mic stays active without dropping out
+            restartAttempts++;
+            setTimeout(() => {
+              if (isListening) {
+                createAndStartSession();
+              }
+            }, 80);
           } else {
-            stopRecording();
+            stopListening();
           }
-        }
-      };
+        };
 
-      try {
-        this.input.value = '';
         recognition.start();
       } catch (err) {
-        console.warn('Error starting speech recognition:', err);
-        stopRecording();
+        console.warn('Could not start speech recognition session:', err);
+        stopListening();
       }
+    };
+
+    const startRecording = async () => {
+      // Pre-flight mic permission check via getUserMedia if available
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+          // Release immediately so it doesn't hold hardware lock from SpeechRecognition
+          stream.getTracks().forEach(t => t.stop());
+        } catch (err) {
+          if (err.name === 'NotAllowedError' || err.name === 'PermissionDeniedError') {
+            alert('Microphone access is blocked in your browser. Please click the lock or camera/mic icon in the browser address bar and select "Allow" for Microphone.');
+            return;
+          }
+        }
+      }
+
+      this.input.value = '';
+      finalTranscript = '';
+      restartAttempts = 0;
+      isListening = true;
+      createAndStartSession();
     };
 
     if (this.micBtn) {
@@ -841,9 +903,13 @@ Answer concisely with sleek markdown formatting when appropriate. Always conclud
         e.preventDefault();
         audio.playBlip();
 
-        if (isRecording) {
-          // If already recording, clicking the mic sends whatever has been spoken!
-          finishAndSend();
+        if (isListening) {
+          // If already listening, clicking mic immediately sends whatever was spoken (or cancels if empty)
+          if (this.input && this.input.value.trim()) {
+            finishAndSend();
+          } else {
+            stopListening();
+          }
         } else {
           startRecording();
         }
