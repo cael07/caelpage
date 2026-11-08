@@ -2648,12 +2648,12 @@ function initImageZoomController() {
   const zoomCloseBtn = document.getElementById('zoom-close-btn');
   const zoomLevelBadge = document.getElementById('zoom-level-badge');
   const zoomFitHorizBtn = document.getElementById('zoom-fit-horiz-btn');
-  const zoomFitVertBtn = document.getElementById('zoom-fit-vert-btn');
+  const zoomFitScreenBtn = document.getElementById('zoom-fit-screen-btn') || document.getElementById('zoom-fit-vert-btn');
   const zoomRotateBtn = document.getElementById('zoom-rotate-btn');
 
   let scale = 1.0;
   let rotation = 0;
-  let currentViewMode = 'horizontal';
+  let currentViewMode = 'screen';
   const MIN_SCALE = 0.5;
   const MAX_SCALE = 8.0;
   const STEP = 0.35;
@@ -2696,9 +2696,11 @@ function initImageZoomController() {
       target.classList.remove('is-dragging');
     }
 
-    if (zoomFitHorizBtn && zoomFitVertBtn) {
+    if (zoomFitHorizBtn) {
       zoomFitHorizBtn.classList.toggle('active', currentViewMode === 'horizontal');
-      zoomFitVertBtn.classList.toggle('active', currentViewMode === 'vertical');
+    }
+    if (zoomFitScreenBtn) {
+      zoomFitScreenBtn.classList.toggle('active', currentViewMode === 'screen');
     }
   }
 
@@ -2738,9 +2740,35 @@ function initImageZoomController() {
     updateTransform(withTransition);
   }
 
+  function fitScreen(animate = true) {
+    if (!stage || !target) return;
+    if (animate) audio.playBlip();
+
+    scale = 1.0;
+    panX = 0;
+    panY = 0;
+    currentViewMode = 'screen';
+
+    // When rotated 90deg, ensure the swapped width/height fit the stage
+    const isRotated = (rotation % 180 !== 0);
+    if (isRotated) {
+      const stageRect = stage.getBoundingClientRect();
+      const unscaledW = target.offsetHeight || 1;
+      const unscaledH = target.offsetWidth || 1;
+      const availW = stageRect.width * 0.94;
+      const availH = (stageRect.height - 40) * 0.90;
+      const sW = availW / unscaledW;
+      const sH = availH / unscaledH;
+      scale = Math.min(1.0, Math.min(sW, sH));
+    }
+
+    clampPan();
+    updateTransform(animate);
+  }
+
   function fitHorizontal(animate = true) {
     if (!stage || !target) return;
-    audio.playBlip();
+    if (animate) audio.playBlip();
     const stageRect = stage.getBoundingClientRect();
     const isRotated = (rotation % 180 !== 0);
     const unscaledW = isRotated ? (target.offsetHeight || 1) : (target.offsetWidth || 1);
@@ -2764,31 +2792,13 @@ function initImageZoomController() {
     updateTransform(animate);
   }
 
-  function fitVertical(animate = true) {
-    if (!stage || !target) return;
-    audio.playBlip();
-    const stageRect = stage.getBoundingClientRect();
-    const isRotated = (rotation % 180 !== 0);
-    const unscaledH = isRotated ? (target.offsetWidth || 1) : (target.offsetHeight || 1);
-
-    // Fit height to screen vertically without clipping top/bottom
-    const targetScale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, (stageRect.height * 0.93) / unscaledH));
-    scale = targetScale;
-    panX = 0;
-    panY = 0;
-
-    currentViewMode = 'vertical';
-    clampPan();
-    updateTransform(animate);
-  }
-
   function rotateView() {
     audio.playBlip();
     rotation = (rotation + 90) % 360;
     if (currentViewMode === 'horizontal') {
       fitHorizontal(true);
     } else {
-      fitVertical(true);
+      fitScreen(true);
     }
   }
 
@@ -2805,8 +2815,7 @@ function initImageZoomController() {
   function resetZoom() {
     audio.playBlip();
     rotation = 0;
-    currentViewMode = 'horizontal';
-    fitHorizontal(true);
+    fitScreen(true);
   }
 
   function open(src, title) {
@@ -2818,7 +2827,7 @@ function initImageZoomController() {
     }
 
     rotation = 0;
-    currentViewMode = 'horizontal';
+    currentViewMode = 'screen';
     isDragging = false;
     hasDragged = false;
 
@@ -2826,22 +2835,8 @@ function initImageZoomController() {
     overlay.setAttribute('aria-hidden', 'false');
     audio.playChime();
 
-    // Default to Horizontal View so the image auto-fits the screen width immediately
-    const applyInitialFit = () => {
-      fitHorizontal(false);
-    };
-
-    if (target.complete && target.naturalWidth > 0) {
-      requestAnimationFrame(() => {
-        applyInitialFit();
-      });
-    } else {
-      target.onload = () => {
-        requestAnimationFrame(() => {
-          applyInitialFit();
-        });
-      };
-    }
+    // Automatically fit on screen (100% natural contained fit on PC, laptop, or mobile)
+    fitScreen(false);
 
     window.dispatchEvent(new CustomEvent('cael:image-zoom-open'));
   }
@@ -2861,17 +2856,17 @@ function initImageZoomController() {
   if (zoomResetBtn) zoomResetBtn.addEventListener('click', (e) => { e.stopPropagation(); resetZoom(); });
   if (zoomCloseBtn) zoomCloseBtn.addEventListener('click', (e) => { e.stopPropagation(); close(); });
 
-  // Switch between Horizontal and Vertical View buttons
+  // View Fit Mode buttons
+  if (zoomFitScreenBtn) {
+    zoomFitScreenBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      fitScreen(true);
+    });
+  }
   if (zoomFitHorizBtn) {
     zoomFitHorizBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       fitHorizontal(true);
-    });
-  }
-  if (zoomFitVertBtn) {
-    zoomFitVertBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      fitVertical(true);
     });
   }
   if (zoomRotateBtn) {
@@ -3068,9 +3063,9 @@ function initImageZoomController() {
     } else if (e.key === 'h' || e.key === 'H') {
       e.preventDefault();
       fitHorizontal(true);
-    } else if (e.key === 'v' || e.key === 'V') {
+    } else if (e.key === 's' || e.key === 'S' || e.key === 'v' || e.key === 'V') {
       e.preventDefault();
-      fitVertical(true);
+      fitScreen(true);
     } else if (e.key === 'r' || e.key === 'R') {
       e.preventDefault();
       rotateView();
@@ -3082,8 +3077,8 @@ function initImageZoomController() {
     if (!overlay || overlay.classList.contains('hidden')) return;
     if (currentViewMode === 'horizontal') {
       fitHorizontal(false);
-    } else if (currentViewMode === 'vertical') {
-      fitVertical(false);
+    } else {
+      fitScreen(false);
     }
   });
 
@@ -3092,8 +3087,8 @@ function initImageZoomController() {
     setTimeout(() => {
       if (currentViewMode === 'horizontal') {
         fitHorizontal(false);
-      } else if (currentViewMode === 'vertical') {
-        fitVertical(false);
+      } else {
+        fitScreen(false);
       }
     }, 120);
   });
@@ -3101,8 +3096,8 @@ function initImageZoomController() {
   // Global exposure
   window.openImageZoom = open;
   window.closeImageZoom = close;
+  window.imageZoomFitScreen = fitScreen;
   window.imageZoomFitHorizontal = fitHorizontal;
-  window.imageZoomFitVertical = fitVertical;
   window.imageZoomRotate = rotateView;
 }
 
