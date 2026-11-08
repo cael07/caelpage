@@ -2604,7 +2604,7 @@ function initImageZoomController() {
 
   let scale = 1.0;
   let rotation = 0;
-  let currentViewMode = 'vertical';
+  let currentViewMode = 'horizontal';
   const MIN_SCALE = 0.5;
   const MAX_SCALE = 8.0;
   const STEP = 0.35;
@@ -2755,12 +2755,9 @@ function initImageZoomController() {
 
   function resetZoom() {
     audio.playBlip();
-    scale = 1.0;
-    panX = 0;
-    panY = 0;
     rotation = 0;
-    currentViewMode = 'vertical';
-    updateTransform(true);
+    currentViewMode = 'horizontal';
+    fitHorizontal(true);
   }
 
   function open(src, title) {
@@ -2771,18 +2768,31 @@ function initImageZoomController() {
       titleBadge.textContent = title || 'IMAGE PREVIEW';
     }
 
-    scale = 1.0;
-    panX = 0;
-    panY = 0;
     rotation = 0;
-    currentViewMode = 'vertical';
+    currentViewMode = 'horizontal';
     isDragging = false;
     hasDragged = false;
-    updateTransform(false);
 
     overlay.classList.remove('hidden');
     overlay.setAttribute('aria-hidden', 'false');
     audio.playChime();
+
+    // Default to Horizontal View so the image auto-fits the screen width immediately
+    const applyInitialFit = () => {
+      fitHorizontal(false);
+    };
+
+    if (target.complete && target.naturalWidth > 0) {
+      requestAnimationFrame(() => {
+        applyInitialFit();
+      });
+    } else {
+      target.onload = () => {
+        requestAnimationFrame(() => {
+          applyInitialFit();
+        });
+      };
+    }
 
     window.dispatchEvent(new CustomEvent('cael:image-zoom-open'));
   }
@@ -3016,6 +3026,27 @@ function initImageZoomController() {
       e.preventDefault();
       rotateView();
     }
+  });
+
+  // Auto re-fit on window resize or device orientation change
+  window.addEventListener('resize', () => {
+    if (!overlay || overlay.classList.contains('hidden')) return;
+    if (currentViewMode === 'horizontal') {
+      fitHorizontal(false);
+    } else if (currentViewMode === 'vertical') {
+      fitVertical(false);
+    }
+  });
+
+  window.addEventListener('orientationchange', () => {
+    if (!overlay || overlay.classList.contains('hidden')) return;
+    setTimeout(() => {
+      if (currentViewMode === 'horizontal') {
+        fitHorizontal(false);
+      } else if (currentViewMode === 'vertical') {
+        fitVertical(false);
+      }
+    }, 120);
   });
 
   // Global exposure

@@ -2074,11 +2074,11 @@
 
         <!-- Switch between Horizontal and Vertical View (Fully Fit Screen) -->
         <div class="zoom-view-segmented" role="group" aria-label="Horizontal and Vertical View Fit">
-          <button type="button" class="zoom-seg-btn" id="zoom-fit-horiz-btn" aria-label="Horizontal View (Fit Width)" title="Horizontal View: Fit screen width (↔)">
+          <button type="button" class="zoom-seg-btn active" id="zoom-fit-horiz-btn" aria-label="Horizontal View (Fit Width)" title="Horizontal View: Fit screen width (↔)">
             <span class="seg-icon">↔</span>
             <span class="seg-text">Horizontal</span>
           </button>
-          <button type="button" class="zoom-seg-btn active" id="zoom-fit-vert-btn" aria-label="Vertical View (Fit Height)" title="Vertical View: Fit screen height (↕)">
+          <button type="button" class="zoom-seg-btn" id="zoom-fit-vert-btn" aria-label="Vertical View (Fit Height)" title="Vertical View: Fit screen height (↕)">
             <span class="seg-icon">↕</span>
             <span class="seg-text">Vertical</span>
           </button>
@@ -2099,11 +2099,6 @@
       <div class="image-zoom-viewport" id="image-zoom-viewport">
         <img id="image-zoom-target" src="" alt="Fullscreen Zoom Preview" class="image-zoom-target" draggable="false" />
       </div>
-    </div>
-
-    <!-- Floating Sci-Fi Bottom Instruction Hint -->
-    <div class="image-zoom-hint-bar" id="image-zoom-hint-bar">
-      <span>✦ ↔ Horizontal / ↕ Vertical view to fit screen • Pinch/scroll to zoom • Drag to pan • Click outside or ✕ to close</span>
     </div>
   </div>
 
