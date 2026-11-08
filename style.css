@@ -5371,6 +5371,46 @@ body {
   text-align: center;
 }
 
+/* Mobile Gallery Dots (Replaces Thumbnails on Mobile View) */
+.modal-gallery-dots {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0.75rem 1rem;
+  width: 100%;
+  background: rgba(4, 8, 20, 0.96);
+  border-top: 1px solid rgba(0, 243, 255, 0.18);
+  box-sizing: border-box;
+}
+
+.modal-gallery-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(0, 243, 255, 0.35);
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 0;
+  outline: none;
+  display: inline-block;
+}
+
+.modal-gallery-dot:hover {
+  background: rgba(0, 243, 255, 0.6);
+  border-color: #ffffff;
+  transform: scale(1.15);
+}
+
+.modal-gallery-dot.active {
+  width: 24px;
+  border-radius: 999px;
+  background: var(--accent-cyan);
+  border-color: #ffffff;
+  box-shadow: 0 0 12px rgba(0, 243, 255, 0.75);
+}
+
 /* Section 3: Features, Details & Specs */
 .app-modal-info-section {
   display: flex;
@@ -5588,23 +5628,84 @@ body {
 
 /* Responsive Rules for App Modal */
 @media (max-width: 768px) {
-  .hero-viewer-frame {
-    height: 380px;
+  .app-modal-window {
+    width: 96vw !important;
+    max-width: 100vw !important;
+    height: 94vh !important;
+    max-height: 94vh !important;
+    border-radius: 14px !important;
+    margin: 0 auto !important;
   }
+
   .app-modal-header {
-    padding: 0.6rem 0.85rem;
+    padding: 0.65rem 1rem !important;
   }
+
+  /* Remove padding around body so the hero image fills the modal completely edge-to-edge */
   .app-modal-body {
-    padding: 1rem;
-    gap: 1.25rem;
+    padding: 0 !important;
+    gap: 1.25rem !important;
   }
-  .thumb-card {
-    flex: 0 0 95px;
-    height: 60px;
+
+  /* Make hero viewer fill completely: edge-to-edge with no margins or borders */
+  .app-modal-hero-viewer {
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
   }
-  .thumb-nav-btn {
-    height: 60px;
+
+  .hero-viewer-frame {
+    height: clamp(280px, 48vh, 400px) !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    background: #000000 !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
+
+  .hero-image-container {
+    border: none !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #000000 !important;
+  }
+
+  .hero-large-img {
+    object-fit: contain !important;
+  }
+
+  /* Remove navigation arrows on the large image in mobile view */
+  .hero-nav-btn {
+    display: none !important;
+  }
+
+  /* Remove decorative corner brackets on mobile view */
+  .hero-corner-decor {
+    display: none !important;
+  }
+
+  /* Hide thumbnail carousel on mobile view */
+  .thumbs-carousel-wrapper {
+    display: none !important;
+  }
+
+  /* Show navigation dots on mobile view */
+  .modal-gallery-dots {
+    display: flex !important;
+  }
+
+  /* Retain comfortable padding on sections below hero image */
+  .app-modal-info-section {
+    padding: 0 1rem 1.5rem 1rem !important;
+  }
+
+  .app-modal-footer {
+    padding: 0.85rem 1rem !important;
+  }
+
   .modal-details-grid {
     grid-template-columns: 1fr;
   }

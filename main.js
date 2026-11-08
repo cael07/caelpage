@@ -1967,6 +1967,7 @@ function initAppDetailsModal() {
   const thumbsViewport = document.getElementById('thumbs-track-viewport');
   const thumbPrevBtn = document.getElementById('thumb-prev-btn');
   const thumbNextBtn = document.getElementById('thumb-next-btn');
+  const modalDotsContainer = document.getElementById('modal-gallery-dots');
 
   const tabsNav = document.getElementById('info-tabs-nav');
   const featuresList = document.getElementById('modal-features-list');
@@ -2018,8 +2019,9 @@ function initAppDetailsModal() {
     if (titleEl) titleEl.textContent = app.title;
     if (subEl) subEl.textContent = app.subtitle;
 
-    // Render 10 Thumbnails
+    // Render 10 Thumbnails (Desktop) and Dots (Mobile)
     renderThumbnails(app);
+    renderModalDots(app);
 
     // Show initial large screen (Screen 0)
     displayScreen(0, null, true);
@@ -2177,6 +2179,41 @@ function initAppDetailsModal() {
         }
       }
     }
+
+    // Update active mobile dot
+    if (modalDotsContainer) {
+      const dots = modalDotsContainer.querySelectorAll('.modal-gallery-dot');
+      dots.forEach((d, idx) => {
+        const isActive = idx === currentScreenIndex;
+        d.classList.toggle('active', isActive);
+        d.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      });
+    }
+  }
+
+  function renderModalDots(app) {
+    if (!modalDotsContainer) return;
+    modalDotsContainer.innerHTML = '';
+    if (!app.gallery || app.gallery.length <= 1) return;
+
+    app.gallery.forEach((item, idx) => {
+      const dot = document.createElement('button');
+      dot.type = 'button';
+      dot.className = `modal-gallery-dot ${idx === 0 ? 'active' : ''}`;
+      dot.dataset.index = idx;
+      dot.setAttribute('role', 'tab');
+      dot.setAttribute('aria-selected', idx === 0 ? 'true' : 'false');
+      dot.setAttribute('aria-label', `View Screen ${idx + 1}: ${item.title}`);
+
+      dot.addEventListener('click', (e) => {
+        e.stopPropagation();
+        audio.playBlip();
+        displayScreen(idx);
+        resetModalAutoplay();
+      });
+
+      modalDotsContainer.appendChild(dot);
+    });
   }
 
   function renderThumbnails(app) {
@@ -2375,6 +2412,46 @@ function initAppDetailsModal() {
     });
 
     thumbsViewport.addEventListener('dragstart', (e) => e.preventDefault());
+  }
+
+  // Touch swipe support on modal large image for mobile view
+  const heroImageContainer = modal.querySelector('.hero-image-container');
+  if (heroImageContainer) {
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchEndX = 0;
+
+    heroImageContainer.addEventListener('touchstart', (e) => {
+      if (e.touches && e.touches.length === 1) {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+        touchEndX = touchStartX;
+        isAutoplayPaused = true;
+      }
+    }, { passive: true });
+
+    heroImageContainer.addEventListener('touchmove', (e) => {
+      if (e.touches && e.touches.length === 1) {
+        touchEndX = e.touches[0].clientX;
+      }
+    }, { passive: true });
+
+    heroImageContainer.addEventListener('touchend', (e) => {
+      const deltaX = touchEndX - touchStartX;
+      const deltaY = (e.changedTouches && e.changedTouches[0]) ? Math.abs(e.changedTouches[0].clientY - touchStartY) : 0;
+      isAutoplayPaused = false;
+      resetModalAutoplay();
+
+      if (Math.abs(deltaX) > 40 && Math.abs(deltaX) > deltaY) {
+        if (deltaX < 0) {
+          audio.playBlip();
+          displayScreen(currentScreenIndex + 1, 'forward');
+        } else {
+          audio.playBlip();
+          displayScreen(currentScreenIndex - 1, 'backward');
+        }
+      }
+    }, { passive: true });
   }
 
   // Pause on hover over viewer frame or details info section
