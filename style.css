@@ -2345,32 +2345,6 @@ body {
   letter-spacing: 0.04em;
 }
 
-.caelin-avatar-capabilities {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.55rem;
-  flex-wrap: wrap;
-  margin-top: 1.4rem;
-}
-
-.caelin-avatar-capabilities .cap-pill {
-  font-family: var(--font-code);
-  font-size: 0.72rem;
-  letter-spacing: 0.04em;
-  color: #94a3b8;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 0.3rem 0.65rem;
-  border-radius: 6px;
-  transition: all var(--transition-fast);
-}
-
-.caelin-avatar-card:hover .cap-pill {
-  border-color: rgba(0, 243, 255, 0.35);
-  color: #cbd5e1;
-}
-
 /* Corner HUD styling on spotlight card */
 .caelin-card-hud-corner {
   position: absolute;
