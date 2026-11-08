@@ -32,14 +32,41 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+CRAWLER_HITS = []
+
 @app.middleware("http")
 async def log_crawler_requests(request: Request, call_next):
     user_agent = request.headers.get("user-agent", "")
     ip = request.headers.get("x-forwarded-for") or (request.client.host if request.client else "unknown")
     response = await call_next(request)
-    if any(bot in user_agent.lower() for bot in ["facebook", "meta", "bot", "crawl", "spider", "whatsapp"]) or request.url.path in ["/", "/robots.txt", "/sitemap.xml"]:
-        print(f"[CRAWLER-LOG] {request.method} {request.url.path} -> {response.status_code} | IP: {ip} | UA: {user_agent[:70]}")
+    entry = {
+        "time": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+        "method": request.method,
+        "path": request.url.path,
+        "query": request.url.query,
+        "status": response.status_code,
+        "ip": ip,
+        "ua": user_agent[:120]
+    }
+    CRAWLER_HITS.insert(0, entry)
+    if len(CRAWLER_HITS) > 40:
+        CRAWLER_HITS.pop()
+    print(f"[ACCESS] {request.method} {request.url.path} -> {response.status_code} | IP: {ip} | UA: {user_agent[:60]}")
     return response
+
+@app.api_route("/api/crawler-debug", methods=["GET", "HEAD"])
+async def get_crawler_debug():
+    return JSONResponse({"ok": True, "count": len(CRAWLER_HITS), "hits": CRAWLER_HITS[:30]})
+
+@app.api_route("/robots.txt", methods=["GET", "HEAD"])
+async def serve_robots_txt():
+    content = "User-agent: facebookexternalhit\nAllow: /\n\nUser-agent: Facebot\nAllow: /\n\nUser-agent: Meta-ExternalAgent\nAllow: /\n\nUser-agent: *\nAllow: /\n"
+    return Response(
+        content=content,
+        media_type="text/plain; charset=utf-8",
+        status_code=200,
+        headers={"Cache-Control": "public, max-age=86400", "Content-Type": "text/plain; charset=utf-8"}
+    )
 
 # -----------------------------------------------------------------------------
 # Metadata Telemetry Store
