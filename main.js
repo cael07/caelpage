@@ -778,13 +778,14 @@ Answer concisely with sleek markdown formatting when appropriate. Always conclud
         recognition.onstart = () => {
           if (this.micBtn) {
             this.micBtn.classList.add('recording');
-            this.micBtn.title = "Listening to laptop mic... (Click to finish & send)";
+            this.micBtn.title = "Listening... (Click to finish & send)";
           }
           if (this.input) {
             if (!this.input.value.trim()) {
-              this.input.placeholder = "🎤 Listening to your laptop mic... Speak now!";
+              this.input.placeholder = "🎤 Listening... Speak now!";
             }
-            this.input.focus();
+            // Ensure input is blurred so mobile keyboard does not pop up
+            this.input.blur();
           }
         };
 
@@ -892,6 +893,7 @@ Answer concisely with sleek markdown formatting when appropriate. Always conclud
       }
 
       this.input.value = '';
+      if (this.input) this.input.blur();
       finalTranscript = '';
       restartAttempts = 0;
       isListening = true;
@@ -902,6 +904,11 @@ Answer concisely with sleek markdown formatting when appropriate. Always conclud
       this.micBtn.addEventListener('click', (e) => {
         e.preventDefault();
         audio.playBlip();
+
+        // Dismiss mobile keyboard if open
+        if (this.input) {
+          this.input.blur();
+        }
 
         if (isListening) {
           // If already listening, clicking mic immediately sends whatever was spoken (or cancels if empty)
