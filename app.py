@@ -60,7 +60,21 @@ async def get_crawler_debug():
 
 @app.api_route("/robots.txt", methods=["GET", "HEAD"])
 async def serve_robots_txt():
-    content = "User-agent: facebookexternalhit\nAllow: /\n\nUser-agent: Facebot\nAllow: /\n\nUser-agent: Meta-ExternalAgent\nAllow: /\n\nUser-agent: *\nAllow: /\n"
+    content = (
+        "# Robots.txt for Cael Hub\n"
+        "# https://caelpage.onrender.com\n\n"
+        "User-agent: facebookexternalhit\nAllow: /\n\n"
+        "User-agent: Facebot\nAllow: /\n\n"
+        "User-agent: Meta-ExternalAgent\nAllow: /\n\n"
+        "User-agent: WhatsApp\nAllow: /\n\n"
+        "User-agent: Twitterbot\nAllow: /\n\n"
+        "User-agent: LinkedInBot\nAllow: /\n\n"
+        "User-agent: TelegramBot\nAllow: /\n\n"
+        "User-agent: Googlebot\nAllow: /\n\n"
+        "User-agent: Bingbot\nAllow: /\n\n"
+        "User-agent: *\nAllow: /\nDisallow: /api/\n\n"
+        "Sitemap: https://caelpage.onrender.com/sitemap.xml\n"
+    )
     return Response(
         content=content,
         media_type="text/plain; charset=utf-8",
