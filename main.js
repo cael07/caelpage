@@ -688,6 +688,106 @@ Answer concisely with sleek markdown formatting when appropriate. Always conclud
     this.chatHistory[0] = { role: 'system', content: promptText };
   }
 
+  cleanVoiceTranscript(text) {
+    if (!text) return '';
+    let str = text.trim().replace(/\s+/g, ' ');
+
+    // 1. Separate & collapse glued identical word repetitions: e.g. "whatwhatwhat" -> "what"
+    str = str.replace(/\b([a-zA-Z]{2,})\1+\b/gi, '$1');
+
+    // 2. Collapse adjacent repeated multi-character blocks (glued or space-separated)
+    // e.g. "what day is todaywhat day is today" -> "what day is today"
+    let changed = true;
+    let loopCount = 0;
+    while (changed && loopCount < 10) {
+      changed = false;
+      loopCount++;
+      const maxLen = Math.floor(str.length / 2);
+      for (let len = maxLen; len >= 3; len--) {
+        const endChunk = str.slice(-len).trim();
+        if (!endChunk) continue;
+
+        // Check glued adjacent repeat at end
+        if (str.slice(-2 * len, -len) === str.slice(-len)) {
+          str = str.slice(0, -len).trim();
+          changed = true;
+          break;
+        }
+        // Check space-separated adjacent repeat at end
+        if (str.slice(-2 * len - 1, -len - 1) === str.slice(-len) && str[str.length - len - 1] === ' ') {
+          str = str.slice(0, -len - 1).trim();
+          changed = true;
+          break;
+        }
+      }
+    }
+
+    // 3. Remove progressive prefix build-ups based on the last words (the final target sentence)
+    // Speech recognition build-ups: "what what day what day is what day is today" -> "what day is today"
+    const words = str.split(' ').filter(Boolean);
+    if (words.length > 1) {
+      for (let targetWordCount = words.length; targetWordCount >= 1; targetWordCount--) {
+        const targetSentence = words.slice(words.length - targetWordCount).join(' ');
+        let remainingWords = words.slice(0, words.length - targetWordCount);
+
+        if (remainingWords.length === 0) continue;
+
+        let allArePrefixes = true;
+        let tempRemainder = remainingWords.join(' ');
+        let strippedAny = false;
+        let safety = 0;
+
+        while (tempRemainder.length > 0 && safety < 20) {
+          safety++;
+          let foundPrefix = false;
+          const targetTokens = targetSentence.split(' ');
+          for (let pLen = targetTokens.length; pLen >= 1; pLen--) {
+            const prefixCandidate = targetTokens.slice(0, pLen).join(' ');
+            if (tempRemainder.endsWith(prefixCandidate)) {
+              tempRemainder = tempRemainder.slice(0, -prefixCandidate.length).trim();
+              foundPrefix = true;
+              strippedAny = true;
+              break;
+            }
+          }
+          if (!foundPrefix) {
+            allArePrefixes = false;
+            break;
+          }
+        }
+
+        if (allArePrefixes && strippedAny) {
+          str = targetSentence;
+          break;
+        }
+      }
+    }
+
+    // 4. Clean consecutive duplicate words: e.g. "what what can can you do" -> "what can you do"
+    const cleanTokens = [];
+    const currentTokens = str.split(' ').filter(Boolean);
+    for (let i = 0; i < currentTokens.length; i++) {
+      const word = currentTokens[i];
+      const prevWord = cleanTokens[cleanTokens.length - 1];
+      if (!prevWord || prevWord.toLowerCase() !== word.toLowerCase()) {
+        cleanTokens.push(word);
+      }
+    }
+
+    // 5. Clean consecutive duplicate 2-word phrases: e.g. "what can what can you do" -> "what can you do"
+    for (let i = 0; i < cleanTokens.length - 3; i++) {
+      if (
+        cleanTokens[i].toLowerCase() === cleanTokens[i + 2].toLowerCase() &&
+        cleanTokens[i + 1].toLowerCase() === cleanTokens[i + 3].toLowerCase()
+      ) {
+        cleanTokens.splice(i, 2);
+        i--;
+      }
+    }
+
+    return cleanTokens.join(' ').trim();
+  }
+
   initSpeechRecognition() {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!SpeechRecognition) {
@@ -749,6 +849,7 @@ Answer concisely with sleek markdown formatting when appropriate. Always conclud
         recognition = null;
       }
       if (this.input && this.input.value.trim()) {
+        this.input.value = this.cleanVoiceTranscript(this.input.value);
         setTimeout(() => {
           this.handleUserSend();
         }, 150);
@@ -815,7 +916,8 @@ Answer concisely with sleek markdown formatting when appropriate. Always conclud
           }
 
           const currentSessionText = (finalPart ? (finalPart + (latestInterim ? (' ' + latestInterim) : '')) : latestInterim).trim();
-          const fullText = (prefixText ? (prefixText + ' ' + currentSessionText) : currentSessionText).trim();
+          const rawFullText = (prefixText ? (prefixText + ' ' + currentSessionText) : currentSessionText).trim();
+          const fullText = this.cleanVoiceTranscript(rawFullText);
 
           if (fullText) {
             this.input.value = fullText;
