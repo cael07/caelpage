@@ -1749,6 +1749,42 @@ body {
   padding-bottom: 0.35rem;
 }
 
+.app-card-status-line {
+  font-size: 0.68rem;
+  letter-spacing: 0.8px;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.15rem 0;
+}
+
+.status-pill-green {
+  font-family: var(--font-hud);
+  font-size: 0.60rem;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.14);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  padding: 0.1rem 0.45rem;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.status-pill-purple {
+  font-family: var(--font-hud);
+  font-size: 0.60rem;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  color: #c084fc;
+  background: rgba(192, 132, 252, 0.14);
+  border: 1px solid rgba(192, 132, 252, 0.4);
+  padding: 0.1rem 0.45rem;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
 .app-card-features-title {
   font-family: var(--font-hud);
   font-size: 0.68rem;
