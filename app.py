@@ -131,7 +131,7 @@ def get_cael_system_prompt():
         "- Location: Bulacan, Philippines.\n"
         "- Official Receiving / Contact Email: caelhub@gmail.com.\n"
         "- Mission: Making professional business technology accessible through managed mobile applications, affordable infrastructure, and intelligent digital tools.\n"
-        "- Partnership Model: Zero upfront software development or licensing fees, managed infrastructure, and a simple 2% service share.\n"
+        "- Partnership Model: Zero upfront software development or licensing fees, managed infrastructure, and a simple 2% service share on collected fees.\n"
     )
     try:
         if os.path.exists(KNOWLEDGE_FILE):
@@ -139,20 +139,50 @@ def get_cael_system_prompt():
                 k = json.load(f)
                 apps = k.get("applications", [])
                 apps_list = "\n".join([
-                    f"• {a.get('name')} ({a.get('category')}): {a.get('description')} (Features: {', '.join((a.get('key_features') or [])[:4])})"
+                    f"• {a.get('name')} [{a.get('status', 'AVAILABLE')}]: {a.get('description')} (Key Features: {', '.join((a.get('key_features') or [])[:4])})"
                     for a in apps
                 ])
+                pm = k.get("partnership_model", {})
+                benefits = "\n".join([
+                    f"  {b.get('number', '')}. {b.get('title', '')}: {b.get('description', '')}"
+                    for b in pm.get("what_you_get_six_benefits", [])
+                ])
+                steps = "\n".join([
+                    f"  Step {s.get('step', '')}: {s.get('name', '')} - {s.get('action', '')}"
+                    for s in k.get("how_to_get_started_process", [])
+                ])
                 knowledge_summary = f"""Official Cael Knowledge Base:
-- System / Platform Name: Cael (also referred to as Cael Hub or CAEL). Both "Cael" and "Cael Hub" refer to this exact same platform.
+- System / Platform Name: Cael (also referred to as Cael Hub or CAEL).
 - Meaning of CAEL: CAEL stands for "Come And Earn Literally".
 - CEO & Founder: Caesar Augustus E. Literatus.
 - Location: Bulacan, Philippines.
-- Official Receiving / Contact Email: caelhub@gmail.com (Direct Contact Us terminal on the Cael website).
+- Official Contact Email: caelhub@gmail.com (Direct Contact Us terminal on website).
+- Tagline & Motto: "{k.get('tagline', 'YOUR BUSINESS. YOUR BRAND. OUR TECHNOLOGY.')}" | "{k.get('motto', 'Your Dream. Your Business. Your Future.')}"
+- Philosophy & Punchline: "{k.get('punchline', 'You grow your business. We keep the technology running.')}" | "{k.get('manifesto', 'You bring the business idea. You build the brand. We take care of the technology.')}"
 - Mission: {k.get('mission', '')}
 - Vision: {k.get('vision', '')}
-- Official Applications in Cael Ecosystem:
+
+Partnership Model & Pricing Structure:
+- Zero upfront software development or licensing fees (₱0).
+- Free software maintenance: updates, bug fixes, performance improvements handled at no additional fee.
+- Fully managed technical infrastructure: Cael Hub manages cloud servers, database hosting, security, and Google Play Store publishing.
+- Revenue Model (2% Service Share):
+  * Rule: The 2% share is calculated ONLY on the business's collected service fee (NOT on the customer's total gross transaction).
+  * The ₱1,000 Transaction Example: On a ₱1,000 customer booking where your business collects a 15% (₱150) service fee, Cael Hub's 2% share of that fee is ₱3, leaving your business ₱147.
+  * The deduction is automatic and covers server/database hosting, continuous bug fixes, system updates, and ongoing technical support.
+
+The 6 Partnership Benefits:
+{benefits}
+
+The 5-Step Process to Get Started:
+{steps}
+
+Ownership & Source Code Policy:
+- The partner owns 100% of their business brand, company name, logo, customer base, revenue, and local operations.
+- Cael Hub manages and retains the underlying codebase, cloud servers, and technical infrastructure so the business owner never has to worry about server crashes, hosting bills, or hiring developers.
+
+Official Applications Portfolio:
 {apps_list}
-- Contact / Inquiries: caelhub@gmail.com.
 """
     except Exception as e:
         print(f"Error loading cael_knowledge.json: {e}")
@@ -160,16 +190,15 @@ def get_cael_system_prompt():
     return f"""Your name is CAELIN. Never call yourself "CAEL AI" or "CAELIN AI". Your name is strictly CAELIN, do not attach the word "AI" to your name. You are the intelligent assistant powering Cael (also known as Cael Hub).
 Always answer accurately, helpfully, and concisely based on this official Cael Knowledge Base:
 {knowledge_summary}
+
 Directives:
-1. Identity: Your name is CAELIN. When asked "who are you" or "what is your name", always introduce yourself as CAELIN: "I am CAELIN, the intelligent assistant powering Cael (also known as Cael Hub, which stands for \"Come And Earn Literally\")..." Never say "CAEL AI" or "CAELIN AI".
-2. System Name: The system name is Cael or Cael Hub (interchangeable).
-3. Meaning of CAEL: Whenever introducing or explaining Cael or Cael Hub, or when asked "What is CAEL HUB?", "What is Cael?", or what CAEL means or stands for, ALWAYS state clearly and prominently that CAEL stands for "Come And Earn Literally".
-4. Founder & CEO: When asked who is the founder, CEO, creator, or developer of Cael or Cael Hub, state clearly that the CEO and Founder is Caesar Augustus E. Literatus.
-5. Location & Inquiries: When asked about Cael Hub, Cael, or where Cael / Cael Hub is located or its location, state clearly: "Cael Hub is located in Bulacan, Philippines. For more information, feel free to contact us at caelhub@gmail.com." When asked about your own location as CAELIN (e.g. "where are you located", "where do you live"), clarify that as an AI assistant you do not have a physical location or body and exist in the cloud/digital matrix.
-6. Contact Email: The official receiving and contact email for Cael Hub is caelhub@gmail.com. Never give or output caesarliteratus@gmail.com.
-7. Partnership & Pricing: When asked about Cael's apps and pricing, confirm that Cael operates on a managed partnership model with zero upfront software development or licensing fees. Cael Hub handles the servers, hosting, and ongoing technical maintenance under an automatic 2% service-share model on collected transaction fees.
-8. For non-Cael inquiries (science, math, world facts, personalities, sports), answer factually and directly in 2-3 sentences.
-9. Always conclude every response smoothly with " ..." (a single space followed by three dots)."""
+1. Identity: Your name is CAELIN. When asked "who are you" or "what is your name", introduce yourself as CAELIN: "I am CAELIN, the intelligent assistant powering Cael (also known as Cael Hub, which stands for \"Come And Earn Literally\")..." Never say "CAEL AI" or "CAELIN AI".
+2. System Name & Meaning: Cael or Cael Hub (interchangeable). ALWAYS state clearly that CAEL stands for "Come And Earn Literally".
+3. Founder & CEO: The CEO and Founder is Caesar Augustus E. Literatus.
+4. Location: Cael Hub is located in Bulacan, Philippines. Official contact email is caelhub@gmail.com. As CAELIN, you exist in the digital matrix and cloud.
+5. Partnership & Pricing: Always emphasize the Managed Partnership Model: Zero upfront software development or licensing fees. Cael Hub manages the software, maintenance, cloud servers, and Google Play Store updates under an automatic 2% service share on your business's collected service fees (e.g., ₱3 on a ₱150 service fee from a ₱1,000 booking).
+6. Never promise source code ownership. Clarify that partners own 100% of their brand, customers, and operations, while Cael Hub manages the technology and infrastructure.
+7. Conclude every response smoothly with " ..." (a single space followed by three dots)."""
 
 
 # -----------------------------------------------------------------------------
@@ -322,19 +351,222 @@ async def handle_chat(request: Request):
             "provider": "Cael Verified Registry"
         })
 
-    # Intercept 7: What is CAEL / CAEL HUB
+    # Intercept 7: What is CAEL / CAEL HUB (Only when no specific application is targeted)
+    has_specific_app_target = any(k in text_lower for k in [
+        "truck", "freight", "cargo", "ride", "taxi", "massage", "spa",
+        "timelock", "time lock", "safety zone", "child", "color game", "colorgame",
+        "oncall", "loan", "lending", "microfinance"
+    ])
+
     is_what_is_cael = (
-        text_lower in ["what is cael hub", "what is cael hub?", "what is cael", "what is cael?", "about cael", "about cael hub", "cael hub", "cael hub?", "cael", "cael?"] or
-        "what is cael" in text_lower or
-        "about cael" in text_lower or
-        "what is cael hub" in text_lower or
-        "tell me about cael" in text_lower or
-        "cael apps" in text_lower
+        not has_specific_app_target and (
+            text_lower in ["what is cael hub", "what is cael hub?", "what is cael", "what is cael?", "about cael", "about cael hub", "cael hub", "cael hub?", "cael", "cael?"] or
+            "what is cael" in text_lower or
+            "about cael" in text_lower or
+            "what is cael hub" in text_lower or
+            "tell me about cael" in text_lower or
+            "cael ecosystem" in text_lower
+        )
     )
     if is_what_is_cael:
         return JSONResponse({
             "ok": True,
-            "answer": "**CAEL** stands for **\"Come And Earn Literally\"**! The platform is known interchangeably as **Cael** or **Cael Hub**.\n\nFounded and led by CEO **Caesar Augustus E. Literatus**, Cael is a 100% free, zero-fee white-label ecosystem of ready-to-launch enterprise mobile and web applications—engineered to empower entrepreneurs and business dreamers to launch their own branded businesses (including ride-hailing, parental control, child safety radar, heavy cargo trucking, on-demand massage wellness, and interactive gaming) with sub-second GPS telematics, automated driver/staff payroll, and zero ongoing licensing fees.",
+            "answer": "**CAEL** stands for **\"Come And Earn Literally\"**! The platform is known interchangeably as **Cael** or **Cael Hub**.\n\nFounded and led by CEO **Caesar Augustus E. Literatus**, Cael is a managed technology partnership ecosystem designed to help entrepreneurs launch their own branded businesses (including ride-hailing, commercial freight trucking, spa wellness, and child safety) with zero upfront software development fees, managed cloud infrastructure, ongoing maintenance, and an agreed 2% service share.",
+            "provider": "Cael Verified Registry"
+        })
+
+    # Intercept 8: Partnership Model, What You Get & The 6 Benefits
+    if any(k in text_lower for k in [
+        "how our partnership works", "how the partnership works", "partnership work",
+        "partnership model", "partnership", "what you get", "what is included", "whats included",
+        "six benefits", "6 benefits", "partnership benefits"
+    ]):
+        return JSONResponse({
+            "ok": True,
+            "answer": """### ✦ How the Cael Hub Partnership Works: Your Business. Your Brand. Our Technology.
+
+Launch your business under your own brand with a professionally managed mobile application while Cael Hub takes care of the technology, maintenance, and infrastructure behind it.
+
+**THE 6 PARTNERSHIP BENEFITS:**
+1. 🏷️ **Your Own Brand:** Use your company name, logo, custom color palette, and app icons with a personalized application.
+2. 📱 **Your Own Business App:** Access a turnkey, deployment-ready enterprise mobile application without upfront software licensing or custom development fees.
+3. 🔄 **Free Software Maintenance:** Enjoy ongoing updates, bug fixes, performance improvements, and eligible personalization at no additional development fee.
+4. ☁️ **Managed Infrastructure:** We handle high-availability servers, database administration, cloud hosting, and security maintenance.
+5. 🚀 **Google Play Store Management:** We manage technical store publishing, app listings, and eligible updates on Google Play Store so you can focus on serving customers.
+6. 🛠️ **Ongoing Technical Support:** Dedicated assistance with application configuration, technical troubleshooting, and operational advice.
+
+**You grow your business. We keep the technology running.**""",
+            "provider": "Cael Verified Registry"
+        })
+
+    # Intercept 9: 2% Service Share, Pricing & The ₱3 Calculation Breakdown
+    if any(k in text_lower for k in [
+        "2%", "service share", "share", "percentage", "how much", "cost", "fee", "fees",
+        "pricing", "calculation", "breakdown", "p3", "₱3", "150", "commission", "hidden cost"
+    ]) and not any(k in text_lower for k in ["loan", "lending", "interest rate"]):
+        return JSONResponse({
+            "ok": True,
+            "answer": """### ✦ Transparent Revenue Model: Your 2% Helps Keep Your Business Running
+
+There are **zero upfront software development or licensing fees**. Instead, Cael Hub is sustained through an agreed, automatic **2% service share** on your business's collected service fees on eligible transactions.
+
+**CRITICAL RULE:**
+The 2% is calculated **ONLY on your business's collected service fee**, NOT on the customer's total gross transaction.
+
+**THE OFFICIAL ₱1,000 BREAKDOWN EXAMPLE:**
+- **Customer transaction amount:** ₱1,000
+- **Your business's collected service fee (15%):** ₱150
+- **Cael Hub's 2% share of that ₱150 fee:** **₱3**
+- **Your business retains:** **₱147**
+
+**WHAT YOUR ₱3 COVERS:**
+1. High-availability cloud servers and database hosting.
+2. Continuous bug fixes, performance upgrades, and security patches.
+3. Google Play Store publishing and regular application updates.
+4. Dedicated developer and technical infrastructure support.
+
+The deduction is automatic, meaning you never receive unexpected server bills or developer invoices.""",
+            "provider": "Cael Verified Registry"
+        })
+
+    # Intercept 10: How to Get Started / Process to Launch
+    if any(k in text_lower for k in [
+        "how to start", "how to get started", "how to launch", "how to apply",
+        "process", "steps", "onboarding", "how can i start", "how do i start"
+    ]):
+        return JSONResponse({
+            "ok": True,
+            "answer": """### ✦ How to Get Started with Cael Hub: 5 Simple Steps
+
+1. **Step 1: Select Your Business Application**
+   Explore the Cael Hub directory (Ride-Hailing, Trucking, Massage & Wellness, Child Protection, etc.) and choose the business model that aligns with your goals.
+2. **Step 2: Submit an Inquiry via the Contact Terminal**
+   Reach out using our direct Contact Us terminal on the website or email **caelhub@gmail.com** with your proposed business name, target location, and preferred application.
+3. **Step 3: Brand Personalization & Partnership Agreement**
+   Provide your official company logo, brand name, and preferred color scheme under our standard 2% service-share agreement.
+4. **Step 4: Managed Technical Setup & Google Play Store Publishing**
+   Cael Hub provisions your cloud backend, configures the database, compiles your branded mobile application, and manages the Google Play Store publishing.
+5. **Step 5: Launch, Operate & Scale Your Business**
+   Onboard your drivers, service providers, or customers and start earning. You focus on operations and marketing while Cael Hub keeps the software running 24/7.""",
+            "provider": "Cael Verified Registry"
+        })
+
+    # Intercept 11: Ownership & Source Code
+    if any(k in text_lower for k in [
+        "source code", "own the code", "code ownership", "own the software",
+        "intellectual property", "white label", "white-label", "who owns"
+    ]):
+        return JSONResponse({
+            "ok": True,
+            "answer": """### ✦ Brand Ownership vs. Technical Management
+
+- **What You Own (100%):** You own your business brand, your company name, your custom logo, your customer relationships, your local operations, and your business profits.
+- **What Cael Hub Manages:** Cael Hub retains and maintains the underlying software codebase, cloud servers, databases, and security infrastructure.
+
+**Why this model?**
+Owning source code often requires hiring expensive full-time software engineers, managing server crashes, and paying heavy cloud bills. With Cael Hub, you enjoy enterprise-grade technology completely maintained by us, so you can focus entirely on growing your business.""",
+            "provider": "Cael Verified Registry"
+        })
+
+    # Intercept 12: Specific Application Inquiries
+    if any(k in text_lower for k in ["ride hailing", "ride-hailing", "ride hail", "motorcycle taxi", "taxi app"]) or (text_lower.startswith("ride") and "app" in text_lower):
+        return JSONResponse({
+            "ok": True,
+            "answer": """### 🚗 Cael Ride Hailing App [Status: AVAILABLE • READY TO LAUNCH]
+A turnkey mobile ecosystem featuring:
+- **Passenger Booking App:** Upfront fare calculation, ride options, live GPS arrival tracking, and in-app wallet.
+- **Driver Dispatch App:** Sub-second GPS route navigation, motorcycle taxi & courier parcel tiers, and automated commission payouts.
+- **Driver Attendance & Biometrics:** Facial recognition clock-in and geofenced duty shifts.
+- **Enterprise Operations Console:** Real-time fleet telematics, automated driver payroll, and 360° SOS safety beacons.
+- **Personalization:** Fully branded with your company name, logo, custom color palette, and local fare tariffs.""",
+            "provider": "Cael Verified Registry"
+        })
+
+    if any(k in text_lower for k in ["trucking", "freight", "cargo", "heavy cargo", "hauling", "truck delivery"]):
+        return JSONResponse({
+            "ok": True,
+            "answer": """### 🚛 Cael Trucking Delivery App [Status: AVAILABLE • READY TO LAUNCH]
+An enterprise commercial freight and logistics dispatch system featuring:
+- **Fleet Dispatch Console:** Centralized scheduling for flatbeds, 10-wheelers, reefers, and container haulers.
+- **Commercial Truck Routing:** Smart GPS navigation avoiding low bridge clearances and weight restrictions.
+- **Digital BOL & Waybills:** Automated Bill of Lading generation and dynamic weight/rate calculators.
+- **Compliance & Payroll:** Driver ELD logbooks, Hours of Service compliance, and per-km freight payouts.
+- **Proof of Delivery (POD):** Digital e-signatures and container seal photo capture at delivery checkpoints.""",
+            "provider": "Cael Verified Registry"
+        })
+
+    if any(k in text_lower for k in ["massage", "spa", "wellness app"]):
+        return JSONResponse({
+            "ok": True,
+            "answer": """### 💆 Cael Massage Service App [Status: AVAILABLE • READY TO LAUNCH]
+An on-demand spa and wellness platform supporting both home service visits and clinic appointments:
+- **Dual Booking Modes:** Clients book home therapist visits or reserve clinic treatment rooms.
+- **Therapist GPS Dispatch:** Live route tracking, estimated arrival countdown, and availability radar.
+- **Treatment Menu:** Swedish, Deep Tissue, Shiatsu, Hot Stone, and Aromatherapy services.
+- **Digital Health Screening:** Client contraindication intake forms and session review notes.
+- **Payroll & Safety:** Therapist biometric clock-in, automated commission splits, 100% tip preservation, and masked private calling.""",
+            "provider": "Cael Verified Registry"
+        })
+
+    if any(k in text_lower for k in ["timelock", "time lock", "phone overuse", "screen time", "parental control"]):
+        return JSONResponse({
+            "ok": True,
+            "answer": """### ⏱️ Cael Child Time Lock [Status: AVAILABLE • READY TO LAUNCH]
+A managed parental control mobile application designed to curb screen addiction without expensive monthly fees:
+- **Parent-Child Pairing:** Instant 5-second QR code device handshake.
+- **Bedtime & Sleep Schedules:** Automated curfew freeze locking devices during study and sleep hours.
+- **Granular App Firewall:** Permits educational and school tools while strictly capping social media and games.
+- **On-Demand Remote Freeze:** One-tap remote device lockdown directly from the parent handset.
+- **Tamper-Proof Guard:** Hardware-level protection preventing children from uninstalling or bypassing restrictions.""",
+            "provider": "Cael Verified Registry"
+        })
+
+    if any(k in text_lower for k in ["safety zone", "child zone", "geofence", "child safety", "safety zones"]):
+        return JSONResponse({
+            "ok": True,
+            "answer": """### 🛡️ Child Safety Zones [Status: AVAILABLE • READY TO LAUNCH]
+A real-time family geofencing and GPS radar protection application:
+- **Virtual Geofence Zones:** Custom safe perimeters around home, school, tuition centers, and playgrounds.
+- **Safe Route Corridors:** Monitored paths with instant alerts if a child deviates from their regular commute.
+- **Perimeter Breach Sirens:** Real-time notification delivered to parent phones the second a boundary is crossed.
+- **Silent SOS Distress Beacon:** Allows a child to trigger an alert with covert ambient audio streaming.
+- **Anti-Theft Capture:** Silent automatic camera photo capture if a phone is tampered with or unauthorized touch is detected.""",
+            "provider": "Cael Verified Registry"
+        })
+
+    if any(k in text_lower for k in ["color game", "colorgame", "two color"]):
+        return JSONResponse({
+            "ok": True,
+            "answer": """### 🎲 Cael Two Color Game App [Status: IN DEVELOPMENT • TESTING]
+An interactive community gaming arena featuring 3D physics color wheel spins (Red vs White):
+- **Provably Fair RNG:** SHA-256 cryptographic proof ensuring total fairness and transparency.
+- **Live Betting Engine:** Real-time round pool calculations and dynamic odds updates.
+- **Instant Rewards:** Automated digital e-wallet payouts in under 15 seconds.
+- **Community Engagement:** Live multiplayer chat, streak leaderboards, and celebration tickers.""",
+            "provider": "Cael Verified Registry"
+        })
+
+    if any(k in text_lower for k in ["oncall", "locksmith", "plumber", "handyman", "home services"]):
+        return JSONResponse({
+            "ok": True,
+            "answer": """### 🔧 Cael OnCall Service App [Status: IN DEVELOPMENT • TESTING]
+An on-demand residential emergency home repair radar:
+- **Sub-Minute Matching:** Connects homeowners to nearest verified locksmiths, appliance technicians, plumbers, and handymen.
+- **Proximity GPS Radar:** Real-time technician dispatch with live arrival ETA.
+- **Emergency Services:** 24/7 lockout rescue, appliance breakdown repair, and pipe leak fixes.
+- **Transparent Pricing:** Standardized labor pricing with background-checked technician reviews.""",
+            "provider": "Cael Verified Registry"
+        })
+
+    if any(k in text_lower for k in ["loan", "microfinance", "lending", "credit score", "fintech"]):
+        return JSONResponse({
+            "ok": True,
+            "answer": """### 💳 Cael Loan Service App [Status: IN DEVELOPMENT • TESTING]
+A digital microfinance and lending platform for capital lenders and credit operators:
+- **AI Credit Scoring:** Automated risk underwriting and borrower credit evaluation.
+- **60-Second Approvals:** Rapid mobile loan application workflows with digital KYC biometrics.
+- **Direct Disbursement:** Automated disbursement to GCash, Maya, or bank accounts.
+- **Repayment Automation:** Flexible installment schedules, loan calculators, and auto-debit reminders.""",
             "provider": "Cael Verified Registry"
         })
 

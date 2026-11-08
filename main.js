@@ -899,7 +899,7 @@ Answer concisely with sleek markdown formatting when appropriate. Always conclud
     // 0. Cael Hub Official Ecosystem RAG
     if (textLower.includes('cael') || textLower.includes('caelin')) {
       return {
-        summary: `• **Official Name & Meaning:** **CAEL** stands for **"Come And Earn Literally"** (interchangeably referred to as **Cael** or **Cael Hub**).\n• **Founder & Visionary:** Founded and led by CEO **Caesar Augustus E. Literatus**.\n• **Location:** Bulacan, Philippines.\n• **Contact & Inquiries:** caelhub@gmail.com.\n• **Architecture:** Managed partnership ecosystem of turnkey enterprise mobile applications under a simple 2% service-share model.`,
+        summary: `• **Official Name & Meaning:** **CAEL** stands for **"Come And Earn Literally"** (interchangeably referred to as **Cael** or **Cael Hub**).\n• **Founder & Visionary:** Founded and led by CEO **Caesar Augustus E. Literatus**.\n• **Location:** Bulacan, Philippines.\n• **Contact & Inquiries:** caelhub@gmail.com.\n• **Partnership Model:** Zero upfront software development or licensing fees. Turnkey applications personalized under your brand, with cloud hosting and ongoing software maintenance backed by a simple 2% service share on collected fees.\n• **Core Motto:** *"You grow your business. We keep the technology running."*`,
         sources: [`Cael Hub Verified Ecosystem Registry`, `Official Cael Knowledge Base`]
       };
     }
@@ -1148,6 +1148,46 @@ All Cael Hub applications are personalized under your company branding and backe
 
 - **💡 What is the 2% service share?**
   **Transparent transaction share.** Cael Hub automatically receives an agreed 2% share of your business's collected service fee on each eligible transaction (e.g., if you collect a 15% booking service fee, Cael Hub's 2% share is deducted automatically from that fee) to cover hosting, database management, software maintenance, and technical support.`;
+    }
+
+    // Process & How to Get Started Inquiries
+    if (
+      textLower.includes("how to start") || textLower.includes("how to get started") ||
+      textLower.includes("how to launch") || textLower.includes("how to apply") ||
+      textLower.includes("onboarding") || textLower.includes("steps to launch") ||
+      (textLower.includes("process") && (textLower.includes("start") || textLower.includes("business") || textLower.includes("launch")))
+    ) {
+      return `### ✦ How to Get Started with Cael Hub: 5 Simple Steps
+
+1. **Step 1: Select Your Business Application**
+   Explore the Cael Hub directory (Ride-Hailing, Trucking, Massage & Wellness, Child Protection, etc.) and choose the business model that aligns with your goals.
+
+2. **Step 2: Submit an Inquiry via Contact Terminal**
+   Reach out using our direct Contact Us terminal on the website or email **caelhub@gmail.com** with your proposed business name, target city or region, and application choice.
+
+3. **Step 3: Brand Personalization & Partnership Agreement**
+   Provide your official company logo, brand name, and color preferences under our standard 2% service-share agreement.
+
+4. **Step 4: Managed Technical Setup & Google Play Store Publishing**
+   Cael Hub provisions your cloud backend, configures the database, compiles your branded mobile application, and manages the Google Play Store publishing.
+
+5. **Step 5: Launch, Operate & Scale Your Business**
+   Onboard your drivers, service providers, or customers and start earning. You focus on operations and marketing while Cael Hub keeps the software running 24/7.`;
+    }
+
+    // Ownership & Source Code Inquiries
+    if (
+      textLower.includes("own the code") || textLower.includes("source code") ||
+      textLower.includes("code ownership") || textLower.includes("intellectual property") ||
+      textLower.includes("who owns the app") || textLower.includes("who owns the software")
+    ) {
+      return `### ✦ Brand Ownership vs. Technical Management
+
+- **What You Own (100%):** You own your business brand, your company name, your custom logo, your customer relationships, your local operations, and your business profits.
+- **What Cael Hub Manages:** Cael Hub retains and maintains the underlying software codebase, cloud servers, databases, and security infrastructure.
+
+**Why this model?**
+Owning source code often requires hiring expensive full-time software engineers, managing server crashes, and paying heavy cloud bills. With Cael Hub, you enjoy enterprise-grade technology completely maintained by us, so you can focus entirely on growing your business.`;
     }
 
     // Cael Founder, CEO & Meaning Knowledge

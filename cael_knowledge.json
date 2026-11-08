@@ -2,19 +2,25 @@
   "platform_name": "Cael (also known as Cael Hub)",
   "system_names": ["Cael", "Cael Hub", "CAEL"],
   "acronym_meaning": "Come And Earn Literally",
-  "meaning_description": "CAEL stands for 'Come And Earn Literally'. The system can be referred to simply as Cael or Cael Hub.",
+  "meaning_description": "CAEL stands for 'Come And Earn Literally'. The system can be referred to interchangeably as Cael or Cael Hub.",
   "ceo_and_founder": "Caesar Augustus E. Literatus",
   "creator": "Caesar Augustus E. Literatus",
   "assistant_name": "CAELIN",
   "location": "Bulacan, Philippines",
   "contact_email": "caelhub@gmail.com",
-  "mission": "Empowering Every Dreamer to Build. To make powerful business technology accessible to everyone by providing free and affordable mobile applications, intelligent digital tools, and AI-powered assistance that help individuals and businesses turn their ideas into reality.",
-  "vision": "A World Where Every Dream Has an Opportunity. To create a future where technology is no longer a barrier to entrepreneurship, where anyone — regardless of background or resources — has the opportunity to build, operate, and grow a successful business.",
+  "tagline": "YOUR BUSINESS. YOUR BRAND. OUR TECHNOLOGY.",
+  "subheading": "Start Your Business. We'll Handle the Technology.",
+  "motto": "Your Dream. Your Business. Your Future.",
+  "punchline": "You grow your business. We keep the technology running.",
+  "manifesto": "You bring the business idea. You build the brand. We take care of the technology.",
+  "mission": "Making professional business technology accessible to everyone through managed mobile applications, affordable infrastructure, and intelligent digital tools that help entrepreneurs turn ideas into reality.",
+  "vision": "A world where technology is no longer a financial or technical barrier to entrepreneurship, empowering anyone—regardless of background or resources—to build, operate, and scale a successful business.",
   "applications": [
     {
       "id": "ridehailing",
       "name": "Cael Ride Hailing App",
       "category": "Transportation & Logistics",
+      "status": "AVAILABLE • READY TO LAUNCH",
       "subtitle": "Ride Hailing, Courier & Delivery Service Mobile App",
       "description": "A turnkey mobile application ecosystem featuring passenger ride bookings, motorcycle taxi services, express parcel deliveries, sub-second GPS dispatch, turn-by-turn driver navigation, facial biometric driver attendance, automated driver payroll, digital e-wallet, 360° SOS panic button, and fleet telematics.",
       "key_features": [
@@ -24,15 +30,16 @@
         "Driver biometric facial clock-in and geofenced duty shifts",
         "Automated commission splitting and instant digital wallet payouts",
         "360° SOS emergency beacon with live family route sharing",
-        "100% white-label ready for custom business branding and tariffs"
+        "Personalized under your company branding, logo, and fare tariffs"
       ]
     },
     {
       "id": "timelock",
       "name": "Cael Child Time Lock",
       "category": "Parental Control & Digital Wellness",
+      "status": "AVAILABLE • READY TO LAUNCH",
       "subtitle": "Protect Child From Phone Overuse And Misuse",
-      "description": "An advanced parental control mobile application designed to curb screen addiction and promote healthy digital habits in children without monthly subscription fees.",
+      "description": "A managed parental control mobile application designed to curb screen addiction and promote healthy digital habits in children without expensive monthly subscriptions.",
       "key_features": [
         "Master parent dashboard pairing via 5-second QR code handshake",
         "Automated bedtime and sleep schedule device lockouts",
@@ -47,12 +54,13 @@
       "id": "childzones",
       "name": "Child Safety Zones",
       "category": "Child Protection & Geofencing",
+      "status": "AVAILABLE • READY TO LAUNCH",
       "subtitle": "Child Realtime Safety Zones and Alerts",
       "description": "A real-time family geofencing and GPS radar mobile app that protects children from route deviation, getting lost, or safety hazards with instant alerts.",
       "key_features": [
         "Unlimited custom virtual geofence safe zones (home, school, tuition)",
         "School-to-home safe route corridors with path deviation alarms",
-        "Sub-second satellite GNSS location tracking with 1.8-meter accuracy",
+        "Sub-second satellite GNSS location tracking with high precision",
         "Real-time perimeter breach sirens delivered to parents' phones",
         "Silent SOS distress beacon with covert ambient audio streaming",
         "Automatic front-camera intruder photo capture on unauthorized touch",
@@ -63,6 +71,7 @@
       "id": "massageservice",
       "name": "Cael Massage Service App",
       "category": "Wellness & On-Demand Services",
+      "status": "AVAILABLE • READY TO LAUNCH",
       "subtitle": "On-Demand Spa & Home Massage Service",
       "description": "A complete mobile platform for spa owners, licensed massage therapists, and wellness entrepreneurs offering both on-demand home visits and clinic appointments.",
       "key_features": [
@@ -79,6 +88,7 @@
       "id": "truckdelivery",
       "name": "Cael Trucking Delivery App",
       "category": "Freight & Heavy Cargo Logistics",
+      "status": "AVAILABLE • READY TO LAUNCH",
       "subtitle": "Heavy Cargo & Commercial Freight Dispatch",
       "description": "An enterprise transport and freight logistics management system for commercial trucking fleets, container haulers, and independent freight operators.",
       "key_features": [
@@ -96,44 +106,47 @@
       "id": "colorgame",
       "name": "Cael Two Color Game App",
       "category": "Gaming & Entertainment",
+      "status": "IN DEVELOPMENT • TESTING",
       "subtitle": "Interactive Two-Color Betting & Entertainment App",
-      "description": "A vibrant, modern community gaming platform featuring real-time interactive Red vs White round betting with physics-based 3D wheel animations.",
+      "description": "A modern interactive community gaming platform featuring real-time Red vs White round prediction with physics-based 3D wheel animations.",
       "key_features": [
-        "Dynamic Red vs White round betting with live community pools",
+        "Dynamic Red vs White round prediction with live community pools",
         "Physics-based spinning color wheel with smooth deceleration",
         "Provably Fair SHA-256 cryptographic RNG with open audit verification",
         "Instant automated e-wallet payouts in under 15 seconds",
         "Visual streak roadmaps, statistical charts, and probability analysis",
-        "Multiplayer live chat room with winner celebration tickers and coin rain",
-        "Comprehensive operator revenue ledger with multi-tier agent commissions"
+        "Multiplayer live chat room with winner celebration tickers",
+        "Operator revenue ledger with multi-tier agent commissions"
       ]
     },
     {
       "id": "oncallservice",
       "name": "Cael OnCall Service App",
       "category": "Home & Commercial Services",
+      "status": "IN DEVELOPMENT • TESTING",
       "subtitle": "All Home Services • Closest To You • One Call Away",
-      "description": "An on-demand trade and home services platform connecting clients with nearest verified locksmiths, appliance technicians, plumbers, carpenters, and electricians.",
+      "description": "An on-demand home and emergency trade services platform connecting clients with nearest verified locksmiths, appliance technicians, plumbers, carpenters, and electricians.",
       "key_features": [
         "Sub-minute nearest technician matching via real-time GPS proximity radar",
-        "24/7 Emergency locksmith and lockout rescue services",
+        "24/7 emergency locksmith and lockout rescue services",
         "Certified home appliance and refrigerator repair dispatch",
         "Emergency plumbing and high-pressure pipe leak fixes",
         "Master carpentry, electrical, and handyman services",
         "One-call masked VoIP and live video diagnostics",
-        "Standardized transparent labor pricing and verified background checks"
+        "Standardized transparent labor pricing and verified technician ratings"
       ]
     },
     {
       "id": "loanservice",
       "name": "Cael Loan Service App",
       "category": "Fintech & Microfinance Lending",
+      "status": "IN DEVELOPMENT • TESTING",
       "subtitle": "Fast Business & Microfinance Lending Service App",
-      "description": "A turnkey white-label digital lending platform empowering microfinance institutions and entrepreneurs with automated credit scoring, instant loan disbursements, and digital payment collections.",
+      "description": "A digital lending and microfinance mobile platform empowering lenders and institutions with automated credit scoring, instant loan disbursements, and digital payment collections.",
       "key_features": [
         "Automated AI-assisted borrower credit scoring and risk evaluation",
         "Instant online loan application with 5-minute approval workflows",
-        "Direct e-wallet and bank account loan disbursement",
+        "Direct e-wallet (GCash, Maya) and bank account loan disbursement",
         "Flexible daily, weekly, and monthly installment payment schedules",
         "Interactive real-time loan calculator with transparent interest rates",
         "Automated repayment reminders and recurring payment auto-debits",
@@ -142,34 +155,124 @@
       ]
     }
   ],
-  "licensing_and_pricing": "Managed Partnership Model: Zero upfront software licensing or development fees. Cael Hub manages the software, maintenance, and technical infrastructure under a simple 2% service-share arrangement.",
   "partnership_model": {
     "tagline": "YOUR BUSINESS. YOUR BRAND. OUR TECHNOLOGY.",
     "subheading": "Start Your Business. We'll Handle the Technology.",
-    "description": "Launch your business with your own branded mobile application while Cael Hub takes care of the technology, maintenance, and infrastructure behind it.",
-    "what_you_get": [
-      "01. Your Own Brand: Use your company name and logo with a personalized application.",
-      "02. Your Own Business App: Get access to a business application without upfront software licensing or development fees under our partnership.",
-      "03. Free Software Maintenance: Enjoy ongoing updates, bug fixes, and eligible personalization at no additional development fee.",
-      "04. Managed Infrastructure: We handle your application's servers, database, hosting, and maintenance.",
-      "05. Google Play Store Management: We manage publishing and eligible app updates so you can focus on your business.",
-      "06. Ongoing Technical Support: Get assistance with application configuration, technical issues, and troubleshooting to help keep your business application running smoothly."
+    "philosophy": "You bring the business idea. You build the brand. We take care of the technology.",
+    "description": "Launch your business with your own branded mobile application while Cael Hub manages the software, maintenance, cloud hosting, and technical infrastructure behind it.",
+    "pricing_structure": {
+      "upfront_software_fee": "₱0 (Zero upfront software development or licensing fees)",
+      "ongoing_maintenance_fee": "₱0 (Included at no additional development charge)",
+      "server_hosting_fee": "₱0 upfront (Handled and maintained by Cael Hub)",
+      "revenue_model": "Automatic 2% service share on your business's collected service fees on eligible transactions"
+    },
+    "what_you_get_six_benefits": [
+      {
+        "number": "01",
+        "title": "Your Own Brand",
+        "description": "Use your company name, logo, custom color scheme, and app icons with a personalized application."
+      },
+      {
+        "number": "02",
+        "title": "Your Own Business App",
+        "description": "Get access to a deployment-ready business application without upfront software licensing or custom development fees under our partnership."
+      },
+      {
+        "number": "03",
+        "title": "Free Software Maintenance",
+        "description": "Enjoy ongoing system updates, bug fixes, performance improvements, and eligible personalization at no additional development fee."
+      },
+      {
+        "number": "04",
+        "title": "Managed Infrastructure",
+        "description": "We handle your application's high-availability servers, database administration, cloud hosting, and security maintenance."
+      },
+      {
+        "number": "05",
+        "title": "Google Play Store Management",
+        "description": "We manage the technical publishing, store listings, and eligible app updates on Google Play Store so you can focus on running your business."
+      },
+      {
+        "number": "06",
+        "title": "Ongoing Technical Support",
+        "description": "Get dedicated assistance with application configuration, technical issues, and troubleshooting to keep your business running smoothly."
+      }
     ],
-    "service_share": "Transparent Revenue Model (Your 2% Helps Keep Your Business Running): The agreed 2% service share helps cover technology and infrastructure behind your business application (server/database hosting, software maintenance/bug fixes, regular application updates, technical support). For example: If a customer transaction is ₱1,000 and your business collects a 15% service fee (₱150), Cael Hub's share is 2% of ₱150 (₱3), leaving your business ₱147. The deduction is automatic. You grow your business. We keep the technology running."
-  },
-  "whats_included_breakdown": {
-    "closing_statement": "All Cael Hub applications are personalized under your company branding and backed by managed infrastructure, ongoing software maintenance, and a simple 2% service share.",
-    "answers": {
-      "white_label_logo": "Yes, complete brand personalization. You can use your own company name, logo, custom color scheme, app icons, and custom domain.",
-      "software_maintenance": "Yes, continuous managed software maintenance. Ongoing updates, bug fixes, performance improvements, and eligible personalization are handled at no additional development fee.",
-      "deployment_and_store": "Yes, guided onboarding and Google Play Store publishing management are provided so you can focus on your business operations.",
-      "managed_infrastructure": "We handle your application's servers, database administration, server hosting, and security maintenance.",
-      "service_share": "A simple 2% service share. Cael Hub automatically receives an agreed 2% share of your business's collected service fee on each eligible transaction to cover hosting, maintenance, and support."
+    "service_share_explanation": {
+      "rule": "The 2% service share is calculated ONLY on your business's collected service fee, NOT on the total customer gross transaction.",
+      "concrete_example": {
+        "customer_transaction": 1000,
+        "business_collected_service_fee_rate": "15%",
+        "business_collected_service_fee_amount": 150,
+        "cael_hub_share_rate": "2% of the collected service fee",
+        "cael_hub_share_amount": 3,
+        "your_business_retains": 147,
+        "breakdown_summary": "On a ₱1,000 transaction with your 15% (₱150) service fee, Cael Hub's 2% service share is ₱3, leaving your business ₱147."
+      },
+      "what_the_share_covers": [
+        "Cloud servers and database infrastructure hosting",
+        "Continuous bug fixes and software maintenance",
+        "Security patches and regular system updates",
+        "Technical configuration and ongoing developer support"
+      ]
     }
   },
+  "how_to_get_started_process": [
+    {
+      "step": 1,
+      "name": "Select Your Business Application",
+      "action": "Browse the Cael Hub application directory (Ride-Hailing, Trucking, Massage & Wellness, Child Protection, etc.) and choose the business model that fits your goals."
+    },
+    {
+      "step": 2,
+      "name": "Submit an Inquiry via Contact Terminal",
+      "action": "Reach out using the on-page Contact Us transmission terminal or email caelhub@gmail.com with your business name, target city or region, and application choice."
+    },
+    {
+      "step": 3,
+      "name": "Brand Personalization & Partnership Alignment",
+      "action": "Provide your official company logo, brand name, color preferences, and operational parameters under the simple 2% service-share agreement."
+    },
+    {
+      "step": 4,
+      "name": "Managed Technical Setup & Google Play Store Publishing",
+      "action": "Cael Hub configures your cloud backend, provisions database instances, compiles your branded mobile application, and handles Google Play Store publishing."
+    },
+    {
+      "step": 5,
+      "name": "Launch, Operate & Scale Your Business",
+      "action": "Onboard your drivers, therapists, staff, and customers. Operate your business and collect revenue while Cael Hub keeps the software and infrastructure running 24/7."
+    }
+  ],
+  "faq_knowledge": [
+    {
+      "topic": "Ownership & Source Code",
+      "question": "Do I own the source code of the application?",
+      "answer": "No. Cael Hub operates on a managed technology partnership model. You own 100% of your business brand, your company name, your customer relationships, your revenue, and your operations. Cael Hub retains and maintains the underlying software codebase, servers, and infrastructure so you never have to worry about technical debt, hosting bills, or hiring expensive software developers."
+    },
+    {
+      "topic": "Hidden Fees",
+      "question": "Are there any hidden costs or setup fees?",
+      "answer": "Zero hidden costs. There are no upfront setup fees, no monthly server licensing bills, and no maintenance retainers. Cael Hub is sustained through an agreed, automatic 2% share of your business's collected service fees on eligible transactions."
+    },
+    {
+      "topic": "Customization",
+      "question": "Can I use my own logo and brand colors?",
+      "answer": "Yes, absolutely. Every application is personalized with your official company name, custom logo, corporate color theme, and app icons. To your customers, it is entirely your company's mobile application."
+    },
+    {
+      "topic": "Operations",
+      "question": "Who manages the day-to-day business operations?",
+      "answer": "You and your team manage operations, rider/driver onboarding, marketing, pricing strategy, and local customer service. Cael Hub manages the software, cloud servers, databases, bug fixes, and Google Play Store maintenance."
+    },
+    {
+      "topic": "CAEL Meaning",
+      "question": "What does CAEL stand for?",
+      "answer": "CAEL stands for 'Come And Earn Literally'. It represents the mission to turn entrepreneurship dreams into tangible, earning businesses through accessible, managed technology."
+    }
+  ],
   "contact": {
     "ceo_and_founder": "Caesar Augustus E. Literatus",
-    "developer": "Caesar Augustus E. Literatus",
     "location": "Bulacan, Philippines",
     "email": "caelhub@gmail.com",
     "terminal": "Direct Contact Us transmission terminal integrated on the Cael website"
