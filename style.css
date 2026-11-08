@@ -3169,6 +3169,30 @@ body {
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+.console-update-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-color);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(var(--accent-rgb), 0.1);
+  border: 1px solid rgba(var(--accent-rgb), 0.3);
+  box-shadow: 0 0 8px rgba(var(--accent-rgb), 0.25);
+  flex-shrink: 0;
+}
+
+.console-update-icon .update-icon-svg {
+  animation: updateRotate 10s linear infinite;
+  display: block;
+}
+
+@keyframes updateRotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 .console-dots {
   display: flex;
   gap: 6px;
