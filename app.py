@@ -405,47 +405,7 @@ async def handle_chat(request: Request):
 # -----------------------------------------------------------------------------
 # 4. Search Engine Optimization & Crawl Endpoints
 # -----------------------------------------------------------------------------
-ROBOTS_TXT_BODY = (
-    "# Robots.txt for Cael Hub\n"
-    "# https://caelpage.onrender.com\n\n"
-    "User-agent: *\n"
-    "Allow: /\n"
-    "Disallow: /api/\n\n"
-    "User-agent: facebookexternalhit\n"
-    "Allow: /\n\n"
-    "User-agent: Facebot\n"
-    "Allow: /\n\n"
-    "User-agent: Meta-ExternalAgent\n"
-    "Allow: /\n\n"
-    "User-agent: WhatsApp\n"
-    "Allow: /\n\n"
-    "User-agent: Twitterbot\n"
-    "Allow: /\n\n"
-    "User-agent: LinkedInBot\n"
-    "Allow: /\n\n"
-    "User-agent: TelegramBot\n"
-    "Allow: /\n\n"
-    "User-agent: Googlebot\n"
-    "Allow: /\n\n"
-    "User-agent: Bingbot\n"
-    "Allow: /\n\n"
-    "Sitemap: https://caelpage.onrender.com/sitemap.xml\n"
-)
 
-@app.api_route("/robots.txt", methods=["GET", "HEAD"])
-async def get_robots_txt():
-    body_bytes = ROBOTS_TXT_BODY.encode("utf-8")
-    return Response(
-        content=body_bytes,
-        status_code=200,
-        media_type="text/plain; charset=utf-8",
-        headers={
-            "Content-Type": "text/plain; charset=utf-8",
-            "Content-Length": str(len(body_bytes)),
-            "Cache-Control": "public, max-age=3600",
-            "Accept-Ranges": "bytes"
-        }
-    )
 
 @app.api_route("/sitemap.xml", methods=["GET", "HEAD"])
 async def get_sitemap_xml():
