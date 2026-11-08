@@ -2,9 +2,24 @@
   "system": "CAEL MATRIX Updates",
   "version": "2.4.0",
   "views": {
-    "total": 203,
-    "lastUpdated": "2026-11-08T16:03:51.033Z",
+    "total": 206,
+    "lastUpdated": "2026-11-08T16:16:50.959Z",
     "recentLoads": [
+      {
+        "type": "page_view",
+        "referrer": "http://localhost:5173/",
+        "timestamp": "2026-11-08T16:16:50.959Z"
+      },
+      {
+        "type": "page_view",
+        "referrer": "http://localhost:5173/",
+        "timestamp": "2026-11-08T16:16:46.857Z"
+      },
+      {
+        "type": "page_view",
+        "referrer": "http://localhost:5173/",
+        "timestamp": "2026-11-08T16:09:13.201Z"
+      },
       {
         "type": "page_view",
         "referrer": "http://localhost:5173/",
@@ -239,21 +254,6 @@
         "type": "page_view",
         "referrer": "http://localhost:5173/",
         "timestamp": "2026-11-08T05:45:36.108Z"
-      },
-      {
-        "type": "page_view",
-        "referrer": "http://localhost:5173/",
-        "timestamp": "2026-11-08T05:34:16.174Z"
-      },
-      {
-        "type": "page_view",
-        "referrer": "http://localhost:5173/",
-        "timestamp": "2026-11-08T05:34:06.124Z"
-      },
-      {
-        "type": "page_view",
-        "referrer": "http://localhost:5173/",
-        "timestamp": "2026-11-08T05:12:30.275Z"
       }
     ]
   }
