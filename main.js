@@ -688,6 +688,28 @@ Answer concisely with sleek markdown formatting when appropriate. Always conclud
     this.chatHistory[0] = { role: 'system', content: promptText };
   }
 
+  resolvePhrases(phrases) {
+    if (!phrases || phrases.length === 0) return '';
+    // Work backwards from the last (most recent / complete) phrase
+    const resolved = [];
+    for (let i = phrases.length - 1; i >= 0; i--) {
+      const current = phrases[i].trim();
+      if (!current) continue;
+      const currentLower = current.toLowerCase();
+
+      // If an already accepted (later/longer) phrase contains or starts with this earlier phrase, skip it
+      const isSubset = resolved.some(laterPhrase => {
+        const laterLower = laterPhrase.toLowerCase();
+        return laterLower.includes(currentLower) || currentLower.includes(laterLower);
+      });
+
+      if (!isSubset) {
+        resolved.unshift(current);
+      }
+    }
+    return resolved.join(' ');
+  }
+
   cleanVoiceTranscript(text) {
     if (!text) return '';
     let str = text.trim().replace(/\s+/g, ' ');
@@ -891,32 +913,22 @@ Answer concisely with sleek markdown formatting when appropriate. Always conclud
         };
 
         recognition.onresult = (e) => {
-          let finalPart = '';
-          let latestInterim = '';
-
+          const rawPhrases = [];
           for (let i = 0; i < e.results.length; ++i) {
-            const res = e.results[i];
-            if (res.isFinal) {
-              const phrase = res[0].transcript.trim();
-              if (phrase) {
-                // Deduplicate if browser repeats the exact same phrase
-                if (!finalPart.endsWith(phrase)) {
-                  finalPart = (finalPart ? (finalPart + ' ') : '') + phrase;
-                }
-              }
-            } else {
-              // Take ONLY the latest interim hypothesis (never concatenate progressive interim attempts)
-              latestInterim = res[0].transcript.trim();
+            const phrase = e.results[i][0].transcript.trim();
+            if (phrase) {
+              rawPhrases.push(phrase);
             }
           }
 
-          // If latest interim is already a subset of the finalized part, ignore it
-          if (finalPart && latestInterim && finalPart.endsWith(latestInterim)) {
-            latestInterim = '';
-          }
+          // 1. Resolve progressive phrases backwards so that incomplete preliminary guesses (e.g. "how are you") 
+          // are dropped when superseded by the complete phrase (e.g. "how are you today")
+          const resolved = this.resolvePhrases(rawPhrases);
 
-          const currentSessionText = (finalPart ? (finalPart + (latestInterim ? (' ' + latestInterim) : '')) : latestInterim).trim();
-          const rawFullText = (prefixText ? (prefixText + ' ' + currentSessionText) : currentSessionText).trim();
+          // 2. Combine with any prefix text from session restarts
+          const rawFullText = (prefixText ? (prefixText + ' ' + resolved) : resolved).trim();
+
+          // 3. Clean word duplicates & stuck tokens
           const fullText = this.cleanVoiceTranscript(rawFullText);
 
           if (fullText) {
@@ -926,17 +938,17 @@ Answer concisely with sleek markdown formatting when appropriate. Always conclud
               this.visualizer.setActive(true);
             }
             if (this.input) {
-              this.input.placeholder = "🎙️ Hearing your voice... Keep speaking or pause to send.";
+              this.input.placeholder = "🎙️ Hearing your voice... (Pause 3s or tap mic to send)";
             }
           }
 
-          // Auto-send after 1.4s of silence after speech is detected
+          // Wait for 3 seconds of silence (no words) before automatically processing & sending
           if (silenceTimer) clearTimeout(silenceTimer);
           silenceTimer = setTimeout(() => {
             if (isListening && this.input.value.trim()) {
               finishAndSend();
             }
-          }, 1400);
+          }, 3000);
         };
 
         recognition.onerror = (e) => {
