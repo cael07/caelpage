@@ -3755,10 +3755,28 @@ body {
   background: rgba(var(--accent-rgb), 0.15);
 }
 
-.modal-icon-btn.close-btn:hover {
-  border-color: #ff2a6d;
+.modal-icon-btn.close-btn,
+#modal-close-btn {
+  background: rgba(255, 42, 109, 0.18);
+  border: 1px solid rgba(255, 42, 109, 0.45);
   color: #ff2a6d;
-  background: rgba(255, 42, 109, 0.15);
+  box-shadow: 0 0 10px rgba(255, 42, 109, 0.25);
+  font-weight: 700;
+}
+
+.modal-icon-btn.close-btn:hover,
+#modal-close-btn:hover {
+  background: #ff2a6d;
+  border-color: #ff2a6d;
+  color: #ffffff;
+  box-shadow: 0 0 16px rgba(255, 42, 109, 0.65);
+  transform: scale(1.08);
+}
+
+.modal-icon-btn.close-btn:active,
+#modal-close-btn:active {
+  transform: scale(0.95);
+  background: #d81b55;
 }
 
 
