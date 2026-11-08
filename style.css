@@ -3755,6 +3755,24 @@ body {
   background: rgba(var(--accent-rgb), 0.15);
 }
 
+.modal-icon-btn.tts-btn {
+  font-size: 0.95rem;
+}
+
+.modal-icon-btn.tts-btn.muted {
+  color: #ff5f56;
+  border-color: rgba(255, 95, 86, 0.45);
+  background: rgba(255, 95, 86, 0.15);
+  box-shadow: 0 0 8px rgba(255, 95, 86, 0.2);
+}
+
+.modal-icon-btn.tts-btn.muted:hover {
+  background: rgba(255, 95, 86, 0.28);
+  border-color: #ff5f56;
+  color: #ffffff;
+  box-shadow: 0 0 12px rgba(255, 95, 86, 0.45);
+}
+
 .modal-icon-btn.close-btn,
 #modal-close-btn {
   background: rgba(255, 42, 109, 0.18);

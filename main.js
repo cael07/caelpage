@@ -524,6 +524,7 @@ Answer concisely with sleek markdown formatting when appropriate. Always conclud
     this.typingIndicator = document.getElementById('chat-typing-indicator');
     this.personaSelect = document.getElementById('ai-persona-select');
     this.ttsToggleBtn = document.getElementById('tts-toggle-btn');
+    this.modalTtsBtn = document.getElementById('modal-tts-btn');
     this.clearBtn = document.getElementById('clear-chat-btn');
     this.copyBtn = document.getElementById('copy-chat-btn');
     this.micBtn = document.getElementById('voice-input-btn');
@@ -551,13 +552,45 @@ Answer concisely with sleek markdown formatting when appropriate. Always conclud
       });
     }
 
-    // TTS Toggle
-    if (this.ttsToggleBtn) {
-      this.ttsToggleBtn.addEventListener('click', () => {
-        this.ttsEnabled = !this.ttsEnabled;
-        audio.playBlip();
-        document.getElementById('tts-label').textContent = `VOICE READOUT: ${this.ttsEnabled ? 'ON' : 'OFF'}`;
+    // TTS Voice Readout Toggle (Header Mute Button & Overlay Control)
+    const updateTtsUI = () => {
+      if (this.modalTtsBtn) {
+        this.modalTtsBtn.innerHTML = this.ttsEnabled ? '🔊' : '🔇';
+        this.modalTtsBtn.title = this.ttsEnabled
+          ? 'Mute CAELIN Voice (Readout ON)'
+          : 'Unmute CAELIN Voice (Readout MUTED)';
+        this.modalTtsBtn.classList.toggle('muted', !this.ttsEnabled);
+        this.modalTtsBtn.classList.toggle('active', this.ttsEnabled);
+      }
+      if (this.ttsToggleBtn) {
+        const label = document.getElementById('tts-label');
+        if (label) label.textContent = `VOICE READOUT: ${this.ttsEnabled ? 'ON' : 'OFF'}`;
         this.ttsToggleBtn.classList.toggle('active', this.ttsEnabled);
+      }
+    };
+
+    const toggleTts = () => {
+      this.ttsEnabled = !this.ttsEnabled;
+      audio.playBlip();
+      if (!this.ttsEnabled && 'speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+      updateTtsUI();
+    };
+
+    if (this.modalTtsBtn) {
+      this.modalTtsBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        toggleTts();
+      });
+    }
+
+    if (this.ttsToggleBtn) {
+      this.ttsToggleBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        toggleTts();
       });
     }
 
