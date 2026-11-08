@@ -1712,6 +1712,45 @@ body {
   transform: translateY(0); /* Slowly moves from bottom to up */
 }
 
+/* Disable on-hover text overlay on mobile/touch devices for smooth swipe scrolling */
+@media (max-width: 968px), (hover: none), (pointer: coarse) {
+  .app-card-info,
+  .app-card-inline:hover .app-card-info,
+  .app-card-inline:focus-visible .app-card-info,
+  .app-card-inline.active .app-card-info {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transform: none !important;
+    pointer-events: none !important;
+  }
+
+  .app-card-preview-bar,
+  .app-card-inline:hover .app-card-preview-bar,
+  .app-card-inline:focus-visible .app-card-preview-bar,
+  .app-card-inline.active .app-card-preview-bar {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: translateY(0) !important;
+  }
+
+  .carousel-track .app-card-inline.swiper-slide:hover,
+  .app-card-inline:hover,
+  .app-card-inline:focus-visible,
+  .app-card-inline.active {
+    transform: none !important;
+    border-color: rgba(var(--accent-rgb), 0.35) !important;
+    box-shadow: none !important;
+  }
+
+  .app-card-inline:hover .app-card-img,
+  .app-card-inline:focus-visible .app-card-img,
+  .app-card-inline.active .app-card-img {
+    transform: none !important;
+    filter: brightness(1) !important;
+  }
+}
+
 .app-card-info h3 {
   font-family: var(--font-hud);
   font-size: 0.92rem;
