@@ -32,6 +32,15 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.middleware("http")
+async def log_crawler_requests(request: Request, call_next):
+    user_agent = request.headers.get("user-agent", "")
+    ip = request.headers.get("x-forwarded-for") or (request.client.host if request.client else "unknown")
+    response = await call_next(request)
+    if any(bot in user_agent.lower() for bot in ["facebook", "meta", "bot", "crawl", "spider", "whatsapp"]) or request.url.path in ["/", "/robots.txt", "/sitemap.xml"]:
+        print(f"[CRAWLER-LOG] {request.method} {request.url.path} -> {response.status_code} | IP: {ip} | UA: {user_agent[:70]}")
+    return response
+
 # -----------------------------------------------------------------------------
 # Metadata Telemetry Store
 # -----------------------------------------------------------------------------
@@ -396,17 +405,46 @@ async def handle_chat(request: Request):
 # -----------------------------------------------------------------------------
 # 4. Search Engine Optimization & Crawl Endpoints
 # -----------------------------------------------------------------------------
+ROBOTS_TXT_BODY = (
+    "# Robots.txt for Cael Hub\n"
+    "# https://caelpage.onrender.com\n\n"
+    "User-agent: *\n"
+    "Allow: /\n"
+    "Disallow: /api/\n\n"
+    "User-agent: facebookexternalhit\n"
+    "Allow: /\n\n"
+    "User-agent: Facebot\n"
+    "Allow: /\n\n"
+    "User-agent: Meta-ExternalAgent\n"
+    "Allow: /\n\n"
+    "User-agent: WhatsApp\n"
+    "Allow: /\n\n"
+    "User-agent: Twitterbot\n"
+    "Allow: /\n\n"
+    "User-agent: LinkedInBot\n"
+    "Allow: /\n\n"
+    "User-agent: TelegramBot\n"
+    "Allow: /\n\n"
+    "User-agent: Googlebot\n"
+    "Allow: /\n\n"
+    "User-agent: Bingbot\n"
+    "Allow: /\n\n"
+    "Sitemap: https://caelpage.onrender.com/sitemap.xml\n"
+)
+
 @app.api_route("/robots.txt", methods=["GET", "HEAD"])
 async def get_robots_txt():
-    dist_file = os.path.join(DIST_DIR, "robots.txt")
-    if os.path.isfile(dist_file):
-        return FileResponse(dist_file, media_type="text/plain; charset=utf-8")
-    root_file = os.path.join(BASE_DIR, "robots.txt")
-    if os.path.isfile(root_file):
-        return FileResponse(root_file, media_type="text/plain; charset=utf-8")
+    body_bytes = ROBOTS_TXT_BODY.encode("utf-8")
     return Response(
-        content="User-agent: facebookexternalhit\nAllow: /\n\nUser-agent: Facebot\nAllow: /\n\nUser-agent: *\nAllow: /\nDisallow: /api/\n\nSitemap: https://caelpage.onrender.com/sitemap.xml\n",
-        media_type="text/plain; charset=utf-8"
+        content=body_bytes,
+        status_code=200,
+        media_type="text/plain; charset=utf-8",
+        headers={
+            "Content-Type": "text/plain; charset=utf-8",
+            "Content-Length": str(len(body_bytes)),
+            "Cache-Control": "public, max-age=3600",
+            "Accept-Ranges": "bytes"
+        }
     )
 
 @app.api_route("/sitemap.xml", methods=["GET", "HEAD"])

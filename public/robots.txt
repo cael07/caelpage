@@ -1,6 +1,10 @@
 # Robots.txt for Cael Hub
 # https://caelpage.onrender.com
 
+User-agent: *
+Allow: /
+Disallow: /api/
+
 User-agent: facebookexternalhit
 Allow: /
 
@@ -10,13 +14,13 @@ Allow: /
 User-agent: Meta-ExternalAgent
 Allow: /
 
+User-agent: WhatsApp
+Allow: /
+
 User-agent: Twitterbot
 Allow: /
 
 User-agent: LinkedInBot
-Allow: /
-
-User-agent: WhatsApp
 Allow: /
 
 User-agent: TelegramBot
@@ -27,9 +31,5 @@ Allow: /
 
 User-agent: Bingbot
 Allow: /
-
-User-agent: *
-Allow: /
-Disallow: /api/
 
 Sitemap: https://caelpage.onrender.com/sitemap.xml
