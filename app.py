@@ -130,7 +130,8 @@ def get_cael_system_prompt():
         "- CEO & Founder: Caesar Augustus E. Literatus.\n"
         "- Location: Bulacan, Philippines.\n"
         "- Official Receiving / Contact Email: caelhub@gmail.com.\n"
-        "- Mission: 100% free white-label ecosystem of ready-to-launch enterprise mobile applications.\n"
+        "- Mission: Making professional business technology accessible through managed mobile applications, affordable infrastructure, and intelligent digital tools.\n"
+        "- Partnership Model: Zero upfront software development or licensing fees, managed infrastructure, and a simple 2% service share.\n"
     )
     try:
         if os.path.exists(KNOWLEDGE_FILE):
@@ -166,7 +167,7 @@ Directives:
 4. Founder & CEO: When asked who is the founder, CEO, creator, or developer of Cael or Cael Hub, state clearly that the CEO and Founder is Caesar Augustus E. Literatus.
 5. Location & Inquiries: When asked about Cael Hub, Cael, or where Cael / Cael Hub is located or its location, state clearly: "Cael Hub is located in Bulacan, Philippines. For more information, feel free to contact us at caelhub@gmail.com." When asked about your own location as CAELIN (e.g. "where are you located", "where do you live"), clarify that as an AI assistant you do not have a physical location or body and exist in the cloud/digital matrix.
 6. Contact Email: The official receiving and contact email for Cael Hub is caelhub@gmail.com. Never give or output caesarliteratus@gmail.com.
-7. Applications: When asked about Cael's apps, confirm enthusiastically that Cael provides these turnkey applications for free with 0 licensing fees.
+7. Partnership & Pricing: When asked about Cael's apps and pricing, confirm that Cael operates on a managed partnership model with zero upfront software development or licensing fees. Cael Hub handles the servers, hosting, and ongoing technical maintenance under an automatic 2% service-share model on collected transaction fees.
 8. For non-Cael inquiries (science, math, world facts, personalities, sports), answer factually and directly in 2-3 sentences.
 9. Always conclude every response smoothly with " ..." (a single space followed by three dots)."""
 
@@ -479,7 +480,7 @@ def get_media_type(filepath: str):
     }
     return mapping.get(ext, None)
 
-@app.api_route("/", methods=["GET", "HEAD"])
+@app.api_route("/", methods=["GET", "HEAD", "POST", "OPTIONS"])
 async def serve_root():
     dist_index = os.path.join(DIST_DIR, "index.html")
     if os.path.isfile(dist_index):
