@@ -3184,13 +3184,19 @@ body {
 }
 
 .console-update-icon .update-icon-svg {
-  animation: updateRotate 10s linear infinite;
+  animation: updatePulse 2.8s ease-in-out infinite;
   display: block;
 }
 
-@keyframes updateRotate {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+@keyframes updatePulse {
+  0%, 100% {
+    transform: translateY(0);
+    filter: drop-shadow(0 0 2px rgba(var(--accent-rgb), 0.4));
+  }
+  50% {
+    transform: translateY(-1.5px);
+    filter: drop-shadow(0 0 6px rgba(var(--accent-rgb), 0.85));
+  }
 }
 
 .console-dots {
