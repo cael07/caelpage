@@ -2598,10 +2598,15 @@ function initImageZoomController() {
   const zoomResetBtn = document.getElementById('zoom-reset-btn');
   const zoomCloseBtn = document.getElementById('zoom-close-btn');
   const zoomLevelBadge = document.getElementById('zoom-level-badge');
+  const zoomFitHorizBtn = document.getElementById('zoom-fit-horiz-btn');
+  const zoomFitVertBtn = document.getElementById('zoom-fit-vert-btn');
+  const zoomRotateBtn = document.getElementById('zoom-rotate-btn');
 
   let scale = 1.0;
-  const MIN_SCALE = 1.0;
-  const MAX_SCALE = 4.5;
+  let rotation = 0;
+  let currentViewMode = 'vertical';
+  const MIN_SCALE = 0.5;
+  const MAX_SCALE = 8.0;
   const STEP = 0.35;
 
   let panX = 0;
@@ -2620,17 +2625,17 @@ function initImageZoomController() {
   function updateTransform(withTransition = true) {
     if (!target) return;
     if (withTransition) {
-      target.style.transition = 'transform 0.12s cubic-bezier(0.16, 1, 0.3, 1)';
+      target.style.transition = 'transform 0.16s cubic-bezier(0.16, 1, 0.3, 1)';
     } else {
       target.style.transition = 'none';
     }
-    target.style.transform = `translate3d(${panX}px, ${panY}px, 0) scale(${scale})`;
+    target.style.transform = `translate3d(${panX}px, ${panY}px, 0) scale(${scale}) rotate(${rotation}deg)`;
 
     if (zoomLevelBadge) {
       zoomLevelBadge.textContent = `${Math.round(scale * 100)}%`;
     }
 
-    if (scale > 1.02) {
+    if (scale > 1.02 || rotation !== 0) {
       target.classList.add('is-zoomed');
     } else {
       target.classList.remove('is-zoomed');
@@ -2641,20 +2646,22 @@ function initImageZoomController() {
     } else {
       target.classList.remove('is-dragging');
     }
+
+    if (zoomFitHorizBtn && zoomFitVertBtn) {
+      zoomFitHorizBtn.classList.toggle('active', currentViewMode === 'horizontal');
+      zoomFitVertBtn.classList.toggle('active', currentViewMode === 'vertical');
+    }
   }
 
   function clampPan() {
-    if (!stage || !target || scale <= 1.02) {
-      panX = 0;
-      panY = 0;
-      return;
-    }
-
+    if (!stage || !target) return;
     const stageRect = stage.getBoundingClientRect();
-    const imgWidth = target.offsetWidth * scale;
-    const imgHeight = target.offsetHeight * scale;
+    const isRotated = (rotation % 180 !== 0);
+    const unscaledW = isRotated ? (target.offsetHeight || 1) : (target.offsetWidth || 1);
+    const unscaledH = isRotated ? (target.offsetWidth || 1) : (target.offsetHeight || 1);
+    const imgWidth = unscaledW * scale;
+    const imgHeight = unscaledH * scale;
 
-    // Maximum pan bounds so user can't throw image completely out of sight
     const maxPanX = Math.max(0, (imgWidth - stageRect.width) / 2 + stageRect.width * 0.35);
     const maxPanY = Math.max(0, (imgHeight - stageRect.height) / 2 + stageRect.height * 0.35);
 
@@ -2673,13 +2680,67 @@ function initImageZoomController() {
     }
 
     scale = clampedScale;
-    if (scale <= 1.02) {
+    if (scale <= 1.02 && rotation === 0) {
       panX = 0;
       panY = 0;
     } else {
       clampPan();
     }
     updateTransform(withTransition);
+  }
+
+  function fitHorizontal(animate = true) {
+    if (!stage || !target) return;
+    audio.playBlip();
+    const stageRect = stage.getBoundingClientRect();
+    const isRotated = (rotation % 180 !== 0);
+    const unscaledW = isRotated ? (target.offsetHeight || 1) : (target.offsetWidth || 1);
+    const unscaledH = isRotated ? (target.offsetWidth || 1) : (target.offsetHeight || 1);
+
+    // Expand width to fit the screen horizontally
+    const targetScale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, (stageRect.width * 0.98) / unscaledW));
+    scale = targetScale;
+    panX = 0;
+
+    // Center or start at top if image is taller than screen
+    const renderedH = unscaledH * scale;
+    if (renderedH > stageRect.height) {
+      panY = Math.min(0, (stageRect.height - renderedH) / 2 + (stageRect.height * 0.15));
+    } else {
+      panY = 0;
+    }
+
+    currentViewMode = 'horizontal';
+    clampPan();
+    updateTransform(animate);
+  }
+
+  function fitVertical(animate = true) {
+    if (!stage || !target) return;
+    audio.playBlip();
+    const stageRect = stage.getBoundingClientRect();
+    const isRotated = (rotation % 180 !== 0);
+    const unscaledH = isRotated ? (target.offsetWidth || 1) : (target.offsetHeight || 1);
+
+    // Fit height to screen vertically without clipping top/bottom
+    const targetScale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, (stageRect.height * 0.93) / unscaledH));
+    scale = targetScale;
+    panX = 0;
+    panY = 0;
+
+    currentViewMode = 'vertical';
+    clampPan();
+    updateTransform(animate);
+  }
+
+  function rotateView() {
+    audio.playBlip();
+    rotation = (rotation + 90) % 360;
+    if (currentViewMode === 'horizontal') {
+      fitHorizontal(true);
+    } else {
+      fitVertical(true);
+    }
   }
 
   function zoomIn() {
@@ -2697,6 +2758,8 @@ function initImageZoomController() {
     scale = 1.0;
     panX = 0;
     panY = 0;
+    rotation = 0;
+    currentViewMode = 'vertical';
     updateTransform(true);
   }
 
@@ -2711,6 +2774,8 @@ function initImageZoomController() {
     scale = 1.0;
     panX = 0;
     panY = 0;
+    rotation = 0;
+    currentViewMode = 'vertical';
     isDragging = false;
     hasDragged = false;
     updateTransform(false);
@@ -2736,6 +2801,26 @@ function initImageZoomController() {
   if (zoomOutBtn) zoomOutBtn.addEventListener('click', (e) => { e.stopPropagation(); zoomOut(); });
   if (zoomResetBtn) zoomResetBtn.addEventListener('click', (e) => { e.stopPropagation(); resetZoom(); });
   if (zoomCloseBtn) zoomCloseBtn.addEventListener('click', (e) => { e.stopPropagation(); close(); });
+
+  // Switch between Horizontal and Vertical View buttons
+  if (zoomFitHorizBtn) {
+    zoomFitHorizBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      fitHorizontal(true);
+    });
+  }
+  if (zoomFitVertBtn) {
+    zoomFitVertBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      fitVertical(true);
+    });
+  }
+  if (zoomRotateBtn) {
+    zoomRotateBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      rotateView();
+    });
+  }
 
   // Backdrop / Stage click outside to close
   if (backdrop) {
@@ -2921,12 +3006,24 @@ function initImageZoomController() {
     } else if (e.key === '0') {
       e.preventDefault();
       resetZoom();
+    } else if (e.key === 'h' || e.key === 'H') {
+      e.preventDefault();
+      fitHorizontal(true);
+    } else if (e.key === 'v' || e.key === 'V') {
+      e.preventDefault();
+      fitVertical(true);
+    } else if (e.key === 'r' || e.key === 'R') {
+      e.preventDefault();
+      rotateView();
     }
   });
 
   // Global exposure
   window.openImageZoom = open;
   window.closeImageZoom = close;
+  window.imageZoomFitHorizontal = fitHorizontal;
+  window.imageZoomFitVertical = fitVertical;
+  window.imageZoomRotate = rotateView;
 }
 
 // --------------------------------------------------------------------------

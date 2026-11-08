@@ -226,8 +226,8 @@
   }
   </script>
 
-  <script type="module" crossorigin src="/assets/index-BVgnICVP.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index-IWeKHKpt.css">
+  <script type="module" crossorigin src="/assets/index-XaOOebW7.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-BbjXHNp0.css">
 </head>
 
 <body class="theme-purple">
@@ -2070,6 +2070,25 @@
         <button type="button" class="zoom-ctrl-btn zoom-ctrl-reset" id="zoom-reset-btn" aria-label="Reset Zoom (1:1)" title="Reset Zoom (1:1)">
           <span>1:1</span>
         </button>
+
+        <span class="zoom-toolbar-divider" aria-hidden="true"></span>
+
+        <!-- Switch between Horizontal and Vertical View (Fully Fit Screen) -->
+        <div class="zoom-view-segmented" role="group" aria-label="Horizontal and Vertical View Fit">
+          <button type="button" class="zoom-seg-btn" id="zoom-fit-horiz-btn" aria-label="Horizontal View (Fit Width)" title="Horizontal View: Fit screen width (↔)">
+            <span class="seg-icon">↔</span>
+            <span class="seg-text">Horizontal</span>
+          </button>
+          <button type="button" class="zoom-seg-btn active" id="zoom-fit-vert-btn" aria-label="Vertical View (Fit Height)" title="Vertical View: Fit screen height (↕)">
+            <span class="seg-icon">↕</span>
+            <span class="seg-text">Vertical</span>
+          </button>
+        </div>
+
+        <!-- Rotate Button -->
+        <button type="button" class="zoom-ctrl-btn zoom-ctrl-rotate" id="zoom-rotate-btn" aria-label="Rotate View 90°" title="Rotate View (90°)">
+          <span class="zoom-btn-icon">↻</span>
+        </button>
       </div>
       <div class="zoom-toolbar-right">
         <button type="button" class="zoom-close-btn" id="zoom-close-btn" aria-label="Close Fullscreen View" title="Close (Esc)">✕</button>
@@ -2085,7 +2104,7 @@
 
     <!-- Floating Sci-Fi Bottom Instruction Hint -->
     <div class="image-zoom-hint-bar" id="image-zoom-hint-bar">
-      <span>✦ Pinch or scroll to zoom • Drag to pan • Click outside or ✕ to close</span>
+      <span>✦ ↔ Horizontal / ↕ Vertical view to fit screen • Pinch/scroll to zoom • Drag to pan • Click outside or ✕ to close</span>
     </div>
   </div>
 
