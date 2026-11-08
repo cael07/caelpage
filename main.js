@@ -703,7 +703,7 @@ Answer concisely with sleek markdown formatting when appropriate. Always conclud
     let isListening = false;
     let silenceTimer = null;
     let recognition = null;
-    let finalTranscript = '';
+    let prefixText = '';
     let restartAttempts = 0;
     const maxRestarts = 8;
     const defaultPlaceholder = "Type your query into CAELIN...";
@@ -790,16 +790,14 @@ Answer concisely with sleek markdown formatting when appropriate. Always conclud
         };
 
         recognition.onresult = (e) => {
-          let interimTranscript = '';
-          for (let i = e.resultIndex; i < e.results.length; ++i) {
-            if (e.results[i].isFinal) {
-              finalTranscript += e.results[i][0].transcript + ' ';
-            } else {
-              interimTranscript += e.results[i][0].transcript;
-            }
+          let sessionTranscript = '';
+          for (let i = 0; i < e.results.length; ++i) {
+            sessionTranscript += e.results[i][0].transcript;
           }
 
-          const fullText = (finalTranscript + interimTranscript).trim();
+          const cleanSessionText = sessionTranscript.trim();
+          const fullText = (prefixText ? (prefixText + ' ' + cleanSessionText) : cleanSessionText).trim();
+
           if (fullText) {
             this.input.value = fullText;
             this.input.scrollTop = this.input.scrollHeight;
@@ -860,6 +858,7 @@ Answer concisely with sleek markdown formatting when appropriate. Always conclud
           } else if (shouldRestart && restartAttempts < maxRestarts) {
             // Smoothly restart so laptop mic stays active without dropping out
             restartAttempts++;
+            prefixText = this.input ? this.input.value.trim() : '';
             setTimeout(() => {
               if (isListening) {
                 createAndStartSession();
@@ -894,7 +893,7 @@ Answer concisely with sleek markdown formatting when appropriate. Always conclud
 
       this.input.value = '';
       if (this.input) this.input.blur();
-      finalTranscript = '';
+      prefixText = '';
       restartAttempts = 0;
       isListening = true;
       createAndStartSession();
