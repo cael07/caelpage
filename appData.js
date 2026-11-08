@@ -65,7 +65,7 @@ function createSvgScreen(title, subtitle, category, themeColor, secondaryColor, 
     <!-- Bottom Telemetry HUD Line -->
     <rect x="40" y="585" width="920" height="35" rx="6" fill="#060d1f" />
     <text x="60" y="607" fill="#64748b" font-family="'Inter', sans-serif" font-size="11">LATENCY: 12ms • ENCRYPTION: 360° TLS 1.3 • BIOMETRIC GEOPROTECTION: ACTIVE</text>
-    <text x="940" y="607" fill="${c1}" font-family="'Inter', sans-serif" font-size="11" font-weight="700" text-anchor="end">CAEL HUB ZERO-FEE ARCHITECTURE</text>
+    <text x="940" y="607" fill="${c1}" font-family="'Inter', sans-serif" font-size="11" font-weight="700" text-anchor="end">CAEL HUB MANAGED ARCHITECTURE</text>
   </svg>`;
 
   return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
@@ -139,9 +139,9 @@ export const APPS_CATALOG = {
       { title: 'Cashless Digital Wallet & Instant Payouts', desc: 'Seamless QR payments, credit card processing, cash-on-delivery logging, and zero-fee driver wallet top-ups.' }
     ],
     details: {
-      overview: 'Cael Ride is an enterprise-grade on-demand transport and courier platform engineered to empower entrepreneurs to launch their own branded ride-hailing business for free. Packed with sub-second GPS telematics and an autonomous operational core, it eliminates the need for expensive SaaS subscriptions.',
+      overview: 'Cael Ride is an enterprise-grade on-demand transport and courier platform engineered to empower entrepreneurs to launch their own branded ride-hailing business with zero upfront software fees. Packed with sub-second GPS telematics and an autonomous operational core, it eliminates the need for expensive SaaS subscriptions.',
       workforce: 'Equipped with in-app biometric attendance, geofenced shift logging, automated trip compensation, and real-time ledger accounting. Drivers never need to submit manual trip sheets, and management enjoys full visibility into driver hours and road safety compliance.',
-      monetization: '100% white-label ready. Apply your own business logo, custom color palette, local tariffs, and operator commission rates. Keep all profits without paying per-seat or per-ride licensing fees to overseas corporations.',
+      monetization: '100% white-label ready. Apply your own business logo, custom color palette, local tariffs, and operator commission rates. Backed by Cael Hub\'s managed infrastructure and 2% service share model.',
       security: '360° Bank-grade security architecture with end-to-end TLS 1.3 encryption, passenger identity verification, geofenced route deviation monitors, and tamper-proof financial transaction logs.'
     },
     specs: [
@@ -152,7 +152,7 @@ export const APPS_CATALOG = {
       { label: 'Backend Architecture', value: 'Node.js Fastify / Python Microservices / Redis Geohash' },
       { label: 'Database & Sync', value: 'PostgreSQL with PostGIS geospatial indexing, WebSockets' },
       { label: 'Offline Resilience', value: 'Offline trip caching with auto-reconciliation on signal recovery' },
-      { label: 'Licensing Model', value: '100% Free Ecosystem for Business Dreamers' }
+      { label: 'Licensing Model', value: 'Managed Partnership Model (Zero Upfront Software Fees, 2% Service Share)' }
     ]
   },
 
@@ -161,7 +161,7 @@ export const APPS_CATALOG = {
     title: 'CAEL CHILD TIME LOCK',
     badge: 'CAEL TIME LOCK',
     subtitle: 'Protect Child From Phone Overuse And Misuse',
-    pitch: 'A free mobile app to solve your child\'s phone overuse, screen addiction, and late-night gaming problems.',
+    pitch: 'A managed parental control application to help parents protect children from phone overuse and misuse.',
     gallery: [
       {
         image: './timelock.jpg?v=2',
@@ -237,7 +237,7 @@ export const APPS_CATALOG = {
     details: {
       overview: 'Cael Child Time Lock solves modern screen addiction by giving parents flexible, respectful, yet unbreachable oversight over their children\'s mobile habits. Completely free of subscription fees and advertising tracking.',
       workforce: 'Parents pair child handsets via a simple 5-second QR code handshake. Once paired, cloud rules synchronize in real time over cellular or Wi-Fi networks.',
-      monetization: '100% Free. No monthly paywalls, no in-app purchases required to unlock basic features. Gives every family the tools to cultivate healthy digital balance.',
+      monetization: 'Zero Upfront Licensing. Fully managed mobile application personalized for family digital wellness under Cael Hub infrastructure.',
       security: 'Child privacy is paramount. Usage statistics and screenshots are encrypted end-to-end with the parent\'s personal key and never sold to third-party ad networks.'
     },
     specs: [
@@ -248,7 +248,7 @@ export const APPS_CATALOG = {
       { label: 'Parent Device Pairing', value: 'Zero-configuration QR code handshake, multi-child grouping' },
       { label: 'Data Privacy', value: 'Zero ad telemetry, client-side encryption, COPPA compliant' },
       { label: 'Emergency Override', value: 'Always-accessible emergency contact whitelist (911/Parents)' },
-      { label: 'Cost to Family', value: '100% Free Enterprise-Grade Mobile Application' }
+      { label: 'Partnership Model', value: 'Managed Mobile Application for Families' }
     ]
   },
 
@@ -257,7 +257,7 @@ export const APPS_CATALOG = {
     title: 'CAEL CHILD SAFETY ZONES',
     badge: 'CAEL SAFETY ZONES',
     subtitle: 'Child Realtime Safety Zones and Alerts',
-    pitch: 'A free mobile app to make you worry-free from your child\'s safety in real-time with GPS perimeter radar.',
+    pitch: 'A managed real-time child protection and GPS geofencing application for family safety.',
     gallery: [
       {
         image: './childlogin.jpg?v=3',
@@ -333,7 +333,7 @@ export const APPS_CATALOG = {
     details: {
       overview: 'Child Safety Zones is an advanced real-time geofence and family telematics mobile platform built to protect children from route deviation, kidnapping incidents, and disorientation. Free for all families worldwide.',
       workforce: 'Equipped with background geofence engines that monitor location without burning handset battery. Alerts trigger in under 500ms across LTE and Wi-Fi networks.',
-      monetization: '100% Free Ecosystem. No monthly subscriptions, no fees for setting unlimited geofence zones, and no advertisements.',
+      monetization: 'Managed Infrastructure. No monthly device subscription fees, managed by Cael Hub.',
       security: 'End-to-end military grade encryption. Only authorized family members hold cryptographic keys to view child location data.'
     },
     specs: [
@@ -344,7 +344,7 @@ export const APPS_CATALOG = {
       { label: 'Emergency Modes', value: 'Silent SOS beacon, live ambient audio stream, auto-camera' },
       { label: 'Offline Backup', value: 'Encrypted SMS fallback when cellular mobile data is disconnected' },
       { label: 'Multi-Guardian Support', value: 'Unlimited trusted family circle members (Mom, Dad, Grandparents)' },
-      { label: 'Licensing Model', value: '100% Free Mobile Application for All Families' }
+      { label: 'Licensing Model', value: 'Managed Family Safety Application' }
     ]
   },
 
@@ -440,7 +440,7 @@ export const APPS_CATALOG = {
       { label: 'Privacy & Comms', value: 'Masked VoIP telephone tunnel, encrypted in-app chat' },
       { label: 'Payment Gateway', value: 'Credit/Debit, QR digital wallet, and Cash on Finish logging' },
       { label: 'Health Compliance', value: 'Digital consultation questionnaire & contraindication alerts' },
-      { label: 'Licensing Model', value: '100% Free Mobile Application Suite' }
+      { label: 'Licensing Model', value: 'Managed Partnership Model (2% Service Share)' }
     ]
   },
 
@@ -536,7 +536,7 @@ export const APPS_CATALOG = {
       { label: 'Proof of Delivery', value: 'High-res seal photo capture, GPS coordinate tag, touch signature' },
       { label: 'Document System', value: 'Automated PDF Bill of Lading (BOL), Waybill, and Freight Invoicing' },
       { label: 'Tracking Latency', value: 'Sub-second real-time satellite updates shareable with cargo consignees' },
-      { label: 'Licensing Model', value: '100% Free Ecosystem for Commercial Freight Operators' }
+      { label: 'Licensing Model', value: 'Managed Partnership Model (2% Service Share)' }
     ]
   },
 
@@ -705,7 +705,7 @@ export const APPS_CATALOG = {
     details: {
       overview: 'Cael Two Color Game App provides community entertainment operators and gaming entrepreneurs with a turnkey, high-engagement red vs. white color wheel platform. Built for fair, thrilling, and transparent gameplay.',
       workforce: 'Full operator and agent back-office suite. Manage sub-agents, track deposit cash-in volumes, calculate revenue shares, and monitor live round liquidity with zero manual spreadsheet work.',
-      monetization: '100% Free White-Label App. Customize the game with your own branding, logos, color wheel themes, minimum/maximum bet stakes, and house fee structures.',
+      monetization: 'Turnkey Application. Customize the game with your own branding, logos, color wheel themes, minimum/maximum bet stakes, and house fee structures under Cael Hub managed infrastructure.',
       security: 'Provably fair cryptographic architecture, device fingerprinting for bot prevention, encrypted digital wallets, and immutable transaction audit trails.'
     },
     specs: [
@@ -716,7 +716,7 @@ export const APPS_CATALOG = {
       { label: 'Affiliate & Agent Engine', value: 'Multi-level agent referral tracking with automated commission ledger' },
       { label: 'Security & Anti-Bot', value: 'Device fingerprinting, rate-limiting, and encrypted sessions' },
       { label: 'Retention Tools', value: 'Daily attendance bonus, streak quests, and VIP loyalty cashback' },
-      { label: 'Licensing Model', value: '100% Free Turnkey Application for Community Dreamers' }
+      { label: 'Licensing Model', value: 'Managed Partnership Model (2% Service Share)' }
     ]
   },
 
@@ -725,7 +725,7 @@ export const APPS_CATALOG = {
     title: 'CAEL ONCALL SERVICE APP',
     badge: 'CAEL ONCALL APP',
     subtitle: 'All Home Services • Closest To You • One Call Away',
-    pitch: 'A free mobile app connecting home and business owners with the closest verified lock technicians, appliance repairers, plumbers, and carpenters in real-time with 1-call dispatch.',
+    pitch: 'Connect home and business owners with verified lock technicians, appliance repairers, plumbers, and handymen in real-time under your own brand with managed infrastructure.',
     gallery: [
       {
         image: './caeloncall.jpg',
@@ -909,7 +909,7 @@ export const APPS_CATALOG = {
     details: {
       overview: 'CAEL OnCall Service App is an on-demand marketplace connecting households and business owners with the nearest verified technicians across locksmithing, appliance repair, plumbing, carpentry, and electrical works.',
       workforce: 'Empower local trade professionals and handymen. Independent technicians set their own service radius, receive direct dispatch calls from nearby clients, and keep 100% of their earnings with zero commission deductions.',
-      monetization: '100% Free Open Platform. Community service providers and trade entrepreneurs can launch their own on-call dispatch network with zero ongoing platform subscription fees.',
+      monetization: 'Managed Partnership Model. Community service providers and trade entrepreneurs can launch their own on-call dispatch network with zero upfront software fees and a 2% service share.',
       security: 'Comprehensive customer protection featuring NBI background checks, trade license verification, masked VoIP tunnels, and standardized task pricing.'
     },
     specs: [
@@ -920,7 +920,7 @@ export const APPS_CATALOG = {
       { label: 'Pricing Model', value: 'Standardized catalog labor rates, zero surge pricing, official parts receipts' },
       { label: 'Technician Clearance', value: 'Mandatory NBI/Police background check, trade license verification' },
       { label: 'Payment Options', value: 'Cashless QR digital wallet, debit/credit cards, and Cash on Completion' },
-      { label: 'Licensing Model', value: '100% Free Ecosystem for Tradespeople and Home Service Dreamers' }
+      { label: 'Licensing Model', value: 'Managed Partnership Model (2% Service Share)' }
     ]
   },
 
@@ -986,7 +986,7 @@ export const APPS_CATALOG = {
     details: {
       overview: 'CAEL Loan Service App is an innovative digital micro-lending and financing platform designed to help entrepreneurs, cooperatives, and microfinance organizations deploy their own branded lending ecosystem with zero software licensing costs.',
       workforce: 'Empower loan officers and field agents. Collection agents use mobile telemetry to log client visits, collect offline or online payments, and manage borrower portfolios on the go.',
-      monetization: '100% Free Open Platform. Lending entrepreneurs and financial organizations can deploy their customized lending platform with zero platform royalty fees.',
+      monetization: 'Managed Partnership Model. Lending entrepreneurs and financial organizations can deploy their customized lending platform under Cael Hub managed technology and infrastructure.',
       security: 'Bank-grade 256-bit AES encryption, biometric KYC authentication, and multi-factor transaction validation.'
     },
     specs: [
@@ -997,7 +997,7 @@ export const APPS_CATALOG = {
       { label: 'KYC & Verification', value: 'Biometric facial liveness check, OCR ID extraction' },
       { label: 'Interest Configuration', value: 'Flat, diminishing balance, or custom tiering' },
       { label: 'Collection Channels', value: 'Auto-debit, QR code payments, field agent collections' },
-      { label: 'Licensing Model', value: '100% Free Ecosystem for Lending & Business Dreamers' }
+      { label: 'Licensing Model', value: 'Managed Partnership Model (2% Service Share)' }
     ]
   }
 };
